@@ -1,0 +1,326 @@
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getUserProfile } from "../api/api";
+
+const ProfilePage = () => {
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          throw new Error("No token found");
+        }
+        const data = await getUserProfile(token);
+        setProfile(data);
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+        setError("Failed to fetch profile");
+        navigate("/login");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfile();
+  }, [navigate]);
+
+  const handleLevelSelection = () => {
+    navigate("/levels");
+  };
+
+  // 🔹 STYLES OBJECT
+  const styles = {
+    background: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundImage:
+        'url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0")', // Northern Lights
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      position: "relative",
+      padding: "20px",
+      textAlign: "center",
+      color: "white",
+    },
+    topText: {
+      position: "absolute",
+      top: "20px",
+      fontSize: "14px",
+      width: "90%",
+      textAlign: "center",
+      opacity: 0.9,
+    },
+    card: {
+      position: "relative",
+      background: "rgba(0, 0, 0, 0.85)", // Darker background
+      padding: "40px",
+      borderRadius: "12px",
+      width: "450px",
+      minHeight: "300px", // Makes the card longer
+      textAlign: "center",
+      boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
+      color: "white", // Ensures text is bright
+      zIndex: 2,
+    },
+    heading: {
+      fontSize: "26px",
+      fontWeight: "bold",
+      marginBottom: "10px",
+    },
+    text: {
+      opacity: 0.9,
+      fontSize: "14px",
+    },
+    subText: {
+      fontSize: "12px",
+      opacity: 0.7,
+      marginTop: "10px",
+    },
+    button: {
+      background: "#FFC107",
+      border: "none",
+      padding: "12px 20px",
+      borderRadius: "6px",
+      fontSize: "16px",
+      fontWeight: "bold",
+      color: "black",
+      cursor: "pointer",
+      marginTop: "20px",
+    },
+    bottomText: {
+      position: "absolute",
+      bottom: "20px",
+      fontSize: "12px",
+      width: "90%",
+      textAlign: "center",
+      opacity: 0.8,
+    },
+  };
+
+  return (
+    <div style={styles.background}>
+      <p style={styles.topText}>
+        🌍 Welcome to your profile! Explore your learning journey and track your progress.
+      </p>
+
+      <div style={styles.card}>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          <>
+            <h1 style={styles.heading}>Welcome, {profile.name}</h1>
+            <p style={styles.text}>
+              Your personalized dashboard for growth and knowledge.
+            </p>
+            <p style={styles.subText}>
+              📌 Track your progress and achievements.  
+              🔥 Join interactive learning sessions.  
+              🚀 Access exclusive learning materials.
+            </p>
+            <button onClick={handleLevelSelection} style={styles.button}>
+              Choose Level
+            </button>
+            <p style={styles.subText}>
+              Need help? <a href="/support" style={{ color: "#FFC107", textDecoration: "none" }}>Visit Support</a>
+            </p>
+          </>
+        )}
+      </div>
+
+      <p style={styles.bottomText}>
+        🚀 Learn, grow, and achieve your dreams.  
+        <br /> Made with ❤️ for lifelong learners.
+      </p>
+    </div>
+  );
+};
+
+export default ProfilePage;
+
+
+webapp/
+├── backend/                     
+│   ├── controllers/             # Handles request logic
+│   │   ├── authController.js
+│   │   ├── userController.js
+│   │   ├── audioController.js
+│   │   ├── adminController.js
+│   │   ├── courseController.js   # New - Handles course logic
+│   │   ├── facultyController.js  # New - Handles faculty logic
+│   │   ├── paymentController.js  # New - Handles payment logic
+│   ├── models/                  # Defines database models
+│   │   ├── userModel.js
+│   │   ├── audioModel.js
+│   │   ├── purchaseModel.js
+│   │   ├── facultyModel.js       # New - Faculty schema
+│   │   ├── courseModel.js        # New - Course schema
+│   │   ├── paymentModel.js       # New - Payment schema
+│   ├── routes/                  # API endpoint definitions
+│   │   ├── authRoutes.js
+│   │   ├── userRoutes.js
+│   │   ├── audioRoutes.js
+│   │   ├── adminRoutes.js
+│   │   ├── facultyRoutes.js      # New - Faculty endpoints
+│   │   ├── courseRoutes.js       # New - Course endpoints
+│   │   ├── levelRoutes.js        # New - Level endpoints
+│   │   ├── paymentRoutes.js      # New - Payment endpoints
+│   ├── config/                  # Configuration files
+│   │   ├── database.js          # Database connection file
+│   │   ├── stripe.js            # Payment gateway config
+│   │   ├── database/            # New - Database folder
+│   │   │   ├── learnconnect_new.db  # SQLite database file
+│   ├── middleware/              # Middleware functions
+│   │   ├── authMiddleware.js
+│   │   ├── errorMiddleware.js
+│   ├── utils/                   # Utility functions
+│   │   ├── generateId.js
+│   │   ├── saveFile.js
+│   ├── uploads/                 # (Optional) Storage for uploaded files
+│   ├── .env                     # Environment variables
+│   ├── .gitignore                # Git ignore file
+│   ├── package.json              # Backend dependencies
+│   ├── server.js                 # Main backend server file
+│   ├── README.md                 # Backend documentation (if any)
+│
+├── frontend/                     # Frontend (React)
+│   ├── public/                   # Static assets
+│   │   ├── index.html            # Main HTML file
+│   ├── src/                      # Source files
+│   │   ├── components/           # UI Components
+│   │   │   ├── AudioPage.js
+│   │   │   ├── AdminPage.js
+│   │   │   ├── HomePage.js
+│   │   │   ├── LoginPage.js
+│   │   │   ├── RegisterPage.js
+│   │   │   ├── ProfilePage.js
+│   │   │   ├── LevelPage.js
+│   │   │   ├── FacultyListPage.js
+│   │   │   ├── CourseListPage.js
+│   │   │   ├── Card.js
+│   │   │   ├── PaymentPage.js
+│   │   ├── context/              # React context API
+│   │   │   ├── AudioContext.js
+│   │   ├── api/                  # API calls
+│   │   │   ├── api.js
+│   │   ├── App.js                # Main React component
+│   │   ├── index.js              # React entry point
+│   ├── .env                      # Frontend environment variables
+│   ├── .gitignore                 # Git ignore file
+│   ├── package.json               # Frontend dependencies
+│   ├── README.md                  # Frontend documentation (if any)
+│
+├── README.md                      # Project-wide documentation
+├── package.json                    # Root-level package file (if monorepo setup)
+└── .gitignore                      # Global git ignore
+import React, { createContext, useState, useEffect } from 'react';
+
+// Create a context
+export const AudioContext = createContext();
+
+// Create a provider component
+export const AudioProvider = ({ children }) => {
+  // Load initial audio data from localStorage if available
+  const [audioData, setAudioData] = useState(() => {
+    const savedAudioData = localStorage.getItem('audioData');
+    return savedAudioData ? JSON.parse(savedAudioData) : [
+      { id: 1, title: 'Lecture 1', url: '/audios/audio1.mp3', courseId: 33, level: 100, faculty: 'Faculty of Engineering' },
+      { id: 2, title: 'Lecture 2', url: '/audios/audio2.mp3', courseId: 34, level: 200, faculty: 'Faculty of Engineering' },
+      { id: 3, title: 'Lecture 3', url: '/audios/audio3.mp3', courseId: 2, level: 100, faculty: 'Faculty of Arts' },
+      { id: 4, title: 'Lecture 4', url: '/audios/audio4.mp3', courseId: 2, level: 200, faculty: 'Faculty of Arts' },
+      // Add more audio data as needed
+    ];
+  });
+
+  useEffect(() => {
+    // Save audio data to localStorage whenever it changes
+    localStorage.setItem('audioData', JSON.stringify(audioData));
+  }, [audioData]);
+
+  const addAudio = (newAudio) => {
+    console.log('Adding audio:', newAudio);
+    setAudioData([...audioData, newAudio]);
+  };
+
+  const deleteAudio = (id) => {
+    setAudioData(audioData.filter(audio => audio.id !== id));
+  };
+
+  return (
+    <AudioContext.Provider value={{ audioData, addAudio, deleteAudio }}>
+      {children}
+    </AudioContext.Provider>
+  );
+};
+
+
+// AudioPage
+
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
+const AudioPage = () => {
+  const [audios, setAudios] = useState([]);
+  const [filteredAudios, setFilteredAudios] = useState([]);
+  const { level, courseId } = useParams();
+
+  useEffect(() => {
+    const fetchAudios = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/audios');
+        console.log('Fetched audios:', response.data);
+        setAudios(response.data);
+      } catch (error) {
+        console.error('Error fetching audios:', error);
+      }
+    };
+
+    fetchAudios();
+  }, []);
+
+  useEffect(() => {
+    if (audios.length > 0) {
+      const filtered = audios.filter(audio =>
+        audio.level === level && audio.courseId === courseId
+      );
+      console.log('Filtered audios:', filtered);
+      setFilteredAudios(filtered);
+    }
+  }, [audios, level, courseId]);
+
+  const handleDownloadClick = (audioId) => {
+    console.log(`Download audio with ID: ${audioId}`);
+  };
+
+  return (
+    <div>
+      <h1>Audio Page for Course ID: {courseId}, Level: {level}</h1>
+      {filteredAudios.length > 0 ? (
+        filteredAudios.map(audio => (
+          <div key={audio.id}>
+            <h2>{audio.title}</h2>
+            <audio controls>
+              <source src={`http://localhost:5000${audio.url}`} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+            <button onClick={() => handleDownloadClick(audio.id)}>Download</button>
+          </div>
+        ))
+      ) : (
+        <p>No audio files found for the selected criteria.</p>
+      )}
+    </div>
+  );
+};
+
+export default AudioPage;

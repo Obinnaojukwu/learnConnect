@@ -1,0 +1,51 @@
+/* Container */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .header p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  /* Level Selection */
+  .level-selection {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .level-card {
+    padding: 1.5rem 3rem;
+    border: 2px solid #007bff;
+    border-radius: 10px;
+    background-color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    cursor: pointer;
+  }
+  
+  .level-card:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #0056b3;
+  }

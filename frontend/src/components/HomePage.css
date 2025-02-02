@@ -1,0 +1,180 @@
+/* Base Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* White background */
+    color: #1568e4; /* Black text */
+    overflow-x: hidden;
+}
+
+.homepage {
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Header Section */
+.header {
+    position: relative;
+    width: 100%;
+    height: 30vh;
+  /* /* Use your own image from the public folder */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff; /* White text for contrast */
+}
+
+.header::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(35, 105, 235, 0.466); /* Slight dark overlay */
+}
+
+.logo-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+}
+
+.header-content {
+    z-index: 1;
+    position: relative;
+}
+
+.header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.header h1 .highlight {
+    color: #000000; /* Pure black text for emphasis */
+}
+
+.header p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.header-buttons .btn {
+    padding: 0.7rem 1.5rem;
+    margin: 0.5rem;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 2px solid #000000;
+    text-decoration: none;
+    color: #000000;
+    transition: all 0.3s ease;
+}
+
+.header-buttons .btn:hover {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.btn-primary {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #000000;
+}
+
+.btn-primary:hover {
+    background-color: #242323; /* Darker black */
+}
+
+/* Particle Effects */
+.particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.particle {
+    position: absolute;
+    background-color: #000000; /* Black particles */
+    opacity: 0.4;
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.particle:nth-child(odd) {
+    opacity: 0.3;
+}
+
+.particle:nth-child(1) { top: 10%; left: 20%; width: 20px; height: 20px; }
+.particle:nth-child(2) { top: 30%; left: 70%; width: 25px; height: 25px; }
+.particle:nth-child(3) { top: 50%; left: 40%; width: 15px; height: 15px; }
+.particle:nth-child(4) { top: 70%; left: 10%; width: 30px; height: 30px; }
+.particle:nth-child(5) { top: 80%; left: 80%; width: 20px; height: 20px; }
+
+/* Card Section */
+.card-section {
+    padding: 2rem 1rem;
+    text-align: center;
+    background-color: #ffffff; /* White background */
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.card {
+    background-color: #ffffff; /* White card */
+    border: 1px solid #dddddd; /* Light gray border */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Section */
+.footer {
+    background-color: #cac8c8; /* Slightly darker gray */
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555555; /* Dark gray text */
+}
+
+.footer p {
+    margin: 0;
+}
