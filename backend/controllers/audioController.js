@@ -1,6 +1,6 @@
 const db = require('../config/database');
 
-// Handler to get audios by course ID
+// Handler to get audios by course IDs
 exports.getAudiosByCourseId = (req, res) => {
   const { courseId } = req.params;
 
