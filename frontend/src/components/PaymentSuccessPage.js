@@ -26,7 +26,7 @@ const PaymentSuccessPage = () => {
 
       // Verify payment
       console.log('Verifying payment with reference:', reference);
-      const verifyResponse = await axios.post('http://localhost:5000/api/payment/verify', {
+      const verifyResponse = await axios.post('https://learnconnect-backend.onrender.com/api/payment/verify', {
         reference,
         userId,
         audioId,

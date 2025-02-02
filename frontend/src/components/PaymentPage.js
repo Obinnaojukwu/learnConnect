@@ -18,7 +18,7 @@ const PaymentPage = () => {
 
       // Verify payment
       console.log('Verifying payment with reference:', reference);
-      const verifyResponse = await axios.post('http://localhost:5000/api/payment/verify', {
+      const verifyResponse = await axios.post('https://learnconnect-backend.onrender.com/api/payment/verify', {
         reference,
         userId,
         audioId,
@@ -30,7 +30,7 @@ const PaymentPage = () => {
       if (verifyResponse.data.success) {
         console.log('Payment verified, recording purchase...');
         // Record purchase
-        const purchaseResponse = await axios.post('http://localhost:5000/api/purchase', {
+        const purchaseResponse = await axios.post('https://learnconnect-backend.onrender.com/api/purchase', {
           userId,
           audioId
         });
@@ -55,7 +55,7 @@ const PaymentPage = () => {
 
   const initializePayment = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/payment/initialize', {
+      const response = await axios.post('https://learnconnect-backend.onrender.com/api/payment/initialize', {
         amount: 100, // Amount in NGN
         email: 'user@example.com', // Replace with actual user email
         metadata: {

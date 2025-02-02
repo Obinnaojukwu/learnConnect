@@ -16,7 +16,7 @@ const DownloadPage = () => {
           throw new Error("No user ID found");
         }
 
-        const response = await axios.get('http://localhost:5000/api/purchase/check', {
+        const response = await axios.get('https://learnconnect-backend.onrender.com/api/purchase/check', {
           params: {
             userId,
             audioId
@@ -25,7 +25,7 @@ const DownloadPage = () => {
 
         if (response.data.success) {
           // Fetch the audio URL from your audios table
-          const audioResponse = await axios.get(`http://localhost:5000/api/audios/${audioId}`);
+          const audioResponse = await axios.get(`https://learnconnect-backend.onrender.com/api/audios/${audioId}`);
           setAudioUrl(audioResponse.data.url);
         } else {
           alert('You have not purchased this audio.');

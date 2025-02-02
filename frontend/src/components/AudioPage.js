@@ -13,7 +13,7 @@ const AudioPage = () => {
   useEffect(() => {
     const fetchAudios = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/audios');
+        const response = await axios.get('https://learnconnect-backend.onrender.com/api/audios');
         console.log('Fetched audios:', response.data);
         setAudios(response.data);
       } catch (error) {
@@ -54,7 +54,7 @@ const AudioPage = () => {
         filteredAudios.map(audio => (
           <div key={audio.id}>
             <h2>{audio.title}</h2>
-            <audio controls={purchasedAudios.includes(audio.id)} src={`http://localhost:5000${audio.url}`}>
+            <audio controls={purchasedAudios.includes(audio.id)} src={`https://learnconnect-backend.onrender.com${audio.url}`}>
               Your browser does not support the audio element.
             </audio>
             <button onClick={() => handleDownloadClick(audio.id)}>
