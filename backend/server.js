@@ -31,6 +31,9 @@ app.use('/api/courses', courseRoutes);
 app.use('/api/levels', levelRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/purchase', purchaseRoutes);
+app.use('/api/payment', webhookRoutes);
+
+
 
 // Add a route for the root path
 app.get('/', (req, res) => {
