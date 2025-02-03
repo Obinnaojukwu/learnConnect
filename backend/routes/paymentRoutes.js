@@ -16,7 +16,7 @@ router.post('/initialize', async (req, res) => {
       email,
       metadata: {
         ...metadata,
-        callback_url: 'https://d37e-102-88-109-184.ngrok-free.app/payment-success' // Set your ngrok callback URL here
+        callback_url: 'https://learnconnect-frontend.onrender.com/payment-success' // Set your ngrok callback URL here
       }
     }, {
       headers: {
