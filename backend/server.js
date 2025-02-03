@@ -11,6 +11,7 @@ const courseRoutes = require('./routes/courseRoutes');
 const levelRoutes = require('./routes/levelRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
+const webhookRoutes = require('./routes/webhookRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 dotenv.config();
