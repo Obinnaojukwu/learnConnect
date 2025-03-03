@@ -1,0 +1,285 @@
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const PaymentSuccessPage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const reference = queryParams.get('reference');
+
+    if (reference) {
+      handlePaymentSuccess(reference);
+    }
+  }, [location.search]);
+
+  const handlePaymentSuccess = async (reference) => {
+    try {
+      const token = localStorage.getItem("token"); // Assuming the JWT token is stored
+      const audioId = localStorage.getItem("audioId"); // Assuming the audio ID is stored
+
+      if (!token || !audioId) {
+        throw new Error("Token or Audio ID not found");
+      }
+
+      const verifyResponse = await axios.post('https://learnconnect-backend.onrender.com/api/payment/verify', {
+        reference,
+        audioId,
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      if (verifyResponse.data.success) {
+        navigate(`/download/${audioId}`);
+      } else {
+        alert('Payment verification failed');
+      }
+    } catch (error) {
+      console.error('Payment verification or purchase recording error:', error);
+      alert('Payment verification or purchase recording error');
+    }
+  };
+
+  return (
+    <div>
+      <h1>Payment Successful</h1>
+      <p>Verifying payment, please wait...</p>
+    </div>
+  );
+};
+
+export default PaymentSuccessPage;
+
+
+
+
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const DownloadPage = () => {
+  const { audioId } = useParams();
+  const navigate = useNavigate();
+  const [audioUrl, setAudioUrl] = useState('');
+
+  useEffect(() => {
+    const checkPurchase = async () => {
+      try {
+        const userId = localStorage.getItem("userId"); // Assuming the user ID is stored in localStorage
+
+        if (!userId) {
+          throw new Error("No user ID found");
+        }
+
+        const response = await axios.get('https://learnconnect-backend.onrender.com/api/purchase/check', {
+          params: {
+            userId,
+            audioId
+          }
+        });
+
+        if (response.data.success) {
+          // Fetch the audio URL from your audios table
+          const audioResponse = await axios.get(`https://learnconnect-backend.onrender.com/api/audios/${audioId}`);
+          setAudioUrl(audioResponse.data.url);
+        } else {
+          alert('You have not purchased this audio.');
+          navigate('/');
+        }
+      } catch (error) {
+        console.error('Error checking purchase:', error);
+        alert('Error checking purchase.');
+        navigate('/');
+      }
+    };
+
+    checkPurchase();
+  }, [audioId, navigate]);
+
+  return (
+    <div>
+      <h1>Stream Your Purchased Audio</h1>
+      {audioUrl ? (
+        <audio controls>
+          <source src={audioUrl} type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+      ) : (
+        <p>Loading audio...</p>
+      )}
+    </div>
+  );
+};
+
+export default DownloadPage;
+
+
+
+
+
+PurchaseRoute  
+
+const express = require('express');
+const router = express.Router();
+const db = require('../config/database'); // Ensure the path is correct
+
+// Route to record a purchase
+router.post('/purchase', (req, res) => {
+    const { userId, audioId } = req.body;
+
+    if (!userId || !audioId) {
+        return res.status(400).json({ error: 'User ID and Audio ID are required.' });
+    }
+
+    const query = `INSERT INTO purchases (userId, audioId) VALUES (?, ?)`;
+    db.run(query, [userId, audioId], function(err) {
+        if (err) {
+            console.error('Error inserting purchase record:', err.message);
+            return res.status(500).json({ error: 'Failed to record purchase.' });
+        }
+        res.status(200).json({ success: true, purchaseId: this.lastID });
+    });
+});
+
+// Route to check if a purchase exists
+router.get('/check', (req, res) => {
+    const { userId, audioId } = req.query;
+
+    if (!userId || !audioId) {
+        return res.status(400).json({ error: 'User ID and Audio ID are required.' });
+    }
+
+    const query = `SELECT * FROM purchases WHERE userId = ? AND audioId = ?`;
+    db.get(query, [userId, audioId], (err, row) => {
+        if (err) {
+            console.error('Error checking purchase record:', err.message);
+            return res.status(500).json({ error: 'Failed to check purchase.' });
+        }
+
+        if (row) {
+            res.status(200).json({ success: true });
+        } else {
+            res.status(404).json({ success: false });
+        }
+    });
+});
+
+module.exports = router;
+
+
+
+
+authMiddleware
+
+
+const jwt = require('jsonwebtoken');
+const { findUserById } = require('../models/userModel');
+
+const protect = (req, res, next) => {
+    let token;
+    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        try {
+            token = req.headers.authorization.split(' ')[1];
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            findUserById(decoded.id, (err, user) => {
+                if (err || !user) {
+                    return res.status(401).json({ message: 'Not authorized, token failed' });
+                }
+                req.user = user;
+                next();
+            });
+        } catch (error) {
+            return res.status(401).json({ message: 'Not authorized, token failed' });
+        }
+    }
+    if (!token) {
+        return res.status(401).json({ message: 'Not authorized, no token' });
+    }
+};
+
+const admin = (req, res, next) => {
+    if (req.user && req.user.isAdmin) {
+        next();
+    } else {
+        res.status(401).json({ message: 'Not authorized as an admin' });
+    }
+};
+
+module.exports = { protect, admin };
+
+
+
+
+
+
+
+
+
+
+css
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './HomePage.css';
+import Card from './Card';
+
+const HomePage = () => {
+    return (
+        <div className="homepage">
+            {/* Header Section */}
+            <header className="header">
+                <div className="logo-container">
+                    <img src="/images/logo.JPG" alt="Rubric Logo" className="logo" />
+                </div>
+                <div className="header-content">
+                    <h1>Welcome to <span className="highlight">Rubric</span></h1>
+                    <p>Your go-to platform for learning and development.</p>
+                    <div className="header-buttons">
+                        <Link to="/login" className="btn">Login In</Link>
+                        <Link to="/register" className="btn btn-primary">Sign Up</Link>
+                    </div>
+                </div>ohj\089
+            </header>
+
+            {/* Particle Effects */}
+            <div className="particles">
+                {[...Array(20)].map((_, i) => (
+                    <div key={i} className={`particle particle-${i + 1}`}></div>
+                ))}
+            </div>
+
+            {/* Card Section */}
+            <section className="card-section">
+                <h2 className="section-title">Explore Our Features</h2>
+                <div className="card-container">
+                    <Card 
+                        title="LearnConnect" 
+                        description="A platform where students prepare for classes and achieve academic victory." 
+                        imageUrl="https://media.istockphoto.com/id/1353041652/photo/confident-developer-holding-book-and-laptop-walking-on-urban-street-handsome-smiling-african.jpg?s=612x612&w=0&k=20&c=cU102bLuZD0b9Xs-PtBcPMeNzZM-HI8sOoOWpR8JbwU="
+                    />
+                    <Card 
+                        title="Knowledge Hub" 
+                        description="An extensive repository of resources tailored for your success." 
+                        imageUrl="https://media.istockphoto.com/id/1353041652/photo/confident-developer-holding-book-and-laptop-walking-on-urban-street-handsome-smiling-african.jpg?s=612x612&w=0&k=20&c=cU102bLuZD0b9Xs-PtBcPMeNzZM-HI8sOoOWpR8JbwU="
+                    />
+                    <Card 
+                        title="Interactive Sessions" 
+                        description="Join interactive sessions and learn from industry experts." 
+                        imageUrl="https://media.istockphoto.com/id/1353041652/photo/confident-developer-holding-book-and-laptop-walking-on-urban-street-handsome-smiling-african.jpg?s=612x612&w=0&k=20&c=cU102bLuZD0b9Xs-PtBcPMeNzZM-HI8sOoOWpR8JbwU="
+                    />
+                </div>
+            </section>
+
+            {/* Footer Section */}
+            <footer className="footer">
+                <p>&copy; {new Date().getFullYear()} Rubric. All Rights Reserved.</p>
+            </footer>
+        </div>
+    );
+};
+
+export default HomePage;

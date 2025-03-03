@@ -10,27 +10,30 @@ const DownloadPage = () => {
   useEffect(() => {
     const checkPurchase = async () => {
       try {
-        const userId = localStorage.getItem("userId"); // Assuming the user ID is stored in localStorage
+        const token = localStorage.getItem("token"); // Get JWT token
 
-        if (!userId) {
-          throw new Error("No user ID found");
+        if (!token) {
+          throw new Error("No authentication token found");
         }
 
-        const response = await axios.get('https://learnconnect-backend.onrender.com/api/purchase/check', {
-          params: {
-            userId,
-            audioId
-          }
-        });
+        // Step 1: Check if user purchased the audio
+        const response = await axios.get(
+          `https://learnconnect-backend.onrender.com/api/purchase/check/${audioId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-        if (response.data.success) {
-          // Fetch the audio URL from your audios table
-          const audioResponse = await axios.get(`https://learnconnect-backend.onrender.com/api/audios/${audioId}`);
-          setAudioUrl(audioResponse.data.url);
-        } else {
+        if (!response.data.success) {
           alert('You have not purchased this audio.');
           navigate('/');
+          return;
         }
+
+        // Step 2: Fetch the audio URL
+        const audioResponse = await axios.get(
+          `https://learnconnect-backend.onrender.com/api/audios/${audioId}`
+        );
+
+        setAudioUrl(audioResponse.data.url);
       } catch (error) {
         console.error('Error checking purchase:', error);
         alert('Error checking purchase.');
