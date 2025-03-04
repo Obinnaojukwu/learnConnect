@@ -76,17 +76,6 @@ const fetchAudiosByCourseId = async (courseId) => {
     }
 };
 
-
-// Function to fetch audios by level, faculty, and course
-//const fetchAudiosByLevelFacultyCourse = async (level, faculty, course) => {
-  //  try {
-    //    const response = await api.get(`/api/audios/${level}/${faculty}/${course}`);
-  //      return response.data;
-   // } catch (error) {
-   //     throw new Error('Error fetching audios');
-//    }
-//};
-
 // Function to upload audio
 const uploadAudio = async (level, faculty, course, audioFile) => {
     const formData = new FormData();
@@ -114,7 +103,6 @@ export {
     register,
     login,
     fetchAudiosByCourseId,
-    //fetchAudiosByLevelFacultyCourse,
     uploadAudio
 };
 

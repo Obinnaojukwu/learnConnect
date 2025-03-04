@@ -1,299 +1,521 @@
-/* Reset and Base Styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+/* Keyframe Animations */
+@keyframes slide-fade-in {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
   }
-  
-  .homepage {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #fff;
-    color: #1a1a1a;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  /* Header Styles */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    background-color: #fff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    position: sticky;
-    top: 0;
-    z-index: 100;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
   }
-  
-  .logo-container {
-    display: flex;
-    align-items: center;
+  to {
+    opacity: 1;
   }
-  
-  .logo {
-    height: 30px;
+}
+
+/* Background Images Animation */
+.background-img {
+  position: absolute;
+  width: 150px;
+  opacity: 0;
+  animation: slide-fade-in 1s ease-out forwards;
+}
+
+.bg-img-1 {
+  bottom: 50px;
+  left: 20%;
+  animation-delay: 0.5s;
+}
+
+.bg-img-2 {
+  bottom: 30px;
+  right: 20%;
+  animation-delay: 1s;
+}
+
+/* Logo Styling */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-image {
+  width: 80px; /* Adjust size */
+  height: auto;
+  margin-bottom: 5px; /* Space between image & text */
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+}
+
+.logo-text .L {
+  color: black;
+}
+
+.logo-text .C {
+  color: red;
+}
+
+.subtext {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.subtext .learn {
+  color: black;
+}
+
+.subtext .connect {
+  color: red;
+}
+
+/* Fade-in effect for text elements */
+.fade-in {
+  opacity: 0;
+  animation: fade-in 1.2s ease-out forwards;
+}
+
+/* Button Styling */
+.btn {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 12px 26px;
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Login Button */
+.login-btn {
+  color: white;
+  border-color: white;
+}
+
+.login-btn:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Sign Up & Explore Button */
+.signup-btn,
+.traders-hub {
+  color: #e63946;
+  border-color: #e63946;
+}
+
+.signup-btn:hover,
+.traders-hub:hover {
+  background-color: #e63946;
+  color: white;
+}
+
+/* Button Hover Effect */
+.btn::after {
+  content: "›";
+  position: absolute;
+  right: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-content {
+  max-width: 50%;
+  padding-right: 40px;
+}
+
+.text-content h1 {
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #dc3545;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1rem;
+  color: #777;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.traders-hub {
+  padding: 12px 24px;
+  background-color: #dc3545;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+}
+
+.traders-hub:hover {
+  background-color: #c82333;
+}
+
+/* Visual Content */
+.visual-content {
+  max-width: 50%;
+}
+
+.app-mockup {
+  width: 300px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+  margin-top: auto;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  /* Adjust logo */
+  .logo-image {
+    width: 60px;
   }
-  
-  .nav {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+
+  .logo-text {
+    font-size: 1.5rem;
   }
-  
-  .nav-link {
-    color: #333;
-    text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s;
+
+  .subtext {
+    font-size: 0.9rem;
   }
-  
-  .nav-link:hover {
-    color: #dc3545;
-  }
-  
-  .language {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    color: #333;
-    font-size: 12px;
-    margin-left: 10px;
-  }
-  
+
+  /* Adjust button sizes */
   .btn {
-    padding: 8px 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    text-decoration: none;
-    color: #fff;
-    font-size: 14px;
-    transition: background-color 0.3s;
+    font-size: 0.9rem;
+    padding: 10px 22px;
   }
-  
-  .login-btn {
-    background-color: #6c757d;
-    margin-left: 10px;
-  }
-  
-  .login-btn:hover {
-    background-color: #5a6268;
-  }
-  
-  .signup-btn {
-    background-color: #dc3545;
-    margin-left: 10px;
-  }
-  
-  .signup-btn:hover {
-    background-color: #c82333;
-  }
-  
-  .traders-hub-btn {
-    padding: 10px 20px;
-    background-color: #dc3545;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 20px;
-    font-size: 14px;
-    transition: background-color 0.3s;
-  }
-  
-  .traders-hub-btn:hover {
-    background-color: #c82333;
-  }
-  
-  /* Breadcrumb Styles */
-  .breadcrumb {
-    padding: 10px 40px;
-    font-size: 14px;
-    color: #777;
-  }
-  
-  .breadcrumb a {
-    color: #777;
-    text-decoration: none;
-  }
-  
-  .breadcrumb a:hover {
-    color: #dc3545;
-  }
-  
-  .breadcrumb span {
-    margin: 0 5px;
-  }
-  
-  /* Main Content Styles */
-  .main-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 60px 40px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background: linear-gradient(to right, #fff 50%, #f5f7fa 50%);
-  }
-  
-  .text-content {
-    max-width: 50%;
-    padding-right: 40px;
-  }
-  
-  .text-content h1 {
-    font-size: 4rem;
-    line-height: 1;
-    font-weight: 800;
-    margin-bottom: 20px;
-  }
-  
-  .highlight {
-    color: #dc3545;
-  }
-  
-  .subtitle {
-    font-size: 1.2rem;
-    color: #666;
-    margin-bottom: 20px;
-  }
-  
-  .description {
-    font-size: 1rem;
-    color: #777;
-    line-height: 1.6;
-    margin-bottom: 30px;
-    max-width: 400px;
-  }
-  
-  .traders-hub {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    background-color: #dc3545;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 20px;
-  }
-  
-  .traders-hub:hover {
-    background-color: #c82333;
-  }
-  
-  .dot {
-    width: 6px;
-    height: 6px;
-    background-color: #fff;
-    border-radius: 50%;
-  }
-  
-  .visual-content {
-    position: relative;
-    max-width: 50%;
-  }
-  
-  .app-mockup {
-    width: 300px;
-    height: auto;
-    border-radius: 20px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .feature-tags {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    display: flex;
+
+  /* Header */
+  .header {
     flex-direction: column;
+    padding: 15px 20px;
     gap: 15px;
   }
-  
-  .tag {
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 8px 12px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    color: #333;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 120px;
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Adjust main content */
+  .main-content {
+    flex-direction: column;
     text-align: center;
+    padding: 40px 20px;
   }
-  
-  /* Footer Styles */
-  .footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
-    margin-top: auto;
+
+  .text-content {
+    max-width: 100%;
+    padding-right: 0;
   }
-  
-  .footer p {
+
+  .text-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .visual-content {
+    margin-top: 30px;
+    max-width: 100%;
+  }
+
+  .app-mockup {
+    width: 200px;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes slide-fade-in {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Floating Effect */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+/* Dividers */
+.divider {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 20px 0;
+  opacity: 0.8;
+}
+
+/* New Info Section */
+.info-section {
+  text-align: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.info-section h2 {
+  font-size: 2rem;
+  color: #e63946;
+}
+
+.info-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-section li {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  opacity: 0.9;
+}
+
+/* Background Image (Mobile Only) */
+@media (max-width: 768px) {
+  .homepage {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Background Blur Effect */
+.homepage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+ /* Make sure this image exists */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(10px); /* Adjust blur strength */
+    z-index: -1; /* Keeps background behind all content */
+}
+}
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  /* Adjust logo */
+  .logo-image {
+    width: 60px;
+  }
+
+  .info-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .info-section li {
+    font-size: 1rem;
+  }
+
+  .divider {
+    font-size: 1.2rem;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+  }
+
+  .subtext {
     font-size: 0.9rem;
-    color: #666;
   }
-  
-  /* Mobile Responsiveness */
-  @media (max-width: 768px) {
-    .header {
-      flex-direction: column;
-      padding: 15px 20px;
-      gap: 15px;
-    }
-  
-    .nav {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-  
-    .traders-hub-btn {
-      width: 100%;
-      text-align: center;
-    }
-  
-    .breadcrumb {
-      padding: 10px 20px;
-    }
-  
-    .main-content {
-      flex-direction: column;
-      text-align: center;
-      padding: 40px 20px;
-      background: #fff;
-    }
-  
-    .text-content {
-      max-width: 100%;
-      padding-right: 0;
-    }
-  
-    .text-content h1 {
-      font-size: 2.5rem;
-    }
-  
-    .visual-content {
-      margin-top: 30px;
-      max-width: 400%;
-    }
-  
-    .app-mockup {
-      width: 200px;
-    }
-  
-    .feature-tags {
-      display: none; /* Hide tags on mobile for simplicity */
-    }
-  
-    .btn {
-      padding: 8px 16px;
-      font-size: 12px;
-      width: 100%;
-      text-align: center;
-    }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 10px 22px;
+    position: relative;
+    border: 3px solid #e63946; /* Red Border */
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
+
+  .login-btn {
+    border-color: white;
+    color: white;
+  }
+
+  .login-btn:hover {
+    background-color: white;
+    color: black;
+  }
+
+  .signup-btn {
+    border-color: #e63946;
+    color: #e63946;
+  }
+
+  .signup-btn:hover {
+    background-color: #e63946;
+    color: white;
+  }
+  /* Header */
+  .header {
+    flex-direction: column;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+
+  /* Keep navigation buttons in a row */
+  .nav {
+    flex-direction: row; /* Buttons stay horizontal */
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
+
+  /* Adjust main content */
+  .main-content {
+    flex-direction: row; /* Align text on the left and image on the right */
+    align-items: center;
+    text-align: left;
+    padding: 40px 20px;
+  }
+
+  .text-content {
+    max-width: 50%;
+    padding-right: 20px;
+  }
+
+  .text-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .visual-content {
+    max-width: 50%;
+    display: flex;
+    justify-content: flex-end; /* Move images to the right */
+  }
+
+  .app-mockup {
+    width: 180px;
+  }
+
+  .background-img {
+    position: absolute;
+    width: 120px; /* Slightly smaller size for mobile */
+    opacity: 0;
+    animation: slide-fade-in 1s ease-out forwards, float 4s ease-in-out infinite;
+  }
+
+
+
+  /* Fix positioning for backpng2.png */
+  .bg-img-1 {
+    top: 200px; /* Move it down a bit */
+    right: 12%; /* Keep it inside the screen */
+    left: auto; /* Reset left positioning */
+    bottom: auto;
+    animation-delay: 0.5s;
+  }
+
+  /* Fix positioning for backpng.png */
+  .bg-img-2 {
+    top: 750px;
+    right: auto;
+    left: 20px;
+    bottom: auto;
+    animation-delay: 1s;
+  }
+}

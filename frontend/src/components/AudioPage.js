@@ -13,7 +13,7 @@ const AudioPage = () => {
   useEffect(() => {
     const fetchAudios = async () => {
       try {
-        const response = await axios.get('https://learnconnect-backend.onrender.com/api/audios');
+        const response = await axios.get('http://localhost:3000/api/audios');
         console.log('Fetched audios:', response.data);
         setAudios(response.data);
       } catch (error) {
