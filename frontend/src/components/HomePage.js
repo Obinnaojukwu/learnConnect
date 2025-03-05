@@ -7,7 +7,7 @@ const HomePage = () => {
     <div
       className="homepage"
       style={{
-        backgroundImage: "url('/images/bg11.avif')", // Background Image from public folder
+        backgroundImage: "url('/')", // Background Image from public folder
         backgroundSize: "cover", // Covers the entire section
         backgroundPosition: "center", // Centers the image
         backgroundRepeat: "no-repeat", // No repeating
