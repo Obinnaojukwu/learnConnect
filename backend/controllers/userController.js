@@ -8,6 +8,7 @@ exports.getUserProfile = (req, res) => {
         res.json({
             _id: user.id,
             username: user.username,
+            name: user.name,
             email: user.email,
             profileImage: user.profileImage,
             bio: user.bio,
