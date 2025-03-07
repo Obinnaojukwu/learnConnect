@@ -63,7 +63,7 @@
 }
 
 .logo-text .C {
-  color: red;
+  color: #4a704a;
 }
 
 .subtext {
@@ -76,7 +76,7 @@
 }
 
 .subtext .connect {
-  color: red;
+  color: #4a704a;
 }
 
 /* Fade-in effect for text elements */
@@ -122,7 +122,7 @@
 
 .signup-btn:hover,
 .traders-hub:hover {
-  background-color: #e63946;
+  background-color: #4a704a;
   color: white;
 }
 
@@ -181,9 +181,29 @@
 }
 
 .highlight {
-  color: #dc3545;
+  color: #4a704a;
 }
 
+/* Background Circles */
+.background-ircle {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: rgba(0, 255, 0, 0.3); /* Adjusted for better visibility */
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Positioning the Circles */
+.circle-top-ight {
+  top: 0%;
+  right: -100px;
+}
+
+.circle-bottom-eft {
+  bottom: 30%;
+  left: -50px;
+}
 .subtitle {
   font-size: 1.2rem;
   color: #666;
@@ -195,6 +215,8 @@
   color: #777;
   line-height: 1.6;
   margin-bottom: 30px;
+  backdrop-filter: blur(8px); /* Adjust the blur strength */
+  z-index: 1
 }
 
 .traders-hub {
@@ -203,6 +225,8 @@
   color: #fff;
   text-decoration: none;
   border-radius: 20px;
+  backdrop-filter: blur(8px); /* Adjust the blur strength */
+  z-index: 1
 }
 
 .traders-hub:hover {
@@ -504,7 +528,7 @@
   /* Fix positioning for backpng2.png */
   .bg-img-1 {
     top: 200px; /* Move it down a bit */
-    right: 12%; /* Keep it inside the screen */
+    right: 6%; /* Keep it inside the screen */
     left: auto; /* Reset left positioning */
     bottom: auto;
     animation-delay: 0.5s;
@@ -512,7 +536,7 @@
 
   /* Fix positioning for backpng.png */
   .bg-img-2 {
-    top: 750px;
+    top: 650px;
     right: auto;
     left: 20px;
     bottom: auto;

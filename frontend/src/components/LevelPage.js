@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchLevels } from "../api/api"; // Import API function
+import { fetchLevels } from "../api/api";
+import { FaBookOpen } from "react-icons/fa"; // Import book icon
+import "./LevelPage.css"; // Import external CSS file
 
 function LevelPage() {
   const [levels, setLevels] = useState([]);
@@ -26,91 +28,57 @@ function LevelPage() {
   };
 
   return (
-    <div style={styles.background}>
-      <div style={styles.card}>
-        <h1 style={styles.heading}>Select Your Level</h1>
+    <div className="level-background">
+      {/* Background Circles */}
+      <div className="background-circle circle-top-right"></div>
+      <div className="background-circle circle-bottom-left"></div>
 
-        {error ? (
-          <p style={styles.errorText}>{error}</p>
-        ) : levels.length > 0 ? (
-          levels.map((level, index) => (
-            <button
-              key={index}
-              style={styles.button}
-              onMouseEnter={(e) =>
-                (e.target.style.background = styles.buttonHover.background)
-              }
-              onMouseLeave={(e) =>
-                (e.target.style.background = styles.button.background)
-              }
-              onClick={() => handleLevelSelection(level)}
-            >
-              {level} LEVEL
-            </button>
-          ))
-        ) : (
-          <p style={styles.text}>Loading levels...</p>
-        )}
+      {/* Header with Animation */}
+      <div className="level-header-container">
+        <h1 className="level-heading"> Select Your Level</h1>
+        <p className="level-subtext">
+          
+        </p>
       </div>
+
+      {/* Informative Section */}
+      <div className="info-section">
+        <p>
+          Unlock a world of learning at every stage. Whether you're starting out or advancing,{" "}
+          <span className="highlight-text">your journey begins here!</span>
+        </p>
+      </div>
+
+      {/* Level Cards */}
+      {error ? (
+        <p className="error-text">{error}</p>
+      ) : levels.length > 0 ? (
+        <div className="level-slider">
+          {levels.map((level, index) => (
+            <div key={index} className="slider-card">
+              <img
+                src={`/images/books-${level}.jpg`}
+                alt={`${level} Level`}
+                className="slider-img"
+              />
+              <div className="slider-text">
+                <h2 className="level-title">{level} LEVEL</h2>
+                <p className="level-description">
+                  Dive into specialized resources for {level} level students.
+                </p>
+                <button className="level-btn" onClick={() => handleLevelSelection(level)}>
+                  Select Level
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p className="loading-text">Loading levels...</p>
+      )}
     </div>
   );
 }
 
-// 🔹 Styling
-const styles = {
-  background: {
-    height: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundImage:
-      'url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0")',
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    position: "relative",
-    textAlign: "center",
-    color: "white",
-  },
-  card: {
-    background: "rgba(0, 0, 0, 0.85)",
-    padding: "40px",
-    borderRadius: "12px",
-    width: "450px",
-    minHeight: "320px",
-    textAlign: "center",
-    boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
-    color: "white",
-  },
-  heading: {
-    fontSize: "26px",
-    fontWeight: "bold",
-    marginBottom: "10px",
-  },
-  text: {
-    opacity: 0.9,
-    fontSize: "14px",
-  },
-  errorText: {
-    color: "#FFC107",
-    fontSize: "14px",
-  },
-  button: {
-    background: "#FFC107",
-    border: "none",
-    padding: "12px 20px",
-    borderRadius: "6px",
-    fontSize: "16px",
-    fontWeight: "bold",
-    color: "black",
-    cursor: "pointer",
-    marginTop: "10px",
-    width: "100%",
-    transition: "background 0.3s ease-in-out",
-  },
-  buttonHover: {
-    background: "#E0A800",
-  },
-};
-
 export default LevelPage;
+

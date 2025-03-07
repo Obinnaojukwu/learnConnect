@@ -1,22 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../api/api";
-import { FaDownload } from "react-icons/fa"; // Import the download icon
+import { FaTwitter, FaFacebook, FaInstagram } from "react-icons/fa";
+import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showName, setShowName] = useState(false); // State for toggling name display
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("No token found");
-        }
+        if (!token) throw new Error("No token found");
         const data = await getUserProfile(token);
+        console.log("API Response:", data); // Debugging
         setProfile(data);
       } catch (error) {
         console.error("Failed to fetch profile:", error);
@@ -30,144 +31,104 @@ const ProfilePage = () => {
     fetchProfile();
   }, [navigate]);
 
-  const handleLevelSelection = () => {
-    navigate("/levels");
+  // Function to navigate back
+  const goBack = () => {
+    navigate(-1); // Goes back to the previous page
   };
 
-  const handleDownloadPage = () => {
-    navigate("/download"); // Redirect to the download page
+  // Get the first letter of the name
+  const getInitial = (name) => {
+    return name ? name.charAt(0).toUpperCase() : "U";
   };
 
-  // 🔹 STYLES OBJECT
-  const styles = {
-    background: {
-      height: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundImage:
-        'url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0")', // Northern Lights
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      position: "relative",
-      padding: "20px",
-      textAlign: "center",
-      color: "white",
-    },
-    topText: {
-      position: "absolute",
-      top: "20px",
-      fontSize: "14px",
-      width: "90%",
-      textAlign: "center",
-      opacity: 0.9,
-    },
-    card: {
-      position: "relative",
-      background: "rgba(0, 0, 0, 0.85)", // Darker background
-      padding: "40px",
-      borderRadius: "12px",
-      width: "450px",
-      minHeight: "300px", // Makes the card longer
-      textAlign: "center",
-      boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
-      color: "white", // Ensures text is bright
-      zIndex: 2,
-    },
-    heading: {
-      fontSize: "26px",
-      fontWeight: "bold",
-      marginBottom: "10px",
-    },
-    text: {
-      opacity: 0.9,
-      fontSize: "14px",
-    },
-    subText: {
-      fontSize: "12px",
-      opacity: 0.7,
-      marginTop: "10px",
-    },
-    button: {
-      background: "#FFC107",
-      border: "none",
-      padding: "12px 20px",
-      borderRadius: "6px",
-      fontSize: "16px",
-      fontWeight: "bold",
-      color: "black",
-      cursor: "pointer",
-      marginTop: "20px",
-    },
-    bottomText: {
-      position: "absolute",
-      bottom: "20px",
-      fontSize: "12px",
-      width: "90%",
-      textAlign: "center",
-      opacity: 0.8,
-    },
-    downloadButton: {
-      position: "absolute",
-      top: "20px",
-      right: "20px",
-      background: "#FFC107",
-      border: "none",
-      padding: "10px 15px",
-      borderRadius: "50%",
-      fontSize: "16px",
-      color: "black",
-      cursor: "pointer",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.3)",
-    },
-    downloadIcon: {
-      fontSize: "20px",
-    },
+  // Generate a random color based on the user ID or name
+  const getRandomColor = (seed) => {
+    const colors = ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#009688", "#4CAF50", "#FFC107", "#FF9800"];
+    const index = seed ? seed.charCodeAt(0) % colors.length : Math.floor(Math.random() * colors.length);
+    return colors[index];
   };
 
   return (
-    <div style={styles.background}>
-      <button onClick={handleDownloadPage} style={styles.downloadButton}>
-        <FaDownload style={styles.downloadIcon} />
-      </button>
-      <p style={styles.topText}>
-        🌍 Welcome to your profile! Explore your learning journey and track your progress.
-      </p>
-      <div style={styles.card}>
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <>
-            <h1 style={styles.heading}>Welcome, {profile.name}</h1>
-            <p style={styles.text}>
-              Your personalized dashboard for growth and knowledge.
-            </p>
-            <p style={styles.subText}>
-              📌 Track your progress and achievements.
-              🔥 Join interactive learning sessions.
-              🚀 Access exclusive learning materials.
-            </p>
-            <button onClick={handleLevelSelection} style={styles.button}>
-              Choose Level
-            </button>
-            <p style={styles.subText}>
-              Need help? <a href="/support" style={{ color: "#FFC107", textDecoration: "none" }}>Visit Support</a>
-            </p>
-          </>
-        )}
-      </div>
-      <p style={styles.bottomText}>
-        🚀 Learn, grow, and achieve your dreams.
-        <br /> Made with ❤️ for lifelong learners.
-      </p>
+    <div className="profile-container">
+      {/* Background Circles */}
+      <div className="background-circle circle-top-right"></div>
+      <div className="background-circle circle-bottom-left"></div>
+
+      {/* Header */}
+      <header className="header">
+        <div className="logo">Welcome, {profile?.name ? profile.name : "User"}</div>
+        <nav className="nav">
+          <a href="/">Home</a>
+          <a href="/profile">Profile</a>
+          <a href="/services">Our Service</a>
+          <a href="/contact">Contact</a>
+          <a href="/login">Stats</a>
+          <button className="signup-btn">View Purchased Audios</button>
+
+          {/* Profile Circle */}
+          <div
+            className="profile-circle"
+            style={{ backgroundColor: getRandomColor(profile?.name) }}
+            onClick={() => setShowName(!showName)}
+            onMouseEnter={() => setShowName(true)}
+            onMouseLeave={() => setShowName(false)}
+          >
+            {getInitial(profile?.name)}
+          </div>
+
+          {/* Username Display */}
+          {showName && profile?.name && (
+            <div className="profile-name">{profile.name}</div>
+          )}
+        </nav>
+      </header>
+
+      {/* Back Button */}
+      <button className="back-btn" onClick={goBack}>←Back</button>
+
+      {/* Main Content */}
+      <main className="main-content">
+        <h1 className="main-title">Explore Your Learning Journey</h1>
+        <p className="main-subtitle">
+          Your personalized dashboard for growth and knowledge.
+        </p>
+        <div className="profile-card">
+          {loading ? (
+            <p>Loading...</p>
+          ) : error ? (
+            <p>{error}</p>
+          ) : (
+            <>
+              <div className="card-image">
+                <img src="/images/books.jpg" alt="Books" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              </div>
+              <div className="card-content">
+                <h2 className="card-title">Welcome, {profile.name}</h2>
+                <p className="card-text">Your personalized dashboard for growth and knowledge.</p>
+                <button onClick={() => navigate("/levels")} className="enroll-btn">
+                  Find Available Audios
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </main>
+
+      {/* Social Icons */}
+      <aside className="social-icons">
+        <a href="https://twitter.com" aria-label="Twitter"><FaTwitter /></a>
+        <a href="https://facebook.com" aria-label="Facebook"><FaFacebook /></a>
+        <a href="https://instagram.com" aria-label="Instagram"><FaInstagram /></a>
+      </aside>
+
+      {/* Footer */}
+      <footer className="footer">
+        <span>EPS</span> | <span>FULLY EDITABLE</span> | <span>FREE IMAGE</span>
+      </footer>
     </div>
   );
 };
 
 export default ProfilePage;
+
+

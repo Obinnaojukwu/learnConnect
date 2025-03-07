@@ -14,7 +14,14 @@ const HomePage = () => {
         minHeight: "100vh", // Full viewport height
         width: "100%", // Full width
       }}
+
+      
     >
+      {/* Background Circles */}
+      <div className="background-ircle circle-top-ight"></div>
+      <div className="background-ircle circle-bottom-eft"></div>
+
+
       {/* Header Section */}
       <header className="header">
         <div className="logo-container">
@@ -50,7 +57,7 @@ const HomePage = () => {
             structured lessons or hands-on practice — with your potential
             progress clearly outlined.
           </p>
-          <Link to="/explore" className="btn traders-hub fade-in">
+          <Link to="/register" className="btn traders-hub fade-in">
             <span className="dot"></span> Explore Now
           </Link>
         </div>
@@ -73,3 +80,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
