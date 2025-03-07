@@ -16,6 +16,13 @@
     position: relative;
 }
 
+/* Viewport Fix (Ensure It's in HTML <head>) */
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 14px; /* Adjusts text for mobile */
+    }
+}
+
 .level-heading {
     font-size: 36px;
     font-weight: bold;

@@ -6,17 +6,33 @@
     font-family: "Arial", sans-serif;
 }
 
+/* Viewport Fix (Ensure It's in HTML <head>) */
+@media screen and (max-width: 768px) {
+    html {
+        font-size: 14px; /* Adjusts text for mobile */
+    }
+}
 
+/* Branding Logo */
+.branding .logo {
+    width: 60px;
+    height: auto;
+    margin-bottom: 10px;
+    border-radius: 25px; /* Adjust the value for more or less rounding */
+}
+
+
+/* Back Button */
 .back-button {
     position: absolute;
-    top: 100px;
-    left: 20px;
+    top: 20px; /* Adjusted for better mobile placement */
+    left: 10px;
     background-color: #4a704a;
     color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border-radius: 25px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -25,42 +41,8 @@
     background-color: #365536;
 }
 
-.password-requirements {
-    font-size: 12px;
-    color: red;
-    margin-top: 5px;
-}
-
-.password-strength {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-.strength-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 5px;
-}
-
-.weak {
-    background-color: red;
-}
-
-.strong {
-    background-color: green;
-}
-
-.submit-button:disabled {
-    background-color: gray;
-    cursor: not-allowed;
-}
-
-
+/* Register Background */
 .register-background {
-
     height: 100vh;
     display: flex;
     align-items: center;
@@ -68,6 +50,7 @@
     flex-direction: column;
     position: relative;
     animation: fadeIn 0.8s ease-in-out;
+    padding: 20px; /* Prevents content from being cut off */
 }
 
 /* Background Circles */
@@ -98,12 +81,14 @@
     padding: 30px;
     border-radius: 15px;
     text-align: center;
-    width: 350px;
+    width: 90%; /* Responsive */
+    max-width: 400px; /* Limits stretch on bigger screens */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     animation: fadeSlideUp 0.8s ease-out forwards;
     opacity: 0;
 }
 
+/* Animations */
 @keyframes fadeSlideUp {
     from {
         opacity: 0;
@@ -142,6 +127,12 @@
     background: #3a5d3a;
 }
 
+/* Disable Button */
+.submit-button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
+
 /* Error Message */
 .error-message {
     color: red;
@@ -149,8 +140,9 @@
     margin-top: 10px;
 }
 
+/* Titles and Headers */
 .register-title {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
     color: #4a704a;
     margin-bottom: 5px;
@@ -175,3 +167,48 @@
     margin-bottom: 15px;
 }
 
+/* Password Strength */
+.password-strength {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.strength-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.weak {
+    background-color: red;
+}
+
+.strong {
+    background-color: green;
+}
+
+/* Mobile Optimization */
+@media screen and (max-width: 768px) {
+    .register-container {
+        width: 95%;
+        max-width: 350px;
+        padding: 20px;
+    }
+
+    .register-title {
+        font-size: 20px;
+    }
+
+    .register-subtext,
+    .register-description {
+        font-size: 13px;
+    }
+
+    .input-field,
+    .submit-button {
+        font-size: 14px;
+    }
+}

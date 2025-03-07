@@ -1,3 +1,10 @@
+/* Viewport Fix (Ensure It's in HTML <head>) */
+@media screen and (max-width: 768px) {
+  html {
+      font-size: 14px; /* Adjusts text for mobile */
+  }
+}
+
 /* Keyframe Animations */
 @keyframes slide-fade-in {
   from {
