@@ -156,6 +156,8 @@ const courseIdMapping = {
   'Physiology': 57,
   'Pharmacy': 58,
   // Faculty of Environmental Sciences
+
+  
   'Architecture': 59,
   'Building': 60,
   'Estate Management': 61,
