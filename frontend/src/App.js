@@ -12,6 +12,8 @@ import Card from './components/Card';
 import PaymentPage from './components/PaymentPage';
 import PaymentSuccessPage from './components/PaymentSuccessPage';
 import DownloadPage from './components/DownloadPage';
+import JupebDeptPage from './components/JupebDeptPage'; // Add this import
+import JupebCoursePage from './components/JupebCoursePage'; // Add this import
 import AdminPage from './components/AdminPage'; // Ensure this import statement is correct
 import { AudioProvider } from './context/AudioContext';
 
@@ -31,6 +33,8 @@ function App() {
           <Route path="/payment-success" element={<PaymentSuccessPage />} />
           <Route path="/download/:audioId" element={<DownloadPage />} />
           <Route path="/audios/:level/:facultyId/:courseId" element={<AudioPage />} />
+          <Route path="/jupeb-departments" element={<JupebDeptPage />} /> {/* Add this route */}
+          <Route path="/jupeb-courses/:department" element={<JupebCoursePage />} /> {/* Add this route */}
           
           <Route path="/admin" element={<AdminPage />} /> {/* Ensure this route is correct */}
         </Routes>

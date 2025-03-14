@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const courseMapping = {
   "English Language & Literature": 1,
   "Fine & Applied Arts": 2,
   "French": 3,
-  "History": 4,
+  "History": 4, // ✅ Unique admin ID for History
   "Linguistics": 5,
   "Philosophy": 6,
   "Religious Studies": 7,
@@ -66,9 +66,30 @@ const courseMapping = {
   "Environmental Science": 62,
   "Quantity Surveying": 63,
   "Urban and Regional Planning": 64,
+  // ✅ Corrected JUPEB Courses
+  "Accounting": 65,
+  "Business Studies": 66,
+  "Maths": 67,
+  "Economics": 68,
+  "Government": 69,
+  "Geography": 70,
+  "Sociology": 71,
+  "Arabic": 72,
+  "Hausa": 73,
+  "Islamic Religious Studies": 74,
+  "Christian Religious Studies": 75, // ✅ Matches JUPEB
+  "History (jupeb)": 76, // ✅ Matches JUPEB
+  "Yoruba": 77,
+  "Literature": 78,
+  "Biology (Medicine)": 79,
+  "Chemistry (Medicine)": 80,
+  "Physics (Medicine)": 81,
+  "Biology (Physical Sciences)": 82,
+  'Maths (Medicine)': 83,
+  "Physical Sciences": 84
 };
 
-const levels = ["100", "200", "300", "400"];
+const levels = ["100", "200", "300", "400", "jupeb"];
 
 const AdminPage = () => {
   const [audioData, setAudioData] = useState({
@@ -103,7 +124,7 @@ const AdminPage = () => {
 
     try {
       const response = await axios.post(
-        "https://learnconnect-backend.onrender.com/api/audios/upload",
+        "http://localhost:5000/api/audios/upload",
         formData
       );
       alert("Audio file uploaded successfully");

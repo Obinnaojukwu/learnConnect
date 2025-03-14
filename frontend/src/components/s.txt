@@ -1,0 +1,947 @@
+/* Viewport Fix (Ensure It's in HTML <head>) */
+@media screen and (max-width: 768px) {
+  html {
+      font-size: 14px; /* Adjusts text for mobile */
+  }
+}
+
+/* Keyframe Animations */
+@keyframes slide-fade-in {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Background Images Animation */
+.background-img {
+  position: absolute;
+  width: 150px;
+  opacity: 0;
+  animation: slide-fade-in 1s ease-out forwards;
+}
+
+.bg-img-1 {
+  bottom: 50px;
+  left: 20%;
+  animation-delay: 0.5s;
+}
+
+.bg-img-2 {
+  bottom: 30px;
+  right: 20%;
+  animation-delay: 1s;
+}
+
+/* Logo Styling */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-image {
+  width: 80px; /* Adjust size */
+  height: auto;
+  margin-bottom: 5px; /* Space between image & text */
+}
+
+.logo-text {
+  font-size: 2rem;
+  font-weight: bold;
+  display: flex;
+}
+
+.logo-text .L {
+  color: black;
+}
+
+.logo-text .C {
+  color: #4a704a;
+}
+
+.subtext {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.subtext .learn {
+  color: black;
+}
+
+.subtext .connect {
+  color: #4a704a;
+}
+
+/* Fade-in effect for text elements */
+.fade-in {
+  opacity: 0;
+  animation: fade-in 1.2s ease-out forwards;
+}
+
+/* Button Styling */
+.btn {
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 12px 26px;
+  border-radius: 50px;
+  cursor: pointer;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid;
+  background-color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Login Button */
+.login-btn {
+  color: white;
+  border-color: white;
+}
+
+.login-btn:hover {
+  background-color: white;
+  color: black;
+}
+
+/* Sign Up & Explore Button */
+.signup-btn,
+.traders-hub {
+  color: #e63946;
+  border-color: #e63946;
+}
+
+.signup-btn:hover,
+.traders-hub:hover {
+  background-color: #4a704a;
+  color: white;
+}
+
+/* Button Hover Effect */
+.btn::after {
+  content: "›";
+  position: absolute;
+  right: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btn:hover::after {
+  opacity: 1;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Main Content */
+.main-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.text-content {
+  max-width: 50%;
+  padding-right: 40px;
+}
+
+.text-content h1 {
+  font-size: 4rem;
+  line-height: 1;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.highlight {
+  color: #4a704a;
+}
+
+/* Background Circles */
+.background-ircle {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: rgba(0, 255, 0, 0.3); /* Adjusted for better visibility */
+  border-radius: 50%;
+  z-index: -1;
+}
+
+/* Positioning the Circles */
+.circle-top-ight {
+  top: 0%;
+  right: -100px;
+}
+
+.circle-bottom-eft {
+  bottom: 30%;
+  left: -50px;
+}
+.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.description {
+  font-size: 1rem;
+  color: #777;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  backdrop-filter: blur(8px); /* Adjust the blur strength */
+  z-index: 1
+}
+
+.traders-hub {
+  padding: 12px 24px;
+  background-color: #dc3545;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  backdrop-filter: blur(8px); /* Adjust the blur strength */
+  z-index: 1
+}
+
+.traders-hub:hover {
+  background-color: #c82333;
+}
+
+/* Visual Content */
+.visual-content {
+  max-width: 50%;
+}
+
+.app-mockup {
+  width: 300px;
+  height: auto;
+  border-radius: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+  margin-top: auto;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  /* Adjust logo */
+  .logo-image {
+    width: 60px;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+  }
+
+  .subtext {
+    font-size: 0.9rem;
+  }
+
+  /* Adjust button sizes */
+  .btn {
+    font-size: 0.9rem;
+    padding: 10px 22px;
+  }
+
+  /* Header */
+  .header {
+    flex-direction: column;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Adjust main content */
+  .main-content {
+    flex-direction: column;
+    text-align: center;
+    padding: 40px 20px;
+  }
+
+  .text-content {
+    max-width: 100%;
+    padding-right: 0;
+  }
+
+  .text-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .visual-content {
+    margin-top: 30px;
+    max-width: 100%;
+  }
+
+  .app-mockup {
+    width: 200px;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes slide-fade-in {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Floating Effect */
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+/* Dividers */
+.divider {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 20px 0;
+  opacity: 0.8;
+}
+
+/* New Info Section */
+.info-section {
+  text-align: center;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.info-section h2 {
+  font-size: 2rem;
+  color: #e63946;
+}
+
+.info-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-section li {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  opacity: 0.9;
+}
+
+/* Background Image (Mobile Only) */
+@media (max-width: 768px) {
+  .homepage {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Background Blur Effect */
+.homepage::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+ /* Make sure this image exists */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(10px); /* Adjust blur strength */
+    z-index: -1; /* Keeps background behind all content */
+}
+}
+
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  /* Adjust logo */
+  .logo-image {
+    width: 60px;
+  }
+
+  .info-section h2 {
+    font-size: 1.5rem;
+  }
+
+  .info-section li {
+    font-size: 1rem;
+  }
+
+  .divider {
+    font-size: 1.2rem;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+  }
+
+  .subtext {
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 10px 22px;
+    position: relative;
+    border: 3px solid #e63946; /* Red Border */
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .login-btn {
+    border-color: white;
+    color: white;
+  }
+
+  .login-btn:hover {
+    background-color: white;
+    color: black;
+  }
+
+  .signup-btn {
+    border-color: #e63946;
+    color: #e63946;
+  }
+
+  .signup-btn:hover {
+    background-color: #e63946;
+    color: white;
+  }
+  /* Header */
+  .header {
+    flex-direction: column;
+    padding: 15px 20px;
+    gap: 15px;
+  }
+
+  /* Keep navigation buttons in a row */
+  .nav {
+    flex-direction: row; /* Buttons stay horizontal */
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+  }
+
+  /* Adjust main content */
+  .main-content {
+    flex-direction: row; /* Align text on the left and image on the right */
+    align-items: center;
+    text-align: left;
+    padding: 40px 20px;
+  }
+
+  .text-content {
+    max-width: 50%;
+    padding-right: 20px;
+  }
+
+  .text-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .visual-content {
+    max-width: 50%;
+    display: flex;
+    justify-content: flex-end; /* Move images to the right */
+  }
+
+  .app-mockup {
+    width: 180px;
+  }
+
+  .background-img {
+    position: absolute;
+    width: 120px; /* Slightly smaller size for mobile */
+    opacity: 0;
+    animation: slide-fade-in 1s ease-out forwards, float 4s ease-in-out infinite;
+  }
+
+
+
+  /* Fix positioning for backpng2.png */
+  .bg-img-1 {
+    top: 200px; /* Move it down a bit */
+    right: 6%; /* Keep it inside the screen */
+    left: auto; /* Reset left positioning */
+    bottom: auto;
+    animation-delay: 0.5s;
+  }
+
+  /* Fix positioning for backpng.png */
+  .bg-img-2 {
+    top: 650px;
+    right: auto;
+    left: 20px;
+    bottom: auto;
+    animation-delay: 1s;
+  }
+}
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './HomePage.css';
+
+const HomePage = () => {
+  return (
+    <div
+      className="homepage"
+      style={{
+        backgroundImage: "url('/')", // Background Image from public folder
+        backgroundSize: "cover", // Covers the entire section
+        backgroundPosition: "center", // Centers the image
+        backgroundRepeat: "no-repeat", // No repeating
+        minHeight: "100vh", // Full viewport height
+        width: "100%", // Full width
+      }}
+
+      
+    >
+      {/* Background Circles */}
+      <div className="background-ircle circle-top-ight"></div>
+      <div className="background-ircle circle-bottom-eft"></div>
+
+
+      {/* Header Section */}
+      <header className="header">
+        <div className="logo-container">
+          {/* Logo Image */}
+          <img src="/images/logo screenshot.png" alt="Logo" className="logo-image" />
+
+          {/* Logo Text */}
+          <span className="logo-text">
+            <span className="L">L</span>
+            <span className="C">C</span>
+          </span>
+          <span className="subtext">
+            <span className="learn">learn</span>
+            <span className="connect">Connect</span>
+          </span>
+        </div>
+        <nav className="nav">
+          <Link to="/login" className="btn login-btn">Login</Link>
+          <Link to="/register" className="btn signup-btn">Sign Up</Link>
+        </nav>
+      </header>
+
+      {/* Main Content Section */}
+      <main className="main-content">
+        <div className="text-content">
+          <h1 className="fade-in">
+            Learn <span className="highlight">Connect</span>
+          </h1>
+          <p className="subtitle fade-in">Access tailored learning with defined growth.</p>
+          <p className="description fade-in">
+            Explore courses, interactive sessions, and exclusive content across
+            various subjects. Choose how you want to learn — whether through
+            structured lessons or hands-on practice — with your potential
+            progress clearly outlined.
+          </p>
+          <Link to="/register" className="btn traders-hub fade-in">
+            <span className="dot"></span> Explore Now
+          </Link>
+        </div>
+
+        <div className="visual-content">
+          <img src="/images/books.jpg" alt="Rubric App Mockup" className="app-mockup" />
+        </div>
+
+        {/* Background PNG Images */}
+        <img src="/images/backpng2.png" alt="Background 1" className="background-img bg-img-1" />
+        <img src="/images/backpng.png" alt="Background 2" className="background-img bg-img-2" />
+      </main>
+
+      {/* Footer Section */}
+      <footer className="footer">
+        <p>© {new Date().getFullYear()} Rubric. All Rights Reserved.</p>
+      </footer>
+    </div>
+  );
+};
+
+export default HomePage;
+
+import React, { useState } from "react";
+import axios from "axios";
+
+const courseMapping = {
+  "English Language & Literature": 1,
+  "Fine & Applied Arts": 2,
+  "French": 3,
+  "History": 4,
+  "Linguistics": 5,
+  "Philosophy": 6,
+  "Religious Studies": 7,
+  "Theatre Arts": 8,
+  "Biochemistry": 9,
+  "Botany": 10,
+  "Chemistry": 11,
+  "Computer Science": 12,
+  "Geology": 13,
+  "Mathematics": 14,
+  "Microbiology": 15,
+  "Physics": 16,
+  "Zoology": 17,
+  "Agricultural Economics": 18,
+  "Agricultural Extension": 19,
+  "Animal Science": 20,
+  "Crop Science": 21,
+  "Food Science": 22,
+  "Forestry": 23,
+  "Soil Science": 24,
+  "Adult Education": 25,
+  "Education": 26,
+  "Educational Management": 27,
+  "Guidance & Counseling": 28,
+  "Library Science": 29,
+  "Physical Education": 30,
+  "Primary Education": 31,
+  "Special Education": 32,
+  "Agricultural Engineering": 33,
+  "Chemical Engineering": 34,
+  "Civil Engineering": 35,
+  "Computer Engineering": 36,
+  "Electrical/Electronic Engineering": 37,
+  "Mechanical Engineering": 38,
+  "Petroleum Engineering": 39,
+  "Law": 40,
+  "Accounting": 41,
+  "Banking & Finance": 42,
+  "Business Administration": 43,
+  "Marketing": 44,
+  "Public Administration": 45,
+  "Pharmacy": 46,
+  "Pharmacology": 47,
+  "Economics": 48,
+  "Geography": 49,
+  "Mass Communication": 50,
+  "Sociology": 51,
+  "Statistics": 52,
+  "Anatomy": 53,
+  "Medicine": 54,
+  "Nursing": 55,
+  "Optometry": 56,
+  "Physiology": 57,
+  "Pharmacy": 58,
+  "Architecture": 59,
+  "Building": 60,
+  "Estate Management": 61,
+  "Environmental Science": 62,
+  "Quantity Surveying": 63,
+  "Urban and Regional Planning": 64,
+};
+
+const levels = ["100", "200", "300", "400"];
+
+const AdminPage = () => {
+  const [audioData, setAudioData] = useState({
+    courseId: "",
+    title: "",
+    audioFile: null,
+    uploadedBy: "",
+    level: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setAudioData({ ...audioData, [name]: value });
+  };
+
+  const handleFileChange = (event) => {
+    setAudioData({ ...audioData, audioFile: event.target.files[0] });
+  };
+
+  const handleUpload = async () => {
+    if (!audioData.audioFile) {
+      alert("Please select a file to upload.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("audio", audioData.audioFile);
+    formData.append("courseId", audioData.courseId);
+    formData.append("title", audioData.title);
+    formData.append("uploadedBy", audioData.uploadedBy);
+    formData.append("level", audioData.level);
+
+    try {
+      const response = await axios.post(
+        "https://learnconnect-backend.onrender.com/api/audios/upload",
+        formData
+      );
+      alert("Audio file uploaded successfully");
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error uploading audio:", error);
+      alert("Error uploading audio");
+    }
+  };
+
+  // 🔹 Styling
+  const styles = {
+    background: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundImage:
+        'url("https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0")',
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      position: "relative",
+      padding: "20px",
+      textAlign: "center",
+      color: "white",
+    },
+    card: {
+      position: "relative",
+      background: "rgba(0, 0, 0, 0.85)",
+      padding: "40px",
+      borderRadius: "12px",
+      width: "500px",
+      minHeight: "400px",
+      textAlign: "center",
+      boxShadow: "0px 5px 15px rgba(0, 0, 0, 0.5)",
+      color: "white",
+      zIndex: 2,
+    },
+    heading: {
+      fontSize: "26px",
+      fontWeight: "bold",
+      marginBottom: "15px",
+    },
+    select: {
+      width: "100%",
+      padding: "10px",
+      margin: "10px 0",
+      borderRadius: "6px",
+    },
+    input: {
+      width: "100%",
+      padding: "10px",
+      margin: "10px 0",
+      borderRadius: "6px",
+    },
+    button: {
+      background: "#FFC107",
+      border: "none",
+      padding: "12px 20px",
+      borderRadius: "6px",
+      fontSize: "16px",
+      fontWeight: "bold",
+      color: "black",
+      cursor: "pointer",
+      marginTop: "15px",
+      width: "100%",
+      transition: "background 0.3s ease-in-out",
+    },
+    buttonHover: {
+      background: "#E0A800",
+    },
+  };
+
+  return (
+    <div style={styles.background}>
+      <div style={styles.card}>
+        <h1 style={styles.heading}>Admin Page</h1>
+        <h2>Upload New Audio</h2>
+
+        <label>
+          Course:
+          <select
+            name="courseId"
+            value={audioData.courseId}
+            onChange={handleInputChange}
+            style={styles.select}
+          >
+            <option value="">Select Course</option>
+            {Object.keys(courseMapping).map((course) => (
+              <option key={courseMapping[course]} value={courseMapping[course]}>
+                {course}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Level:
+          <select
+            name="level"
+            value={audioData.level}
+            onChange={handleInputChange}
+            style={styles.select}
+          >
+            <option value="">Select Level</option>
+            {levels.map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Title:
+          <input
+            type="text"
+            name="title"
+            value={audioData.title}
+            onChange={handleInputChange}
+            style={styles.input}
+          />
+        </label>
+
+        <label>
+          Audio File:
+          <input type="file" onChange={handleFileChange} style={styles.input} />
+        </label>
+
+        <label>
+          Uploaded By:
+          <input
+            type="text"
+            name="uploadedBy"
+            value={audioData.uploadedBy}
+            onChange={handleInputChange}
+            style={styles.input}
+          />
+        </label>
+
+        <button
+          onClick={handleUpload}
+          style={styles.button}
+          onMouseEnter={(e) =>
+            (e.target.style.background = styles.buttonHover.background)
+          }
+          onMouseLeave={(e) =>
+            (e.target.style.background = styles.button.background)
+          }
+        >
+          Upload
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default AdminPage;
+
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
+import ProfilePage from './components/ProfilePage';
+import LevelPage from './components/LevelPage';
+import FacultyListPage from './components/FacultyListPage';
+import CourseListPage from './components/CourseListPage';
+import AudioPage from './components/AudioPage';
+import Card from './components/Card';
+import PaymentPage from './components/PaymentPage';
+import PaymentSuccessPage from './components/PaymentSuccessPage';
+import DownloadPage from './components/DownloadPage';
+import AdminPage from './components/AdminPage'; // Ensure this import statement is correct
+import { AudioProvider } from './context/AudioContext';
+
+function App() {
+  return (
+    <AudioProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/levels" element={<LevelPage />} />
+          <Route path="/faculties/:level" element={<FacultyListPage />} />
+          <Route path="/courses/:level/:facultyId" element={<CourseListPage />} />
+          <Route path="/payment/:audioId" element={<PaymentPage />} />
+          <Route path="/payment-success" element={<PaymentSuccessPage />} />
+          <Route path="/download/:audioId" element={<DownloadPage />} />
+          <Route path="/audios/:level/:facultyId/:courseId" element={<AudioPage />} />
+          
+          <Route path="/admin" element={<AdminPage />} /> {/* Ensure this route is correct */}
+        </Routes>
+      </Router>
+    </AudioProvider>
+  );
+}
+
+export default App;
+
+
+

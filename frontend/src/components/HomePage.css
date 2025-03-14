@@ -1,149 +1,30 @@
-/* Viewport Fix (Ensure It's in HTML <head>) */
-@media screen and (max-width: 768px) {
-  html {
-      font-size: 14px; /* Adjusts text for mobile */
-  }
+@import url('https://fonts.cdnfonts.com/css/zero-geometric-sans-serif');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-/* Keyframe Animations */
-@keyframes slide-fade-in {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Background Images Animation */
-.background-img {
-  position: absolute;
-  width: 150px;
-  opacity: 0;
-  animation: slide-fade-in 1s ease-out forwards;
-}
-
-.bg-img-1 {
-  bottom: 50px;
-  left: 20%;
-  animation-delay: 0.5s;
-}
-
-.bg-img-2 {
-  bottom: 30px;
-  right: 20%;
-  animation-delay: 1s;
-}
-
-/* Logo Styling */
-.logo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.logo-image {
-  width: 80px; /* Adjust size */
-  height: auto;
-  margin-bottom: 5px; /* Space between image & text */
-}
-
-.logo-text {
-  font-size: 2rem;
-  font-weight: bold;
-  display: flex;
-}
-
-.logo-text .L {
-  color: black;
-}
-
-.logo-text .C {
-  color: #4a704a;
-}
-
-.subtext {
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-.subtext .learn {
-  color: black;
-}
-
-.subtext .connect {
-  color: #4a704a;
-}
-
-/* Fade-in effect for text elements */
-.fade-in {
-  opacity: 0;
-  animation: fade-in 1.2s ease-out forwards;
-}
-
-/* Button Styling */
-.btn {
-  font-weight: bold;
-  font-size: 1rem;
-  padding: 12px 26px;
-  border-radius: 50px;
-  cursor: pointer;
-  text-align: center;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease-in-out;
-  border: 2px solid;
-  background-color: transparent;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Login Button */
-.login-btn {
-  color: white;
-  border-color: white;
-}
-
-.login-btn:hover {
+body {
   background-color: white;
-  color: black;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-/* Sign Up & Explore Button */
-.signup-btn,
-.traders-hub {
-  color: #e63946;
-  border-color: #e63946;
+/* Smooth Fade-in Effect */
+body {
+  animation: fadeIn 1s ease-in-out;
 }
 
-.signup-btn:hover,
-.traders-hub:hover {
-  background-color: #4a704a;
-  color: white;
-}
-
-/* Button Hover Effect */
-.btn::after {
-  content: "›";
-  position: absolute;
-  right: 20px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.btn:hover::after {
-  opacity: 1;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Header */
@@ -151,402 +32,477 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 15px 20px;
   background-color: #fff;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
 
-.nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.logo {
+  font-family: 'Zero Geometric Sans-Serif', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
 }
 
-/* Main Content */
-.main-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 60px 40px;
-  max-width: 1200px;
-  margin: 0 auto;
+.menu {
+  font-size: 24px;
+  cursor: pointer;
 }
 
-.text-content {
-  max-width: 50%;
-  padding-right: 40px;
-}
-
-.text-content h1 {
-  font-size: 4rem;
-  line-height: 1;
-  font-weight: 800;
-  margin-bottom: 20px;
-}
-
-.highlight {
-  color: #4a704a;
-}
-
-/* Background Circles */
-.background-ircle {
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  background: rgba(0, 255, 0, 0.3); /* Adjusted for better visibility */
-  border-radius: 50%;
-  z-index: -1;
-}
-
-/* Positioning the Circles */
-.circle-top-ight {
-  top: 0%;
-  right: -100px;
-}
-
-.circle-bottom-eft {
-  bottom: 30%;
-  left: -50px;
-}
-.subtitle {
-  font-size: 1.2rem;
-  color: #666;
-  margin-bottom: 20px;
-}
-
-.description {
-  font-size: 1rem;
-  color: #777;
-  line-height: 1.6;
-  margin-bottom: 30px;
-  backdrop-filter: blur(8px); /* Adjust the blur strength */
-  z-index: 1
-}
-
-.traders-hub {
-  padding: 12px 24px;
-  background-color: #dc3545;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 20px;
-  backdrop-filter: blur(8px); /* Adjust the blur strength */
-  z-index: 1
-}
-
-.traders-hub:hover {
-  background-color: #c82333;
-}
-
-/* Visual Content */
-.visual-content {
-  max-width: 50%;
-}
-
-.app-mockup {
-  width: 300px;
-  height: auto;
-  border-radius: 20px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-}
-
-/* Footer */
-.footer {
+/* Styling the Highlighted "E" */
+.highlighted-e {
+  font-weight: bold;
+  color: white;
+  background-color: #71A6D2; /* Iceberg Blue */
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 3px;
+  margin-right: 1px;
+  height: 28px;
+  line-height: 24px;
   text-align: center;
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
-  margin-top: auto;
+  font-size: 18px;
+
+  /* Smooth bouncy animation */
+  animation: bounceJump 3s cubic-bezier(0.25, 1, 0.5, 1) infinite;
 }
 
-.footer p {
-  font-size: 0.9rem;
-  color: #666;
-}
-
-
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  /* Adjust logo */
-  .logo-image {
-    width: 60px;
+/* Ultra-Smooth Bouncy Jump Animation */
+@keyframes bounceJump {
+  0%, 100% {
+    transform: translateY(0) scale(1);
   }
-
-  .logo-text {
-    font-size: 1.5rem;
-  }
-
-  .subtext {
-    font-size: 0.9rem;
-  }
-
-  /* Adjust button sizes */
-  .btn {
-    font-size: 0.9rem;
-    padding: 10px 22px;
-  }
-
-  /* Header */
-  .header {
-    flex-direction: column;
-    padding: 15px 20px;
-    gap: 15px;
-  }
-
-  .nav {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  /* Adjust main content */
-  .main-content {
-    flex-direction: column;
-    text-align: center;
-    padding: 40px 20px;
-  }
-
-  .text-content {
-    max-width: 100%;
-    padding-right: 0;
-  }
-
-  .text-content h1 {
-    font-size: 2.5rem;
-  }
-
-  .visual-content {
-    margin-top: 30px;
-    max-width: 100%;
-  }
-
-  .app-mockup {
-    width: 200px;
-  }
-}
-
-/* Keyframe Animations */
-@keyframes slide-fade-in {
-  from {
-    transform: translateY(50px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* Floating Effect */
-@keyframes float {
-  0% {
-    transform: translateY(0);
+  20% {
+    transform: translateY(-10px) scale(1.05); /* Jumps up */
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(0) scale(0.92); /* Press down slightly */
+  }
+  80% {
+    transform: translateY(0) scale(1.02); /* Settles in */
+  }
+}
+
+
+
+/* Hero Section */
+.hero {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-slider {
+  display: flex;
+  width: 300%; /* 3 images side by side */
+  animation: slideImages 11s infinite ease-in-out;
+}
+
+.hero-slider img {
+  width: 67%; /* Exactly same as the old image */
+  height: auto; /* Keeps aspect ratio */
+  display: block; /* Prevents gaps */
+  flex-shrink: 0; /* Prevents shrinking */
+}
+
+/* 🔥 Smooth Sliding Animation */
+@keyframes slideImages {
+  0%, 22% { transform: translateX(0); }      
+  33%, 55% { transform: translateX(-100%); } 
+  66%, 88% { transform: translateX(-200%); } 
+  100% { transform: translateX(0); }         
+}
+
+/* 🔹 DARKER FADING OVERLAY */
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 10%, 
+    rgba(0, 0, 0, 0.3) 40%, 
+    rgba(0, 0, 0, 0.6) 70%, 
+    rgba(0, 0, 0, 0.9) 100% /* Darker bottom */
+  );
+}
+
+/* 🔹 HERO TEXT CONTENT */
+.hero-text-content {
+  position: absolute;
+  bottom: 0%; /* Slightly lower */
+  right: 5%;
+  color: white;
+  text-align: right;
+  max-width: 50%;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: fadeInLeft 1.5s ease-out forwards;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px);
   }
   100% {
-    transform: translateY(0);
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-
-/* Dividers */
-.divider {
-  text-align: center;
-  font-size: 1.5rem;
-  margin: 20px 0;
-  opacity: 0.8;
+/* 🔹 GOLD WELCOME TEXT */
+.gold-text {
+  color: #FFD700;
+  font-weight: bold;
 }
 
-/* New Info Section */
-.info-section {
+/* 🔹 RECTANGLE "E" IN EduStream */
+.highlighted-E {
+  font-weight: bold;
+  color: white;
+  background-color: #71A6D2; /* Iceberg Blue */
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: 3px;
+  height: 28px;
+  line-height: 25px;
   text-align: center;
-  padding: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+  font-size: 25px;
 }
 
-.info-section h2 {
+.hero-title {
   font-size: 2rem;
-  color: #e63946;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-.info-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.info-section li {
-  font-size: 1.2rem;
-  margin: 10px 0;
+.hero-subtext {
+  font-size: 1rem;
   opacity: 0.9;
 }
 
-/* Background Image (Mobile Only) */
-@media (max-width: 768px) {
-  .homepage {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); } /* Small floating effect */
+  100% { transform: translateY(0); }
 }
 
-/* Background Blur Effect */
-.homepage::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
- /* Make sure this image exists */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    filter: blur(10px); /* Adjust blur strength */
-    z-index: -1; /* Keeps background behind all content */
-}
-}
-
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-  /* Adjust logo */
-  .logo-image {
-    width: 60px;
-  }
-
-  .info-section h2 {
-    font-size: 1.5rem;
-  }
-
-  .info-section li {
-    font-size: 1rem;
-  }
-
-  .divider {
-    font-size: 1.2rem;
-  }
-
-  .logo-text {
-    font-size: 1.5rem;
-  }
-
-  .subtext {
-    font-size: 0.9rem;
-  }
-
-  .btn {
-    font-size: 0.9rem;
-    padding: 10px 22px;
-    position: relative;
-    border: 3px solid #e63946; /* Red Border */
-    border-radius: 15px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  .login-btn {
-    border-color: white;
-    color: white;
-  }
-
-  .login-btn:hover {
-    background-color: white;
-    color: black;
-  }
-
-  .signup-btn {
-    border-color: #e63946;
-    color: #e63946;
-  }
-
-  .signup-btn:hover {
-    background-color: #e63946;
-    color: white;
-  }
-  /* Header */
-  .header {
-    flex-direction: column;
-    padding: 15px 20px;
-    gap: 15px;
-  }
-
-  /* Keep navigation buttons in a row */
-  .nav {
-    flex-direction: row; /* Buttons stay horizontal */
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-  }
-
-  /* Adjust main content */
-  .main-content {
-    flex-direction: row; /* Align text on the left and image on the right */
-    align-items: center;
-    text-align: left;
-    padding: 40px 20px;
-  }
-
-  .text-content {
-    max-width: 50%;
-    padding-right: 20px;
-  }
-
-  .text-content h1 {
-    font-size: 2.5rem;
-  }
-
-  .visual-content {
-    max-width: 50%;
-    display: flex;
-    justify-content: flex-end; /* Move images to the right */
-  }
-
-  .app-mockup {
-    width: 180px;
-  }
-
-  .background-img {
-    position: absolute;
-    width: 120px; /* Slightly smaller size for mobile */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.5);
     opacity: 0;
-    animation: slide-fade-in 1s ease-out forwards, float 4s ease-in-out infinite;
+  }
+  60% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.hero-content {
+  position: absolute;
+  top: 12%;
+  left: 5%;
+  width: 450px; /* Slightly wider */
+  height: auto;
+  min-height: 230px;
+  background-color: rgba(180, 200, 255, 0.5); /* More transparent light blue */
+  color: white;
+  padding: 50px 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+  animation: bounceIn 1s ease-in-out, float 3s ease-in-out 1s infinite; /* Combined animations */
+}
+
+.hero-content h2 {
+  font-size: 20px;
+  animation: typeIn 2s steps(20);
+}
+
+.hero-content p {
+  font-size: 14px;
+  margin: 10px 0;
+}
+
+.hero-content button {
+  background-color: white;
+  color: #4a7eff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 60px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.hero-content button:hover {
+  transform: scale(1.1);
+}
+
+/* Services Section */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes gradientWave {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
+.services {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #74b3ce, #26619c, #0a1624);
+  background-size: 300% 300%;
+  color: white;
+  padding: 20px;
+  text-align: left;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  gap: 0px;
+  align-items: center;
+  padding-top: 30px;
+  animation: fadeIn 1s ease-in-out, gradientWave 6s infinite linear;
+}
+
+.service {
+  border: 2px solid white;
+  border-radius: 15px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  font-size: 17px;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.service:hover {
+  transform: scale(1.05);
+}
+
+.service h3, .service p {
+  margin: 0;
+  font-size: 12px;
+}
+
+.service span {
+  font-size: 16px;
+}
+
+/* Team Section */
+.team {
+  text-align: center;
+  padding: 30px;
+  background-color: #f5f5f5;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.team h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.team-members {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.member {
+  background: white;
+  padding: 15px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 5px;
+  width: 30%;
+  min-width: 250px;
+  transition: transform 0.3s ease;
+}
+
+.member:hover {
+  transform: scale(1.05);
+}
+
+.member img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.member h3 {
+  margin: 10px 0 5px;
+}
+
+.member p {
+  font-size: 14px;
+}
+
+.social-icons span {
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Styling for Login & Sign Up Links */
+/* Shared button styles */
+.btn {
+  text-decoration: none;
+  padding: 8px 15px;
+  border: 2px solid white;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+/* General styling for both buttons */
+.login-btn, .signup-btn {
+  display: inline-block;
+  background-color: white !important;
+  color: #4a7eff !important;
+  border: none !important;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 60px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  transition: 0.3s;
+  margin: 5px;
+  width: 100%;
+  max-width: 200px;
+  text-align: center;
+}
+
+/* 🟦 Unique styling for the login button */
+.login-btn {
+  position: relative; /* Needed for inner border */
+  overflow: hidden; /* Ensures inner border stays inside */
+  animation: zoomBounce 2.5s infinite ease-in-out;
+}
+
+/* 🟦 Inner outline effect for login button */
+.login-btn::before {
+  content: "";
+  position: absolute;
+  inset: 3px; /* Creates a smaller inner border */
+  border-radius: 55px; /* Slightly smaller than outer border-radius */
+  border: 2px solid #4a7eff; /* Blue outline */
+  pointer-events: none; /* Prevents it from interfering with clicks */
+}
+
+/* 🔥 Smooth bouncy zoom-in zoom-out effect for login */
+@keyframes zoomBounce {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); } /* Slight zoom */
+  55% { transform: scale(0.96); } /* Press effect */
+  70% { transform: scale(1.02); } /* Small bounce */
+  100% { transform: scale(1); }
+}
+
+
+.login-btn:hover, .signup-btn:hover {
+  background-color: #4a7eff !important;
+  color: white !important;
+  transform: scale(1.1);
+}
+
+.signup-btn {
+  margin-bottom: 10px;
+}
+
+/* Navigation container */
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* CTA Section */
+.cta {
+  position: relative;
+  text-align: center;
+}
+
+.cta img {
+  width: 100%;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.cta-content {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  background-color: white;
+  padding: 20px;
+  max-width: 250px;
+  text-align: left;
+  border-radius: 5px;
+  animation: bounceIn 1s ease-in-out, float 3s ease-in-out 1s infinite; /* Combined animations */
+}
+
+.cta-content h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.cta-content button {
+  background-color: #4a7eff;
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.cta-content button:hover {
+  transform: scale(1.1);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .hero-content {
+    top: 10%;
+    left: 5%;
+    max-width: 200px;
+    padding: 15px;
   }
 
-
-
-  /* Fix positioning for backpng2.png */
-  .bg-img-1 {
-    top: 200px; /* Move it down a bit */
-    right: 6%; /* Keep it inside the screen */
-    left: auto; /* Reset left positioning */
-    bottom: auto;
-    animation-delay: 0.5s;
+  .team-members {
+    flex-direction: column;
+    align-items: center;
   }
 
-  /* Fix positioning for backpng.png */
-  .bg-img-2 {
-    top: 650px;
-    right: auto;
-    left: 20px;
-    bottom: auto;
-    animation-delay: 1s;
+  .member {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .cta-content {
+    top: 10%;
+    left: 5%;
+    max-width: 200px;
+    padding: 15px;
   }
 }
