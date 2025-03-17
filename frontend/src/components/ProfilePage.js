@@ -4,7 +4,6 @@ import { getUserProfile } from "../api/api";
 import { FiMoreHorizontal, FiBookmark } from "react-icons/fi";
 import { FaHome, FaSearch, FaPlus, FaCommentDots } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
-import { motion } from "framer-motion";
 import "./ProfilePage.css";
 
 const images = [
