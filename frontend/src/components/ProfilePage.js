@@ -180,6 +180,7 @@ const ProfilePage = () => {
           <p className="no-downloads">No available audio</p>
         )}
       </section>
+      
 
       {/* Content Section */}
       <section className="content">
