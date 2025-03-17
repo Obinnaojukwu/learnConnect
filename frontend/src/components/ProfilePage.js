@@ -46,7 +46,7 @@ const ProfilePage = () => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
-      const response = await fetch("http://localhost:5000/api/purchase/purchased-audios", {
+      const response = await fetch("https://learnconnect-backend.onrender.com/api/purchase/purchased-audios", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -57,7 +57,7 @@ const ProfilePage = () => {
 
       if (data.success) {
         // Convert relative URLs to absolute URLs
-        const baseUrl = "http://localhost:5000";
+        const baseUrl = "https://learnconnect-backend.onrender.com";
         const audiosWithFullUrls = data.audios.map(audio => ({
           ...audio,
           url: audio.url.startsWith("http") ? audio.url : `${baseUrl}${audio.url}`
