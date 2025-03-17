@@ -41,6 +41,8 @@ const AudioPage = () => {
 
   const handleDownloadClick = (audioId) => {
     if (!purchasedAudios.includes(audioId)) {
+      // Store the audioId in local storage before navigating to the payment page
+      localStorage.setItem("audioId", audioId);
       navigate(`/payment/${audioId}`);
     } else {
       navigate(`/download?audioId=${audioId}`);
@@ -54,7 +56,7 @@ const AudioPage = () => {
         filteredAudios.map(audio => (
           <div key={audio.id}>
             <h2>{audio.title}</h2>
-            <audio controls={purchasedAudios.includes(audio.id)} src={`https://learnconnect-backend.onrender.com${audio.url}`}>
+            <audio controls={purchasedAudios.includes(audio.id)} src={`http://localhost:5000${audio.url}`}>
               Your browser does not support the audio element.
             </audio>
             <button onClick={() => handleDownloadClick(audio.id)}>

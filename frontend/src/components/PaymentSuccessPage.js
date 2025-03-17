@@ -24,6 +24,7 @@ const PaymentSuccessPage = () => {
         throw new Error("Token or Audio ID not found");
       }
 
+      // Verify payment
       const verifyResponse = await axios.post('https://learnconnect-backend.onrender.com/api/payment/verify', {
         reference,
         audioId,
@@ -34,7 +35,22 @@ const PaymentSuccessPage = () => {
       });
 
       if (verifyResponse.data.success) {
-        navigate(`/download/${audioId}`);
+        // Payment verified, save the purchase to the database
+        const userId = verifyResponse.data.userId; // Assuming userId is returned in the response
+        const purchaseDate = new Date().toISOString();
+
+        await axios.post('https://learnconnect-backend.onrender.com/api/purchases', {
+          audioId,
+          userId,
+          purchaseDate
+        }, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        // Redirect back to the profile page
+        navigate('/profile');
       } else {
         alert('Payment verification failed');
       }

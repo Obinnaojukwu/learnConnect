@@ -1,17 +1,26 @@
 const db = require('../config/database');
 
-const createPurchase = (purchase, callback) => {
-  const { userId, audioId } = purchase;
-  const query = 'INSERT INTO purchases (userId, audioId) VALUES (?, ?)';
-  db.run(query, [userId, audioId], function(err) {
-    if (err) return callback(err);
-    callback(null, { id: this.lastID, ...purchase });
+const getPurchasedAudios = (userId) => {
+  return new Promise((resolve, reject) => {
+      const query = `
+          SELECT audios.id, audios.title, audios.url
+          FROM purchases
+          JOIN audios ON purchases.audioId = audios.id
+          WHERE purchases.userId = ?;
+      `;
+
+      console.log(`Executing query: ${query} with userId: ${userId}`);  // Log the query and userId
+
+      db.all(query, [userId], (err, rows) => {
+          if (err) {
+              console.error('Error executing query:', err);  // Log any query errors
+              reject(err);
+          } else {
+              console.log('Query result:', rows);  // Log the query result
+              resolve(rows);
+          }
+      });
   });
 };
 
-const findPurchasesByUser = (userId, callback) => {
-  const query = 'SELECT * FROM purchases WHERE userId = ?';
-  db.all(query, [userId], callback);
-};
-
-module.exports = { createPurchase, findPurchasesByUser };
+module.exports = { getPurchasedAudios };
