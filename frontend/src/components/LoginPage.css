@@ -1,216 +1,218 @@
-/* General Styling */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Arial", sans-serif;
-}
-
-.background-circle {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background: rgba(74, 112, 74, 0.3); /* Soft green */
-    border-radius: 50%;
-    z-index: -1; /* Ensures it's behind content */
-}
-
-.circle-top-right {
-    top: -50px;
-    right: -50px;
-}
-
-.circle-bottom-left {
-    bottom: -50px;
-    left: -50px;
-}
-
-/* Background with soft gradient */
-.login-background {
-    background: linear-gradient(to bottom, #e3f8e3, #ffffff);
+.login-page {
     height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    background-size: cover;
+    background-position: center;
     position: relative;
-    animation: fadeIn 0.8s ease-in-out;
-    padding: 20px;
-}
-
-/* Top Overlay (For Sign-Up and Home Buttons) */
-.top-overlay {
+    overflow: hidden; /* Prevents overflow issues */
+  }
+  
+  .login-page::before {
+    content: "";
     position: absolute;
-    top: 10px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.top-text {
-    font-size: 1rem;
-    color: #4a704a;
-}
-
-.sign-up-button, .home-button {
-    background: #4a704a;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-}
-
-.sign-up-button:hover, .home-button:hover {
-    background: #3a5d3a;
-}
-
-/* Fade-in and Slide-up Animation */
-@keyframes fadeSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Login Container */
-.login-container {
-    background: rgba(255, 255, 255, 0.2); /* Transparent effect */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    filter: blur(3px); /* Apply blur only to the background */
+    z-index: -1;
+  }
+  
+  .login-container {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(15px);
     padding: 30px;
     border-radius: 15px;
     text-align: center;
-    width: 90%;
-    max-width: 400px;
+    width: 80%;
+    max-width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    opacity: 0;
     animation: fadeSlideUp 0.8s ease-out forwards;
-    opacity: 0; /* Ensures the animation starts from invisible */
-}
-
-/* Branding Logo */
-.branding .logo {
-    width: 60px;
-    height: auto;
-    margin-bottom: 10px;
-    border-radius: 15px; /* Adjusted for better rounding */
-}
-
-/* Title & Subtitle */
-.title {
-    font-size: 1.5rem;
+    z-index: 1; /* Keep container above the background */
+  }
+  
+  /* Rest of your styles remain unchanged */
+  
+  .login-container h2 {
+    font-size: 1.3rem; /* Slightly smaller */
     font-weight: bold;
-    color: #4a704a;
     margin-bottom: 10px;
-}
-
-.subtitle {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-/* Form Inputs */
-.input-field {
+  }
+  
+  .login-container p {
+    font-size: 0.9rem; /* Slightly smaller */
+    color: #ffffff;
+    margin-bottom: 15px;
+  }
+  
+  .login-container input {
     width: 100%;
-    padding: 12px;
-    margin: 8px 0;
+    padding: 10px; /* Smaller padding */
+    margin: 6px 0;
     border-radius: 5px;
     border: 1px solid #ddd;
-    font-size: 1rem;
-}
-
-/* Submit Button */
-.submit-button {
-    width: 100%;
-    padding: 12px;
-    background: #4a704a;
-    color: white;
-    border: none;
-    font-size: 1.2rem;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.submit-button:hover {
-    background: #3a5d3a;
-}
-
-/* Error Message */
-.error-message {
-    color: red;
-    font-size: 1rem;
-    margin-top: 10px;
-}
-
-/* Support & Disclaimer */
-.support-text, .disclaimer-text {
     font-size: 0.9rem;
-    color: #555;
-    margin-top: 10px;
-}
-
-/* Footer */
-.footer {
-    position: absolute;
-    bottom: 10px;
-    width: 100%;
-    text-align: center;
-    font-size: 1rem;
-    color: #4a704a;
-}
-
-.support-link, .terms-link, .privacy-link {
-    color: #4a704a;
-    text-decoration: none;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  
+/* ✅ Submit button styles */
+.submit-btn {
+    display: inline-block;
+    background-color: #4a7eff !important;
+    color: #fdfdfd !important;
+    border: none !important;
+    padding: 10px 15px;
+    cursor: pointer;
     font-weight: bold;
+    border-radius: 60px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    position: relative; /* Needed for inner border */
+    overflow: hidden; /* Ensures inner border stays inside */
+    animation: zoomBounce 2.5s infinite ease-in-out;
+  }
+  
+  /* ✅ Inner border effect */
+  .submit-btn::before {
+    content: "";
+    position: absolute;
+    inset: 3px; /* Creates a smaller inner border */
+    border-radius: 55px; /* Slightly smaller than outer border-radius */
+    border: 2px solid #ffffff; /* Blue outline */
+    pointer-events: none; /* Prevents it from interfering with clicks */
+  }
+  
+  /* ✅ Hover effect */
+  .submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* ✅ Zoom bounce animation */
+  @keyframes zoomBounce {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.08);
+    }
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+  
+  .help-text,
+  .terms-text {
+    font-size: 0.8rem;
+    color: #555;
+    margin-top: 8px;
+  }
+  
+  .help-text a,
+  .terms-text a {
+    color: #000000;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+/* ✅ Floating Circles */
+.floating-circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0;
+    animation: fadeSlideIn 1.2s ease-out forwards, floating 4s infinite ease-in-out;
+    filter: blur(1px);
+    z-index: -1;
 }
 
-.support-link:hover, .terms-link:hover, .privacy-link:hover {
-    text-decoration: underline;
+/* ✅ Bottom Left Circles */
+.circle-large {
+    width: 400px;
+    height: 400px;
+    background-color: rgba(113, 201, 206, 0.3);
+    bottom: -100px; /* Keep bottom left */
+    left: -100px;
+    animation-delay: 0.2s;
 }
 
-/* Mobile Optimization */
-@media screen and (max-width: 768px) {
-    html {
-        font-size: 14px; /* Adjusts text for mobile */
-    }
+.circle-small {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(78, 159, 167, 0.3);
+    bottom: -50px;
+    left: -50px;
+    animation-delay: 0.4s;
+}
 
-    .login-container {
-        padding: 20px;
-        width: 95%;
-        max-width: 350px;
-    }
+/* ✅ TOP RIGHT CIRCLES - FIXED POSITION */
+.circle-large-top {
+    width: 400px;
+    height: 400px;
+    background-color: rgba(113, 201, 206, 0.25);
+    top: -100px; /* Moves to top */
+    right: -100px; /* ✅ Moves to right */
+    animation-delay: 0.3s;
+}
 
-    .title {
-        font-size: 1.3rem;
-    }
+.circle-small-top {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(78, 159, 167, 0.25);
+    top: -50px; /* Moves lower */
+    right: -50px; /* ✅ Moves to right */
+    animation-delay: 0.5s;
+}
 
-    .subtitle {
-        font-size: 0.9rem;
+/* ✅ Adjust animations */
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50px, 50px);
     }
-
-    .input-field, .submit-button {
-        font-size: 1rem;
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
     }
+}
 
-    .footer {
-        font-size: 0.9rem;
+@keyframes floating {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
     }
 }

@@ -26,12 +26,15 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        console.log("Fetching user profile");
         const token = localStorage.getItem("token");
         if (!token) throw new Error("No token found");
         const data = await getUserProfile(token);
         setProfile(data);
+        console.log("User profile fetched successfully", data);
         fetchDownloads(); // Fetch downloads for user
       } catch (error) {
+        console.error("Error fetching profile:", error);
         setError("Failed to fetch profile");
         navigate("/login");
       } finally {
@@ -43,6 +46,7 @@ const ProfilePage = () => {
 
   const fetchDownloads = async () => {
     try {
+      console.log("Fetching downloaded audios");
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
@@ -138,20 +142,18 @@ const ProfilePage = () => {
       {/* Profile Info */}
       {profile && (
         <div className="profile-card">
-          <motion.button
+          <button
             className="enroll-btn"
-            whileHover={{ scale: 1.1 }}
             onClick={() => navigate("/levels")}
           >
             Find Available Audios
-          </motion.button>
-          <motion.button
+          </button>
+          <button
             className="enroll-btn"
-            whileHover={{ scale: 1.1 }}
             onClick={() => navigate("/jupeb-departments")}
           >
             Find JUPEB Audios
-          </motion.button>
+          </button>
         </div>
       )}
 
@@ -180,7 +182,6 @@ const ProfilePage = () => {
           <p className="no-downloads">No available audio</p>
         )}
       </section>
-      
 
       {/* Content Section */}
       <section className="content">
@@ -221,5 +222,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
 
