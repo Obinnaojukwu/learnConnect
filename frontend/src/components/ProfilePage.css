@@ -9,8 +9,6 @@ body {
   background-color: #f8f8f8;
 }
 
-
-
 .container {
   max-width: 450px;
   margin: auto;
@@ -45,8 +43,6 @@ body {
   margin-top: -45px; /* Move it 20px up */
 }
 
-
-
 .category-tabs span {
   padding: 5px 15px;
   font-size: 14px;
@@ -74,7 +70,6 @@ body {
   display: block;
 }
 
-
 .featured-image img {
   position: absolute;
   width: 100%;
@@ -82,13 +77,13 @@ body {
   border-radius: 40px;
   object-fit: cover;
   opacity: 0;
-  transition: opacity 1s ease-in-out, transform 5s ease-in-out;
+  transition: opacity 1s ease-in-out, transform 5s ease-in-out, border-radius 5s ease-in-out;
 }
 
 .featured-image img.active {
   opacity: 1;
   transform: scale(1.1);
-  border-radius: 40px;
+  border-radius: 40px; /* Ensure border-radius is maintained during zoom */
 }
 
 .featured-overlay {
@@ -275,7 +270,6 @@ body {
   gap: 30px; /* Increased space between buttons */
 }
 
-
 .enroll-btn {
   width: 90%;
   max-width: 400px;
@@ -294,7 +288,6 @@ body {
   position: relative; /* Needed for inner border */
   overflow: hidden; /* Keeps the inner border inside */
   animation: bounceIn2 0.8s ease-out, randomBounce2 2s infinite ease-in-out;
-
 }
 
 /* Inner Border Effect */
@@ -329,7 +322,6 @@ body {
 .enroll-btn:nth-child(2) {
   background-color: #4a7eff;
 }
-
 
 /* Styles for Welcome Overlay on the Featured Image */
 .welcome-overlay {
@@ -485,4 +477,3 @@ body {
 .download-button:hover {
   background: #759af1;
 }
-
