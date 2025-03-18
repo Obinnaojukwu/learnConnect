@@ -6,6 +6,19 @@ import { FaHome, FaSearch, FaPlus, FaCommentDots } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
 import "./ProfilePage.css";
 
+const profileImages = [
+  "/images/profile/profile1.jpg",
+  "/images/profile/profile2.jpg",
+  "/images/profile/profile3.jpg",
+  "/images/profile/profile4.jpg",
+  "/images/profile/profile5.jpg",
+  "/images/profile/profile6.jpg",
+  "/images/profile/profile7.jpg",
+  "/images/profile/profile8.jpg",
+  "/images/profile/profile9.jpg",
+  "/images/profile/profile10.jpg"
+];
+
 const images = [
   "/images/k2 (1).jpeg",
   "/images/registerimg.jpg",
@@ -30,8 +43,8 @@ const ProfilePage = () => {
         const token = localStorage.getItem("token");
         if (!token) throw new Error("No token found");
         const data = await getUserProfile(token);
+        console.log("Fetched profile data:", data);
         setProfile(data);
-        console.log("User profile fetched successfully", data);
         fetchDownloads(); // Fetch downloads for user
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -50,7 +63,7 @@ const ProfilePage = () => {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
 
-      const response = await fetch("https://learnconnect-backend.onrender.com/api/purchase/purchased-audios", {
+      const response = await fetch("http://localhost:5000/api/purchase/purchased-audios", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +74,7 @@ const ProfilePage = () => {
 
       if (data.success) {
         // Convert relative URLs to absolute URLs
-        const baseUrl = "https://learnconnect-backend.onrender.com";
+        const baseUrl = "http://localhost:5000";
         const audiosWithFullUrls = data.audios.map(audio => ({
           ...audio,
           url: audio.url.startsWith("http") ? audio.url : `${baseUrl}${audio.url}`
@@ -84,20 +97,41 @@ const ProfilePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const getInitial = (name) => (name ? name.charAt(0).toUpperCase() : "U");
-
-  const getRandomColor = (seed) => {
-    const colors = ["#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#009688", "#4CAF50", "#FFC107", "#FF9800"];
-    const index = seed ? seed.charCodeAt(0) % colors.length : Math.floor(Math.random() * colors.length);
-    return colors[index];
-  };
+  const getImageSrc = () => {
+    let storedImageIndex = localStorage.getItem("randomImageIndex");
+    if (storedImageIndex === null) {
+      // If no image index is found in local storage, generate a new random one
+      storedImageIndex = Math.floor(Math.random() * profileImages.length);
+      localStorage.setItem("randomImageIndex", storedImageIndex);
+    }
+    return profileImages[storedImageIndex];
+  }
 
   return (
     <div className="container">
       {/* Header */}
       <header className="header">
-        <h1>Profile page..</h1>
+        <h1>Profile page</h1>
         <FiMoreHorizontal className="menu-icon" />
+        {profile && (
+          <div
+            className="profile-initial"
+            onClick={() => setShowName(!showName)}
+            onMouseEnter={() => setShowName(true)}
+            onMouseLeave={() => setShowName(false)}
+          >
+            <img
+              src={getImageSrc()}
+              alt="Profile"
+              className="profile-img"
+              onError={(e) => {
+                e.target.onerror = null;
+                e.target.src = "/images/profile/profile7.jpg"; // Fallback image
+              }}
+            />
+            {showName && <span className="profile-name">{profile.name}</span>}
+          </div>
+        )}
       </header>
 
       {/* Category Tabs */}
@@ -108,7 +142,7 @@ const ProfilePage = () => {
         <span>Human</span>
       </nav>
 
-      {/* Featured Image with Welcome Text and Profile Initials */}
+      {/* Featured Image with Welcome Text */}
       <section className="featured-image">
         {images.map((image, index) => (
           <img
@@ -120,22 +154,10 @@ const ProfilePage = () => {
         ))}
         <div className="featured-overlay"></div>
         {profile && (
-          <>
-            <div className="welcome-overlay">
-              <h2>Welcome, {profile.name}</h2>
-              <p>Explore a world of knowledge through audio learning.</p>
-            </div>
-
-            <div
-              className="profile-initial"
-              style={{ backgroundColor: getRandomColor(profile?.name) }}
-              onClick={() => setShowName(!showName)}
-              onMouseEnter={() => setShowName(true)}
-              onMouseLeave={() => setShowName(false)}
-            >
-              {showName ? profile.name : getInitial(profile?.name)}
-            </div>
-          </>
+          <div className="welcome-overlay">
+            <h2>Welcome, {profile.name}</h2>
+            <p>Explore a world of knowledge through audio learning.</p>
+          </div>
         )}
       </section>
 
@@ -145,8 +167,9 @@ const ProfilePage = () => {
           <button
             className="enroll-btn"
             onClick={() => navigate("/levels")}
+            disabled
           >
-            Find Available Audios
+            🔓︎ Find Available Audios 🔓︎
           </button>
           <button
             className="enroll-btn"
