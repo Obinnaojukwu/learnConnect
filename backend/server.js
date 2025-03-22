@@ -15,11 +15,10 @@ const levelRoutes = require('./routes/levelRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
 const webhookRoutes = require('./routes/webhookRoutes');
-const messageRoutes = require('./routes/messageRoutes'); // Import message routes
+const messageRoutes = require('./routes/messageRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 const db = require('./config/database');
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
@@ -50,7 +49,12 @@ app.use('/api/levels', levelRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/purchase', purchaseRoutes);
 app.use('/api/payment', webhookRoutes);
-app.use('/api/messages', messageRoutes); // Add message routes
+app.use('/api/messages', messageRoutes);
+
+// Add a route for the root path
+app.get('/', (req, res) => {
+  res.send('Welcome to the API');
+});
 
 // Handle WebSocket connections
 wss.on('connection', (ws) => {
