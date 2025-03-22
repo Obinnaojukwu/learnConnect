@@ -29,12 +29,6 @@ const wss = new WebSocket.Server({ server });
 app.use(cors());
 app.use(express.json());
 
-// History API Fallback
-app.use(history());
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'frontend/build')));
-
 // Serve static files from the uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -51,10 +45,8 @@ app.use('/api/purchase', purchaseRoutes);
 app.use('/api/payment', webhookRoutes);
 app.use('/api/messages', messageRoutes);
 
-// Add a route for the root path
-app.get('/', (req, res) => {
-  res.send('Welcome to the API');
-});
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, 'frontend/build')));
 
 // Handle WebSocket connections
 wss.on('connection', (ws) => {
@@ -88,9 +80,18 @@ wss.on('connection', (ws) => {
     });
 });
 
-// Error handling middleware
+// History API Fallback
+app.use(history());
+
+// Add a route for the root path
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'frontend/build', 'index.html'));
+});
+
+
 app.use(notFound);
 app.use(errorHandler);
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;
