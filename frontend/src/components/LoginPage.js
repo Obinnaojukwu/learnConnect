@@ -18,7 +18,12 @@ const LoginPage = () => {
     try {
       const response = await login({ email, password });
       localStorage.setItem("token", response.token);
-      navigate("/profile");
+      const isAdmin = response.user.isAdmin;
+      if (isAdmin) {
+        navigate("/admin");
+      } else {
+        navigate("/profile");
+      }
     } catch (error) {
       console.error("Login failed", error);
       setError("Login failed. Please check your email and password.");
