@@ -74,7 +74,7 @@ const ProfilePage = () => {
 
       if (data.success) {
         // Convert relative URLs to absolute URLs
-        const baseUrl = "http://localhost:5000";
+        const baseUrl = "https://learnconnect-backend.onrender.com";
         const audiosWithFullUrls = data.audios.map(audio => ({
           ...audio,
           url: audio.url.startsWith("http") ? audio.url : `${baseUrl}${audio.url}`
