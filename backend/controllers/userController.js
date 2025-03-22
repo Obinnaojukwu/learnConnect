@@ -13,7 +13,6 @@ exports.getUserProfile = (req, res) => {
             profileImage: user.profileImage,
             bio: user.bio,
             uniqueId: user.uniqueId,
-            isAdmin: user.isAdmin,
         });
     });
 };
