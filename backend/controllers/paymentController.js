@@ -20,7 +20,7 @@ const initializeTransaction = async (req, res) => {
 
 // Verify transaction
 const verifyTransaction = async (req, res) => {
-  const { reference, userId, audioId, amount } = req.body;
+  const { reference, userId, audioId, plan } = req.body;
 
   try {
     const response = await paystack.transaction.verify({ reference });
@@ -29,8 +29,19 @@ const verifyTransaction = async (req, res) => {
       const paymentDate = new Date().toISOString();
       const status = 'completed';
 
-      const query = `INSERT INTO payments (userId, audioId, amount, status, paymentDate) VALUES (?, ?, ?, ?, ?)`;
-      db.run(query, [userId, audioId, amount, status, paymentDate], function (err) {
+      // Calculate the expiration date based on the selected plan
+      let expirationDate = new Date();
+      if (plan === '10_minutes') {
+        expirationDate.setMinutes(expirationDate.getMinutes() + 10);
+      } else if (plan === '1_month') {
+        expirationDate.setMonth(expirationDate.getMonth() + 1);
+      } else if (plan === '3_months') {
+        expirationDate.setMonth(expirationDate.getMonth() + 3);
+      }
+      expirationDate = expirationDate.toISOString();
+
+      const query = `INSERT INTO purchases (userId, audioId, plan, expirationDate) VALUES (?, ?, ?, ?)`;
+      db.run(query, [userId, audioId, plan, expirationDate], function (err) {
         if (err) {
           return res.status(500).json({ message: err.message });
         }

@@ -3,11 +3,12 @@ const axios = require('axios');
 const router = express.Router();
 require('dotenv').config();
 const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY;
+const db = require('../config/database');
 
 // Initialize Payment
 router.post('/initialize', async (req, res) => {
   const { amount, email, metadata } = req.body;
-  
+
   try {
     console.log('Initializing payment with data:', { amount, email, metadata });
 
@@ -16,7 +17,7 @@ router.post('/initialize', async (req, res) => {
       email,
       metadata: {
         ...metadata,
-        callback_url: 'https://learnconnect-frontend.onrender.com/payment-success' // Set your ngrok callback URL here
+        callback_url: 'https://learnconnect-frontend.onrender.com/payment-success' // Set your callback URL here
       }
     }, {
       headers: {
@@ -44,8 +45,8 @@ router.post('/initialize', async (req, res) => {
 
 // Verify Payment
 router.post('/verify', async (req, res) => {
-  const { reference, userId, audioId } = req.body;
-  
+  const { reference, userId, audioId, plan } = req.body;
+
   try {
     const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
       headers: {
@@ -54,17 +55,26 @@ router.post('/verify', async (req, res) => {
     });
 
     if (response.data.data.status === 'success') {
-      // Save purchase record to the database (replace with actual database logic)
-      db.run(`INSERT INTO purchases (userId, audioId) VALUES (?, ?)`,
-        [userId, audioId],
-        function (err) {
-          if (err) {
-            console.error(err.message);
-            return res.status(500).json({ error: 'Failed to save purchase record' });
-          }
-          res.json({ success: true });
+      // Calculate expiration date based on the selected plan
+      let expirationDate = new Date();
+      if (plan === '10_minutes') {
+        expirationDate.setMinutes(expirationDate.getMinutes() + 10);
+      } else if (plan === '1_month') {
+        expirationDate.setMonth(expirationDate.getMonth() + 1);
+      } else if (plan === '3_months') {
+        expirationDate.setMonth(expirationDate.getMonth() + 3);
+      }
+      expirationDate = expirationDate.toISOString();
+
+      // Save purchase record to the database
+      const query = `INSERT INTO purchases (userId, audioId, plan, expirationDate) VALUES (?, ?, ?, ?)`;
+      db.run(query, [userId, audioId, plan, expirationDate], function (err) {
+        if (err) {
+          console.error('Error saving purchase record:', err.message);
+          return res.status(500).json({ error: 'Failed to save purchase record' });
         }
-      );
+        res.json({ success: true });
+      });
     } else {
       res.status(400).json({ error: 'Payment verification failed' });
     }

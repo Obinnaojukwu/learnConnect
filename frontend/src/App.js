@@ -15,6 +15,10 @@ import DownloadPage from './components/DownloadPage';
 import JupebDeptPage from './components/JupebDeptPage'; // Add this import
 import JupebCoursePage from './components/JupebCoursePage'; // Add this import
 import AdminPage from './components/AdminPage'; // Ensure this import statement is correct
+import UserPage from './components/UserPage'; // Add this import
+import SearchPage from './components/SearchPage'; // Add this import
+import AddPage from './components/AddPage'; // Add this import
+import ChatPage from './components/ChatPage'; // Add this import
 import { AudioProvider } from './context/AudioContext';
 
 function App() {
@@ -29,14 +33,17 @@ function App() {
           <Route path="/levels" element={<LevelPage />} />
           <Route path="/faculties/:level" element={<FacultyListPage />} />
           <Route path="/courses/:level/:facultyId" element={<CourseListPage />} />
-          <Route path="/payment/:audioId" element={<PaymentPage />} />
+          <Route path="/purchase/:audioId" element={<PaymentPage />} /> {/* Updated route */}
           <Route path="/payment-success" element={<PaymentSuccessPage />} />
           <Route path="/download/:audioId" element={<DownloadPage />} />
           <Route path="/audios/:level/:facultyId/:courseId" element={<AudioPage />} />
           <Route path="/jupeb-departments" element={<JupebDeptPage />} /> {/* Add this route */}
           <Route path="/jupeb-courses/:department" element={<JupebCoursePage />} /> {/* Add this route */}
-          
           <Route path="/admin" element={<AdminPage />} /> {/* Ensure this route is correct */}
+          <Route path="/user" element={<UserPage />} /> {/* Add this route */}
+          <Route path="/search" element={<SearchPage />} /> {/* Add this route */}
+          <Route path="/add" element={<AddPage />} /> {/* Add this route */}
+          <Route path="/messages" element={<ChatPage />} /> {/* Add this route */}
         </Routes>
       </Router>
     </AudioProvider>

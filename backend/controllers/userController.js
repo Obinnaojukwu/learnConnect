@@ -1,4 +1,4 @@
-const { findUserById, updateUser } = require('../models/userModel');
+const { findUserById, updateUser, searchUsersInDB } = require('../models/userModel');
 
 exports.getUserProfile = (req, res) => {
     findUserById(req.user.id, (err, user) => {
@@ -41,5 +41,14 @@ exports.updateUserProfile = (req, res) => {
                 uniqueId: updatedUser.uniqueId,
             });
         });
+    });
+};
+
+exports.searchUsers = (req, res) => {
+    const searchQuery = req.query.q || '';
+
+    searchUsersInDB(searchQuery, (err, users) => {
+        if (err) return res.status(500).json({ message: err.message });
+        res.json({ success: true, users });
     });
 };

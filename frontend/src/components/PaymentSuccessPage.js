@@ -19,15 +19,17 @@ const PaymentSuccessPage = () => {
     try {
       const token = localStorage.getItem("token"); // Assuming the JWT token is stored
       const audioId = localStorage.getItem("audioId"); // Assuming the audio ID is stored
+      const plan = localStorage.getItem("selectedPlan"); // Assuming the selected plan is stored
 
-      if (!token || !audioId) {
-        throw new Error("Token or Audio ID not found");
+      if (!token || !audioId || !plan) {
+        throw new Error("Token, Audio ID, or Plan not found");
       }
 
       // Verify payment
       const verifyResponse = await axios.post('https://learnconnect-backend.onrender.com/api/payment/verify', {
         reference,
         audioId,
+        plan,
       }, {
         headers: {
           Authorization: `Bearer ${token}`
@@ -42,6 +44,7 @@ const PaymentSuccessPage = () => {
         await axios.post('https://learnconnect-backend.onrender.com/api/purchases', {
           audioId,
           userId,
+          plan,
           purchaseDate
         }, {
           headers: {

@@ -6,6 +6,7 @@ import "./LoginPage.css"; // Import CSS file
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -47,13 +48,21 @@ const LoginPage = () => {
             required
           />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-           <button type="submit" className="submit-btn">Continue</button>
+          <div className="show-password">
+            <input
+              type="checkbox"
+              checked={showPassword}
+              onChange={(e) => setShowPassword(e.target.checked)}
+            />
+            <label>Show Password</label>
+          </div>
+          <button type="submit" className="submit-btn">Continue</button>
         </form>
 
         {error && <p className="error-message">{error}</p>}

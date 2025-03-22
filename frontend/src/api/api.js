@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-// const API_URL = process.env.REACT_APP_API_URL;
-
 const API_URL = process.env.REACT_APP_API_URL || "https://learnconnect-backend.onrender.com";
 
 const api = axios.create({
@@ -78,6 +76,21 @@ const fetchAudiosByCourseId = async (courseId) => {
     }
 };
 
+// Function to fetch downloaded audios
+const fetchDownloads = async (token) => {
+    try {
+        const response = await api.get('/purchase/purchased-audios', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching downloaded audios:', error);
+        throw error;
+    }
+};
+
 // Function to upload audio
 const uploadAudio = async (level, faculty, course, audioFile) => {
     const formData = new FormData();
@@ -105,6 +118,7 @@ export {
     register,
     login,
     fetchAudiosByCourseId,
+    fetchDownloads,
     uploadAudio
 };
 

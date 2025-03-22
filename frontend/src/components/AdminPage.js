@@ -124,7 +124,7 @@ const AdminPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/audios/upload",
+        "https://learnconnect-backend.onrender.com/api/audios/upload",
         formData
       );
       alert("Audio file uploaded successfully");

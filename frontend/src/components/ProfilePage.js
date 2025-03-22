@@ -21,10 +21,10 @@ const profileImages = [
 
 const images = [
   "/images/k2 (1).jpeg",
-  "/images/registerimg.jpg",
-  "/images/rd4.jpg",
+  "/images/aesthetic/ae5.jpg",
+  "/images/aesthetic/ae4.jpg",
   "/images/rd3.jpg",
-  "/images/k2 (2).jpeg"
+  "/images/aesthetic/ae3.jpg"
 ];
 
 const ProfilePage = () => {
@@ -238,11 +238,10 @@ const ProfilePage = () => {
         <Link to="/search"><FaSearch className="nav-icon" /></Link>
         <Link to="/add"><FaPlus className="nav-icon" /></Link>
         <Link to="/messages"><FaCommentDots className="nav-icon" /></Link>
-        <Link to="/profile"><HiUserCircle className="nav-icon profile-icon" /></Link>
+        <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
       </footer>
     </div>
   );
 };
 
 export default ProfilePage;
-

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AudioContext } from '../context/AudioContext';
+import './AudioPage.css'; // Import CSS file
 
 const AudioPage = () => {
   const [audios, setAudios] = useState([]);
@@ -41,34 +42,49 @@ const AudioPage = () => {
 
   const handleDownloadClick = (audioId) => {
     if (!purchasedAudios.includes(audioId)) {
-      // Store the audioId in local storage before navigating to the payment page
       localStorage.setItem("audioId", audioId);
-      navigate(`/payment/${audioId}`);
+      navigate(`/purchase/${audioId}`);
     } else {
       navigate(`/download?audioId=${audioId}`);
     }
   };
 
   return (
-    <div>
-      <h1>Audio Page for Course ID: {courseId}, Level: {level}</h1>
-      {filteredAudios.length > 0 ? (
-        filteredAudios.map(audio => (
-          <div key={audio.id}>
-            <h2>{audio.title}</h2>
-            <audio controls={purchasedAudios.includes(audio.id)} src={`http://localhost:5000${audio.url}`}>
-              Your browser does not support the audio element.
-            </audio>
-            <button onClick={() => handleDownloadClick(audio.id)}>
-              {purchasedAudios.includes(audio.id) ? 'Download' : 'Purchase'}
-            </button>
-          </div>
-        ))
-      ) : (
-        <p>No audio files found for the selected criteria.</p>
-      )}
+    <div 
+      className="audio-page"
+      style={{ 
+        backgroundImage: "url('/images/aesthetci/ae5.jpg')", 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        backgroundAttachment: 'fixed',
+        minHeight: '100vh'
+      }}
+    >
+      <h1 className="audio-page-title">Audio Page for Course ID: {courseId}, Level: {level}</h1>
+      <div className="audio-list">
+        {filteredAudios.length > 0 ? (
+          filteredAudios.map(audio => (
+            <div key={audio.id} className="audio-card">
+              <img src="/images/aesthetic/ae2.jpg" alt="Audio Thumbnail" className="audio-image" />
+              <h2 className="audio-title">{audio.title}</h2>
+              <audio className="audio-player" controls={purchasedAudios.includes(audio.id)} src={`http://localhost:5000${audio.url}`}>
+                Your browser does not support the audio element.
+              </audio>
+              <button 
+                className={`audio-button ${purchasedAudios.includes(audio.id) ? 'download-button' : 'purchase-button'}`} 
+                onClick={() => handleDownloadClick(audio.id)}
+              >
+                {purchasedAudios.includes(audio.id) ? 'Download' : 'Purchase'}
+              </button>
+            </div>
+          ))
+        ) : (
+          <p className="no-audio-message">No audio files found for the selected criteria.</p>
+        )}
+      </div>
     </div>
   );
 };
 
 export default AudioPage;
+

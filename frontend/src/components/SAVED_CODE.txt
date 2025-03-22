@@ -411,3 +411,9 @@ const AudioPage = () => {
 };
 
 export default AudioPage;
+
+INSERT INTO purchases (userId, audioId, plan, expirationDate) 
+VALUES (2, 1, '10-minutes', datetime('now', '+10 minutes'));
+
+INSERT INTO purchases (userId, audioId, plan, expirationDate)
+VALUES (2, 1, '10_minutes', datetime('now', '+10 minutes'));

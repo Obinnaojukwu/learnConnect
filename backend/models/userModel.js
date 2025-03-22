@@ -32,4 +32,29 @@ const findUserByEmail = (email, callback) => {
   db.get(query, [email], callback);
 };
 
-module.exports = { createUser, findUserById, findUserByEmail };
+const updateUser = (user, callback) => {
+  const { id, username, email, bio, profileImage } = user;
+  const query = 'UPDATE users SET username = ?, email = ?, bio = ?, profileImage = ? WHERE id = ?';
+  db.run(query, [username, email, bio, profileImage, id], function(err) {
+    if (err) return callback(err);
+    callback(null, user);
+  });
+};
+
+const searchUsersInDB = (searchQuery, callback) => {
+  const query = `
+    SELECT id, name, username, profileImage
+    FROM users
+    WHERE name LIKE ? OR username LIKE ?
+  `;
+  const params = [`%${searchQuery}%`, `%${searchQuery}%`];
+  db.all(query, params, (err, rows) => {
+    if (err) {
+      console.error('Database error:', err);
+      return callback(err);
+    }
+    callback(null, rows);
+  });
+};
+
+module.exports = { createUser, findUserById, findUserByEmail, updateUser, searchUsersInDB };
