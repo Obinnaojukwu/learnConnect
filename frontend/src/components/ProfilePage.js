@@ -226,9 +226,10 @@ const ProfilePage = () => {
           <div className="downloads-section">
             {downloads.map((item, index) => (
               <div className="download-item" key={index}>
-                <img src="/images/logo 2.jpg" alt="Audio Thumbnail" className="download-image" />
+                <img src="/images/an2.jpg" alt="Audio Thumbnail" className="download-image" />
+                <h3>{item.title}</h3>
                 <div className="download-info">
-                  <h3>{item.title}</h3>
+
                   <audio controls className="audio-player">
                     <source src={item.url} type="audio/mpeg" />
                     Your browser does not support the audio element.

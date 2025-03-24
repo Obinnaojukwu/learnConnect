@@ -438,14 +438,19 @@ body {
   padding: 15px;
   background: #f9f9f9;
   margin-top: 20px;
+  display: flex;
+  flex-direction: column; /* Ensure items stack vertically */
+  gap: 10px; /* Add spacing between items */
 }
 
 .download-item {
   display: flex;
-  align-items: center;
+  flex-direction: column; /* Ensure items stack vertically */
+  align-items: flex-start; /* Align items to the start */
   gap: 15px;
   padding: 10px;
   border-bottom: 1px solid #ddd;
+  width: 100%; /* Ensure it takes full width */
 }
 
 .download-item:last-child {
@@ -459,9 +464,15 @@ body {
   object-fit: cover;
 }
 
-.download-info h3 {
-  margin: 0;
-  font-size: 16px;
+.download-info {
+  width: 100%; /* Ensure download info takes full width */
+}
+
+.audio-player {
+  width: 100%; /* Make the audio player full width */
+  height: auto; /* Allow height to adjust based on content */
+  margin-top: 10px; /* Add some top margin for spacing */
+  display: block; /* Ensure it displays as a block element */
 }
 
 .download-button {
@@ -629,3 +640,15 @@ body {
   visibility: visible;
   opacity: 1;
 }
+
+
+.audio-player {
+  width: 100%; /* Make the audio player full width */
+  height: 40px; /* Set a standard height */
+  margin-top: 10px; /* Add some top margin for spacing */
+  border: none; /* Remove any default border */
+  background-color: transparent; /* Ensure it blends with the background */
+  display: block; /* Ensure it displays as a block element */
+}
+
+
