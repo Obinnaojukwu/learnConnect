@@ -478,3 +478,154 @@ body {
 .download-button:hover {
   background: #759af1;
 }
+
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -260px; /* Slightly pushed back */
+  width: 150px;
+  height: 100vh;
+  background-color: #fff; /* Changed to white */
+  color: #5a7bc9; /* Dark text for contrast */
+  transition: right 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Fast to slow slide effect */
+  z-index: 9999 !important; /* Fully above everything */
+  padding: 20px;
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Show sidebar */
+.sidebar.show {
+  right: 0;
+}
+
+/* Close button */
+.close-btn {
+  background: none;
+  border: none;
+  color: #5a7bc9; /* Adjusted for white background */
+  font-size: 24px;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+}
+
+/* Sidebar container */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -260px; /* Slightly pushed back */
+  width: 150px;
+  height: 100vh;
+  background-color: #fff; /* Changed to white */
+  color: #5a7bc9; /* Dark text for contrast */
+  transition: right 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Fast to slow slide effect */
+  z-index: 9999 !important; /* Fully above everything */
+  padding: 20px;
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.08);
+
+  display: flex; 
+  flex-direction: column; /* Makes logout button stay at the bottom */
+}
+
+/* Sidebar container */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -260px; /* Slightly pushed back */
+  width: 150px;
+  height: 100vh;
+  background-color: #fff; /* Changed to white */
+  color: #5a7bc9; /* Dark text for contrast */
+  transition: right 0.6s cubic-bezier(0.25, 1, 0.5, 1); /* Fast to slow slide effect */
+  z-index: 9999 !important; /* Fully above everything */
+  padding: 20px;
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.08);
+
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+
+  border-top-left-radius: 20px;  /* Rounded top-left corner */
+  border-bottom-left-radius: 20px;  /* Rounded bottom-left corner */
+}
+
+
+/* Ensure menu items take all available space */
+.menu-items {
+  flex-grow: 1; /* Pushes logout button to the bottom */
+}
+
+/* Sidebar links & buttons */
+.sidebar a, .sidebar button {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 18px;
+  color: #5a7bc9; /* Adjusted for white background */
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 0;
+  position: relative;
+}
+
+/* Tiny dividers between menu items */
+.sidebar a::after,
+.sidebar button::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background-color: rgba(90, 123, 201, 0.2); /* Faded blue divider */
+}
+
+/* Remove divider from last menu item */
+.sidebar a:last-of-type::after {
+  display: none;
+}
+
+/* Sidebar icon styling - Make them smaller */
+.sidebar .menu-icon {
+  margin-right: 10px;
+  font-size: 14px; /* Reduce icon size */
+}
+
+
+/* Hover effects */
+.sidebar a:hover, .sidebar button:hover {
+  color: #203f86;
+}
+
+/* Logout button at the absolute bottom */
+.logout-btn {
+  margin-top: auto; /* Push it to the bottom */
+  padding-top: 20px;
+  padding-bottom: 20px; /* Extra bottom padding */
+  border-top: 1px solid rgba(90, 123, 201, 0.2); /* Divider above logout */
+  margin-bottom: 20px; /* Push even further down */
+}
+
+/* Overlay (blurred background when sidebar is open) */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2); /* Semi-transparent dark overlay */
+  backdrop-filter: blur(5px); /* Blurred effect */
+  z-index: 9998; /* Behind the sidebar */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s;
+}
+
+/* Show overlay when sidebar is open */
+.overlay.show {
+  visibility: visible;
+  opacity: 1;
+}

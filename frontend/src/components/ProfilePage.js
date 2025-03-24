@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getUserProfile } from "../api/api";
 import { FiMoreHorizontal, FiBookmark } from "react-icons/fi";
-import { FaHome, FaSearch, FaPlus, FaCommentDots } from "react-icons/fa";
+import { FaHome, FaSearch, FaPlus, FaCommentDots, FaUser, FaInfoCircle, FaCog, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
 import "./ProfilePage.css";
 
@@ -32,6 +32,7 @@ const ProfilePage = () => {
   const [downloads, setDownloads] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showSidebar, setShowSidebar] = useState(false);
   const [showName, setShowName] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
@@ -107,13 +108,17 @@ const ProfilePage = () => {
     return profileImages[storedImageIndex];
   }
 
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
+
   return (
     <div className="container">
-      
       {/* Header */}
       <header className="header">
-        <h1>Profile page</h1>
-        <FiMoreHorizontal className="menu-icon" />
+        <h1>Profile Page</h1>
+        <FiMoreHorizontal className="menu-icon" onClick={() => setShowSidebar(true)} />
         {profile && (
           <div
             className="profile-initial"
@@ -134,6 +139,37 @@ const ProfilePage = () => {
           </div>
         )}
       </header>
+
+    {/* Overlay Background */}
+    <div className={`overlay ${showSidebar ? 'show' : ''}`} onClick={() => setShowSidebar(false)}></div>
+
+    {/* Sidebar */}
+    <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
+        <button className="close-btn" onClick={() => setShowSidebar(false)}>×</button>
+        
+        {/* Wrap menu items */}
+        <div className="menu-items">
+            <Link to="/profile">
+                <FaUser className="menu-icon" /> Profile
+            </Link>
+            <Link to="/about">
+                <FaInfoCircle className="menu-icon" /> About Us
+            </Link>
+            <Link to="/settings">
+                <FaCog className="menu-icon" /> Settings
+            </Link>
+            <Link to="/help">
+                <FaQuestionCircle className="menu-icon" /> Help
+            </Link>
+        </div>
+
+        {/* Logout at the bottom */}
+        <button className="logout-btn" onClick={handleLogout}>
+            <FaSignOutAlt className="menu-icon" /> Logout
+        </button>
+    </div>
+
+
 
       {/* Category Tabs */}
       <nav className="category-tabs">
@@ -193,7 +229,6 @@ const ProfilePage = () => {
                 <img src="/images/logo 2.jpg" alt="Audio Thumbnail" className="download-image" />
                 <div className="download-info">
                   <h3>{item.title}</h3>
-                  {/* 🎵 Audio Player instead of Download Button */}
                   <audio controls className="audio-player">
                     <source src={item.url} type="audio/mpeg" />
                     Your browser does not support the audio element.
