@@ -56,20 +56,22 @@ const LoginPage = () => {
             onChange={handleEmailChange}
             required
           />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <div className="show-password">
+          <div className="password-container">
             <input
-              type="checkbox"
-              checked={showPassword}
-              onChange={(e) => setShowPassword(e.target.checked)}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
             />
-            <label>Show Password</label>
+            <div className="show-password">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={(e) => setShowPassword(e.target.checked)}
+              />
+
+            </div>
           </div>
           <button type="submit" className="submit-btn" disabled={loading}>
             {loading ? "Logging in..." : "Continue"}
@@ -83,9 +85,19 @@ const LoginPage = () => {
           By logging in, you agree to our <a href="#">Terms of Service</a> and
           <a href="#"> Privacy Policy</a>.
         </p>
+
+        {/* Register Link */}
+        <p className="register-text">
+          Don't have an account? <a href="/register">Register!</a>
+        </p>
+
+        {/* Forgot Password Link */}
+        <p className="forgot-password-text">
+          Forgot your password? <a href="/forgot-password">Reset it!</a>
+        </p>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default React.memo(LoginPage);
