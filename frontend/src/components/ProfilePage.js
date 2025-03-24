@@ -109,6 +109,7 @@ const ProfilePage = () => {
 
   return (
     <div className="container">
+      
       {/* Header */}
       <header className="header">
         <h1>Profile page</h1>

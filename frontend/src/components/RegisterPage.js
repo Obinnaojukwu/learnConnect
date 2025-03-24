@@ -41,16 +41,16 @@ function RegisterPage() {
 
   return (
     <div className="register-background">
-      <div className="background-circle circle-top-right"></div>
-      <div className="background-circle circle-bottom-left"></div>
+      <div className="floating-circle circle-large"></div>
+      <div className="floating-circle circle-small"></div>
+      <div className="floating-circle circle-large-top"></div>
+      <div className="floating-circle circle-small-top"></div>
 
       {/* Back Button */}
       <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
 
       <div className="register-container">
-       <div className="branding">
-          <img src="/images/logo screenshot.png" alt="Logo" className="logo" />
-        </div>
+
         <h2 className="register-title">Sign Up</h2>
         <p className="register-subtext">Create your account to access exclusive content and features.</p>
 

@@ -19,6 +19,8 @@ import UserPage from './components/UserPage'; // Add this import
 import SearchPage from './components/SearchPage'; // Add this import
 import AddPage from './components/AddPage'; // Add this import
 import ChatPage from './components/ChatPage'; // Add this import
+import ForgotPasswordPage from './components/ForgotPasswordPage'; // Add this import
+import ResetPasswordPage from './components/ResetPasswordPage'; // Add this import
 import { AudioProvider } from './context/AudioContext';
 
 function App() {
@@ -44,6 +46,8 @@ function App() {
           <Route path="/search" element={<SearchPage />} /> {/* Add this route */}
           <Route path="/add" element={<AddPage />} /> {/* Add this route */}
           <Route path="/messages" element={<ChatPage />} /> {/* Add this route */}
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} /> {/* Add this route */}
+          <Route path="/reset-password" element={<ResetPasswordPage />} /> {/* Add this route */}
         </Routes>
       </Router>
     </AudioProvider>

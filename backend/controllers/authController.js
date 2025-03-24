@@ -2,8 +2,10 @@ require('dotenv').config(); // Ensure .env file is loaded
 
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { createUser, findUserByEmail } = require('../models/userModel');
+const crypto = require('crypto');
+const { createUser, findUserByEmail, updateUser } = require('../models/userModel');
 const sendWelcomeEmail = require('../utils/emailService');
+const sendResetCodeEmail = require('../utils/resetCodeEmailService');
 const validateEmail = require('../utils/emailValidator');
 
 // Log environment variables for debugging
@@ -45,5 +47,65 @@ exports.loginUser = (req, res) => {
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: 86400 });
     res.status(200).send({ token });
+  });
+};
+
+// Send reset code
+exports.sendResetCode = async (req, res) => {
+  const { email } = req.body;
+
+  findUserByEmail(email, (err, user) => {
+    if (err || !user) {
+      return res.status(404).send({ message: 'User not found.' });
+    }
+
+    const resetCode = crypto.randomBytes(3).toString('hex').toUpperCase();
+    user.resetCode = resetCode;
+
+    updateUser(user, (updateErr) => {
+      if (updateErr) {
+        return res.status(500).send({ message: 'Error saving reset code.' });
+      }
+
+      console.log('Reset code saved to user:', user.resetCode); // Log the saved reset code
+      sendResetCodeEmail(user.email, resetCode);
+      res.status(200).send({ message: 'Reset code sent to email.' });
+    });
+  });
+};
+
+// Reset password
+exports.resetPassword = async (req, res) => {
+  const { email, resetCode, newPassword } = req.body;
+
+  console.log('Received reset password request:', req.body); // Log the incoming request payload
+
+  findUserByEmail(email, (err, user) => {
+    if (err || !user) {
+      console.error('User not found or error occurred:', err); // Log error details
+      return res.status(400).send({ message: 'Invalid email or user not found.' });
+    }
+
+    console.log('User found:', user); // Log user details
+    console.log('Stored reset code:', user.resetCode); // Log stored reset code
+    console.log('Provided reset code:', resetCode); // Log provided reset code
+
+    if (user.resetCode !== resetCode) {
+      console.error('Invalid reset code:', resetCode); // Log error details
+      return res.status(400).send({ message: 'Invalid reset code.' });
+    }
+
+    user.password = bcrypt.hashSync(newPassword, 8);
+    user.resetCode = null; // Clear the reset code after successful password reset
+
+    updateUser(user, (updateErr) => {
+      if (updateErr) {
+        console.error('Error updating user password', updateErr); // Log error details
+        return res.status(500).send({ message: 'Error resetting password.' });
+      }
+
+      console.log('Password reset successfully for user:', user.email); // Log success
+      res.status(200).send({ message: 'Password reset successfully.' });
+    });
   });
 };

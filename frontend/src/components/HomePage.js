@@ -1,37 +1,36 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaFacebookF, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import './HomePage.css';
 
 const HomePage = () => {
   return (
     <div className="homepage">
-        <header className="header">
-         <div className="logo">
-            <span className="highlighted-e">E</span>duStream
-         </div>
-         <div className="menu">☰</div>
-        </header>
+      <header className="header">
+        <div className="logo">
+          <span className="highlighted-e">L</span>earnConnect
+        </div>
+        <div className="menu">☰</div>
+      </header>
 
       <section className="hero">
-      <div className="hero-slider">
-       <img src="images/audioimg3.jpg" alt="Hero 1" className="slide" />
-       <img src="images/aud6.jpg" alt="Hero 2" className="slide" />
-       <img src="images/2.jpg" alt="Hero 3" className="slide" />
-       <img src="images/2.jpg" alt="Hero 3" className="slide" />
-      </div>
+        <div className="hero-slider">
+          <img src="images/audioimg3.jpg" alt="Hero 1" className="slide" />
+          <img src="images/aud6.jpg" alt="Hero 2" className="slide" />
+          <img src="images/2.jpg" alt="Hero 3" className="slide" />
+          <img src="images/2.jpg" alt="Hero 3" className="slide" />
+        </div>
 
+        <div className="hero-overlay"></div>
 
-      <div className="hero-overlay"></div>
+        <div className="hero-text-content">
+          <h1 className="hero-title">
+            <span className="gold-text">Welcome</span> to 
+            <span className="highlighted-E"> LearnConnect</span>
+          </h1>
+          <p className="hero-subtext">Your gateway to seamless learning experiences.</p>
+        </div>
 
-
-      <div className="hero-text-content">
-        <h1 className="hero-title">
-          <span className="gold-text">Welcome</span> to
-          , 
-          <span className="highlighted-E">E</span>duStream
-        </h1>
-        <p className="hero-subtext">Your gateway to seamless learning experiences.</p>
-      </div>
         <div className="hero-content">
           <h2>Learn Anytime, Anywhere</h2>
           <p>
@@ -78,7 +77,9 @@ const HomePage = () => {
             <h3>MARY BROWN</h3>
             <p>Position</p>
             <div className="social-icons">
-              <span>f</span> <span>t</span> <span>in</span>
+              <FaFacebookF className="icon" />
+              <FaTwitter className="icon" />
+              <FaLinkedinIn className="icon" />
             </div>
           </div>
           <div className="member">
@@ -86,7 +87,9 @@ const HomePage = () => {
             <h3>JOHN RICHARDSON</h3>
             <p>Position</p>
             <div className="social-icons">
-              <span>f</span> <span>t</span> <span>in</span>
+              <FaFacebookF className="icon" />
+              <FaTwitter className="icon" />
+              <FaLinkedinIn className="icon" />
             </div>
           </div>
           <div className="member">
@@ -94,7 +97,9 @@ const HomePage = () => {
             <h3>BOB GREENFIELD</h3>
             <p>Position</p>
             <div className="social-icons">
-              <span>f</span> <span>t</span> <span>in</span>
+              <FaFacebookF className="icon" />
+              <FaTwitter className="icon" />
+              <FaLinkedinIn className="icon" />
             </div>
           </div>
         </div>

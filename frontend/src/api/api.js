@@ -100,7 +100,7 @@ const uploadAudio = async (level, faculty, course, audioFile) => {
     formData.append('audio', audioFile);
 
     try {
-        const response = await api.post('/api/audios/upload', formData, {
+        const response = await api.post('/audios/upload', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -108,6 +108,28 @@ const uploadAudio = async (level, faculty, course, audioFile) => {
         return response.data;
     } catch (error) {
         throw new Error('Error uploading audio');
+    }
+};
+
+// Function to send reset code for password reset
+const sendResetCode = async (email) => {
+    try {
+        const response = await api.post('/auth/send-reset-code', { email });
+        return response.data;
+    } catch (error) {
+        console.error('Error sending reset code:', error);
+        throw error;
+    }
+};
+
+// Function to reset password
+const resetPassword = async (email, resetCode, newPassword) => {
+    try {
+        const response = await api.post('/auth/reset-password', { email, resetCode, newPassword });
+        return response.data;
+    } catch (error) {
+        console.error('Error resetting password:', error);
+        throw error;
     }
 };
 
@@ -119,7 +141,9 @@ export {
     login,
     fetchAudiosByCourseId,
     fetchDownloads,
-    uploadAudio
+    uploadAudio,
+    sendResetCode,
+    resetPassword
 };
 
 export default api;

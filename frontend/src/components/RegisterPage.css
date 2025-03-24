@@ -27,12 +27,12 @@
     position: absolute;
     top: 20px; /* Adjusted for better mobile placement */
     left: 10px;
-    background-color: #4a704a;
+    background-color: rgba(18, 119, 124, 0.3);
     color: white;
     border: none;
     padding: 8px 12px;
     border-radius: 25px;
-    font-size: 14px;
+    font-size: 10px;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -112,16 +112,36 @@
 
 /* Submit Button */
 .submit-button {
-    width: 100%;
-    padding: 12px;
-    background: #4a704a;
-    color: white;
-    border: none;
-    font-size: 16px;
-    border-radius: 5px;
+    display: inline-block;
+    background-color: #4a7eff !important;
+    color: #fdfdfd !important;
+    border: none !important;
+    padding: 10px 15px;
     cursor: pointer;
-    margin-top: 10px;
+    font-weight: bold;
+    border-radius: 60px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.3s;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
+    position: relative; /* Needed for inner border */
+    overflow: hidden; /* Ensures inner border stays inside */
+    animation: zoomBounce 2.5s infinite ease-in-out;
 }
+
+/* ✅ Inner border effect */
+.submit-button::before {
+    content: "";
+    position: absolute;
+    inset: 3px; /* Creates a smaller inner border */
+    border-radius: 55px; /* Slightly smaller than outer border-radius */
+    border: 2px solid #ffffff; /* Blue outline */
+    pointer-events: none; /* Prevents it from interfering with clicks */
+  }
 
 .submit-button:hover {
     background: #3a5d3a;

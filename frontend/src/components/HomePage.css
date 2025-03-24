@@ -160,14 +160,18 @@ body {
 .highlighted-E {
   font-weight: bold;
   color: white;
-  background-color: #71A6D2; /* Iceberg Blue */
+  background-color: rgba(84, 118, 212, 0.5); /* Iceberg Blue */
   display: inline-block;
-  padding: 3px 6px;
-  border-radius: 3px;
-  height: 28px;
+  padding: 2px 10px;
+  border-radius: 10px;
+  height: 30px;
   line-height: 25px;
   text-align: center;
   font-size: 25px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+  animation: bounceIn 1s ease-in-out;/* Combined animations */
+  
 }
 
 .hero-title {
@@ -311,6 +315,7 @@ body {
   padding: 30px;
   background-color: #f5f5f5;
   animation: fadeIn 1s ease-in-out;
+  
 }
 
 .team h2 {
@@ -322,6 +327,7 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  
 }
 
 .member {
@@ -333,10 +339,33 @@ body {
   width: 30%;
   min-width: 250px;
   transition: transform 0.3s ease;
+  animation: fadeIn 1s ease-in-out;
+  border-radius: 20px; /* Rounded edges */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Softer and more spread-out shadow */
+
 }
 
 .member:hover {
   transform: scale(1.05);
+}
+
+
+.social-icons {
+  display: flex;
+  justify-content: center; /* Centers the icons */
+  gap: 15px; /* Spread them out */
+  margin-top: 10px;
+}
+
+.icon {
+  font-size: 15px; /* Makes icons smaller */
+  color: #4a7eff; /* Customize color */
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.icon:hover {
+  transform: scale(1.2);
+  color: #2d5dcc;
 }
 
 .member img {
@@ -453,13 +482,16 @@ body {
   position: absolute;
   top: 30%;
   left: 10%;
-  background-color: white;
+  background: rgba(255, 255, 255, 0.452); /* More transparent white */
+  backdrop-filter: blur(10px); /* Blurred background */
   padding: 20px;
   max-width: 250px;
   text-align: left;
-  border-radius: 5px;
-  animation: bounceIn 1s ease-in-out, float 3s ease-in-out 1s infinite; /* Combined animations */
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  animation: bounceIn 1s ease-in-out, float 3s ease-in-out 1s infinite;
 }
+
 
 .cta-content h3 {
   font-size: 16px;
@@ -474,6 +506,8 @@ body {
   cursor: pointer;
   font-weight: bold;
   transition: transform 0.3s ease;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft shadow */
 }
 
 .cta-content button:hover {

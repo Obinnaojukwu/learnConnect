@@ -1,20 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/api";
-import "./LoginPage.css"; // Import CSS file
+import "./LoginPage.css";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const backgroundImage = "/images/lg2.jpg"; // Set background image here
+  const handleEmailChange = useCallback((e) => setEmail(e.target.value), []);
+  const handlePasswordChange = useCallback((e) => setPassword(e.target.value), []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    setLoading(true);
     setError("");
+
     try {
       const response = await login({ email, password });
       localStorage.setItem("token", response.token);
@@ -22,14 +27,18 @@ const LoginPage = () => {
     } catch (error) {
       console.error("Login failed", error);
       setError("Login failed. Please check your email and password.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="login-page" style={{ "--bg-image": `url(${backgroundImage})` }}>
+    <div className="login-page">
+      {/* Back Button */}
+      <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+
       <div className="floating-circle circle-large"></div>
       <div className="floating-circle circle-small"></div>
-
       <div className="floating-circle circle-large-top"></div>
       <div className="floating-circle circle-small-top"></div>
 
@@ -44,39 +53,51 @@ const LoginPage = () => {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             required
           />
-          <input
-            type={showPassword ? "text" : "password"}
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <div className="show-password">
+          <div className="password-container">
             <input
-              type="checkbox"
-              checked={showPassword}
-              onChange={(e) => setShowPassword(e.target.checked)}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
             />
-            <label>Show Password</label>
+            <div className="show-password">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={(e) => setShowPassword(e.target.checked)}
+              />
+
+            </div>
           </div>
-          <button type="submit" className="submit-btn">Continue</button>
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Logging in..." : "Continue"}
+          </button>
         </form>
 
         {error && <p className="error-message">{error}</p>}
 
-        <p className="help-text">
-          Need help? <a href="#">Visit our Support Center</a>
-        </p>
+
         <p className="terms-text">
           By logging in, you agree to our <a href="#">Terms of Service</a> and
           <a href="#"> Privacy Policy</a>.
+        </p>
+
+        {/* Register Link */}
+        <p className="register-text">
+          Don't have an account? <a href="/register">Register!</a>
+        </p>
+
+        {/* Forgot Password Link */}
+        <p className="forgot-password-text">
+          Forgot your password? <a href="/forgot-password">Reset it!</a>
         </p>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default React.memo(LoginPage);

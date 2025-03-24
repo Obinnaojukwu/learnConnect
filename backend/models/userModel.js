@@ -10,7 +10,7 @@ const createUser = (user, callback) => {
 };
 
 const findUserById = (id, callback) => {
-  const query = 'SELECT id, name, username, email, profileImage, bio, uniqueId FROM users WHERE id = ?';
+  const query = 'SELECT id, name, username, email, profileImage, bio, uniqueId, password FROM users WHERE id = ?';
   db.get(query, [id], (err, user) => {
     if (err) {
       console.error("Database error:", err);
@@ -29,13 +29,26 @@ const findUserById = (id, callback) => {
 
 const findUserByEmail = (email, callback) => {
   const query = 'SELECT * FROM users WHERE email = ?';
-  db.get(query, [email], callback);
+  db.get(query, [email], (err, user) => {
+    if (err) {
+      console.error("Database error:", err);
+      return callback(err);
+    }
+
+    if (!user) {
+      console.warn("User not found for email:", email);
+      return callback(null, null);
+    }
+
+    console.log("User fetched from DB:", user); // Debugging log
+    callback(null, user);
+  });
 };
 
 const updateUser = (user, callback) => {
-  const { id, username, email, bio, profileImage } = user;
-  const query = 'UPDATE users SET username = ?, email = ?, bio = ?, profileImage = ? WHERE id = ?';
-  db.run(query, [username, email, bio, profileImage, id], function(err) {
+  const { id, username, email, bio, profileImage, resetCode, password } = user;
+  const query = 'UPDATE users SET username = ?, email = ?, bio = ?, profileImage = ?, resetCode = ?, password = ? WHERE id = ?';
+  db.run(query, [username, email, bio, profileImage, resetCode, password, id], function(err) {
     if (err) return callback(err);
     callback(null, user);
   });
