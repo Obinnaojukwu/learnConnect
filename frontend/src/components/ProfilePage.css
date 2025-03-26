@@ -611,14 +611,15 @@ body {
   color: #203f86;
 }
 
-/* Logout button at the absolute bottom */
 .logout-btn {
-  margin-top: auto; /* Push it to the bottom */
-  padding-top: 20px;
-  padding-bottom: 20px; /* Extra bottom padding */
+  padding-top: 10px; /* Reduce top padding */
+  padding-bottom: 10px; /* Reduce bottom padding */
   border-top: 1px solid rgba(90, 123, 201, 0.2); /* Divider above logout */
-  margin-bottom: 20px; /* Push even further down */
+  margin-bottom: auto; /* Let it naturally move up */
+  position: relative;
+  top: -60px; /* Moves it up by 15px */
 }
+
 
 /* Overlay (blurred background when sidebar is open) */
 .overlay {

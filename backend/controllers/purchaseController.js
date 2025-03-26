@@ -1,6 +1,7 @@
 const { getPurchasedAudios } = require('../models/purchaseModel');
 const db = require('../config/database');
 
+// Fetch purchased audios
 const fetchPurchasedAudios = async (req, res) => {
     const userId = req.user.id;
     console.log(`User ID received: ${userId}`);  // Log the received user ID
@@ -20,10 +21,22 @@ const fetchPurchasedAudios = async (req, res) => {
     }
 };
 
+// Add a purchase
 const addPurchase = (req, res) => {
-    const { audioId, plan } = req.body;
+    const { audioId, plan, testMode } = req.body;
     const userId = req.user.id;  // Get the user ID from the authenticated user
 
+    if (testMode) {
+        // Simulate a successful purchase recording
+        console.log('Test mode enabled, simulating purchase recording...');
+        return handleSuccessfulPurchase(userId, audioId, plan, res);
+    }
+
+    // Actual implementation for recording a purchase
+    handleSuccessfulPurchase(userId, audioId, plan, res);
+};
+
+const handleSuccessfulPurchase = (userId, audioId, plan, res) => {
     // Calculate expiration date based on the selected plan
     let expirationDate = new Date();
     if (plan === '10_minutes') {
@@ -35,6 +48,7 @@ const addPurchase = (req, res) => {
     }
     expirationDate = expirationDate.toISOString();
 
+    // Save purchase record to the database
     const query = 'INSERT INTO purchases (audioId, userId, plan, expirationDate) VALUES (?, ?, ?, ?)';
     db.run(query, [audioId, userId, plan, expirationDate], function(err) {
         if (err) {

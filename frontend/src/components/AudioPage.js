@@ -40,13 +40,9 @@ const AudioPage = () => {
     }
   }, [audios, level, courseId]);
 
-  const handleDownloadClick = (audioId) => {
-    if (!purchasedAudios.includes(audioId)) {
-      localStorage.setItem("audioId", audioId);
-      navigate(`/purchase/${audioId}`);
-    } else {
-      navigate(`/download?audioId=${audioId}`);
-    }
+  const handlePurchaseClick = (audioId) => {
+    localStorage.setItem("audioId", audioId);
+    navigate(`/purchase/${audioId}`);
   };
 
   return (
@@ -67,14 +63,11 @@ const AudioPage = () => {
             <div key={audio.id} className="audio-card">
               <img src="/images/aesthetic/ae2.jpg" alt="Audio Thumbnail" className="audio-image" />
               <h2 className="audio-title">{audio.title}</h2>
-              <audio className="audio-player" controls={purchasedAudios.includes(audio.id)} src={`http://localhost:5000${audio.url}`}>
-                Your browser does not support the audio element.
-              </audio>
               <button 
-                className={`audio-button ${purchasedAudios.includes(audio.id) ? 'download-button' : 'purchase-button'}`} 
-                onClick={() => handleDownloadClick(audio.id)}
+                className="audio-button purchase-button" 
+                onClick={() => handlePurchaseClick(audio.id)}
               >
-                {purchasedAudios.includes(audio.id) ? 'Download' : 'Purchase'}
+                Purchase
               </button>
             </div>
           ))

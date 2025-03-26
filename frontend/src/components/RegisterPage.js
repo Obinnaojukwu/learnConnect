@@ -33,7 +33,7 @@ function RegisterPage() {
       const userData = { name, email, password };
       const data = await register(userData);
       localStorage.setItem("token", data.token);
-      navigate("/profile");
+      navigate("/profile", { state: { from: 'register' } });
     } catch (error) {
       setError(error.response ? error.response.data.message : "Sign up failed. Please try again.");
     }

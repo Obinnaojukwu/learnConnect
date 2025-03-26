@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getUserProfile } from "../api/api";
 import { FiMoreHorizontal, FiBookmark } from "react-icons/fi";
 import { FaHome, FaSearch, FaPlus, FaCommentDots, FaUser, FaInfoCircle, FaCog, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
 import "./ProfilePage.css";
+import TutorialCard from "./TutorialCard"; // Import the TutorialCard component
+import SuccessMessage from "./SuccessMessage"; // Import the SuccessMessage component
 
 const profileImages = [
   "/images/profile/profile1.jpg",
@@ -35,7 +37,10 @@ const ProfilePage = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const [showName, setShowName] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [showTutorial, setShowTutorial] = useState(false); // State to control tutorial visibility
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State to control success message visibility
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -57,6 +62,18 @@ const ProfilePage = () => {
     };
     fetchProfile();
   }, [navigate]);
+
+  useEffect(() => {
+    if (location.state && location.state.from === 'register') {
+      setShowTutorial(true); // Show tutorial if coming from the register page
+    }
+    if (location.state && location.state.from === 'payment') {
+      setShowSuccessMessage(true); // Show success message if coming from the payment page
+      setTimeout(() => {
+        setShowSuccessMessage(false); // Hide success message after 3 seconds
+      }, 3000);
+    }
+  }, [location.state]);
 
   const fetchDownloads = async () => {
     try {
@@ -80,8 +97,13 @@ const ProfilePage = () => {
           ...audio,
           url: audio.url.startsWith("http") ? audio.url : `${baseUrl}${audio.url}`
         }));
-        setDownloads(audiosWithFullUrls);
-        console.log("Audio files URLs:", audiosWithFullUrls.map(audio => audio.url));  // Log audio file URLs
+
+        // Filter out duplicate audios
+        const uniqueAudios = Array.from(new Set(audiosWithFullUrls.map(a => a.id)))
+          .map(id => audiosWithFullUrls.find(a => a.id === id));
+
+        setDownloads(uniqueAudios);
+        console.log("Unique audio files URLs:", uniqueAudios.map(audio => audio.url));  // Log unique audio file URLs
       } else {
         setDownloads([]);
       }
@@ -140,11 +162,11 @@ const ProfilePage = () => {
         )}
       </header>
 
-    {/* Overlay Background */}
-    <div className={`overlay ${showSidebar ? 'show' : ''}`} onClick={() => setShowSidebar(false)}></div>
+      {/* Overlay Background */}
+      <div className={`overlay ${showSidebar ? 'show' : ''}`} onClick={() => setShowSidebar(false)}></div>
 
-    {/* Sidebar */}
-    <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
+      {/* Sidebar */}
+      <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
         <button className="close-btn" onClick={() => setShowSidebar(false)}>×</button>
         
         {/* Wrap menu items */}
@@ -167,9 +189,7 @@ const ProfilePage = () => {
         <button className="logout-btn" onClick={handleLogout}>
             <FaSignOutAlt className="menu-icon" /> Logout
         </button>
-    </div>
-
-
+      </div>
 
       {/* Category Tabs */}
       <nav className="category-tabs">
@@ -229,7 +249,6 @@ const ProfilePage = () => {
                 <img src="/images/an2.jpg" alt="Audio Thumbnail" className="download-image" />
                 <h3>{item.title}</h3>
                 <div className="download-info">
-
                   <audio controls className="audio-player">
                     <source src={item.url} type="audio/mpeg" />
                     Your browser does not support the audio element.
@@ -277,6 +296,12 @@ const ProfilePage = () => {
         <Link to="/messages"><FaCommentDots className="nav-icon" /></Link>
         <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
       </footer>
+
+      {/* Tutorial Card */}
+      {showTutorial && <TutorialCard onClose={() => setShowTutorial(false)} />}
+
+      {/* Success Message */}
+      {showSuccessMessage && <SuccessMessage />}
     </div>
   );
 };
