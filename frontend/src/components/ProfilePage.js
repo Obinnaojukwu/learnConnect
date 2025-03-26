@@ -64,16 +64,20 @@ const ProfilePage = () => {
   }, [navigate]);
 
   useEffect(() => {
-    if (location.state && location.state.from === 'register') {
-      setShowTutorial(true); // Show tutorial if coming from the register page
+    if (location.state) {
+      if (location.state.from === 'register') {
+        setShowTutorial(true); // Show tutorial if coming from the register page
+      } else if (location.state.from === 'payment') {
+        setShowSuccessMessage(true); // Show success message if coming from the payment page
+        setTimeout(() => {
+          setShowSuccessMessage(false); // Hide success message after 3 seconds
+        }, 3000);
+      }
+
+      // Clear location state to prevent showing tutorial or success message on refresh
+      navigate(location.pathname, { replace: true, state: null });
     }
-    if (location.state && location.state.from === 'payment') {
-      setShowSuccessMessage(true); // Show success message if coming from the payment page
-      setTimeout(() => {
-        setShowSuccessMessage(false); // Hide success message after 3 seconds
-      }, 3000);
-    }
-  }, [location.state]);
+  }, [location.state, navigate]);
 
   const fetchDownloads = async () => {
     try {
