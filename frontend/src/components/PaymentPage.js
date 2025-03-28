@@ -99,7 +99,7 @@ const PaymentPage = () => {
     try {
       const response = await axios.post('https://learnconnect-backend.onrender.com/api/payment/initialize', {
         amount: selectedPlan === '10_minutes' ? 100 : selectedPlan === '1_month' ? 10000 : 15000, // Amount based on plan
-        email: 'user@example.com', // Replace with actual user email
+        email: 'Admin@User.com', // Replace with actual user email
         metadata: {
           custom_fields: [
             {
