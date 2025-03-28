@@ -14,6 +14,7 @@ const initializeTransaction = async (req, res) => {
 
     res.json({ authorization_url: response.data.authorization_url });
   } catch (error) {
+    console.error('Error initializing transaction:', error);
     res.status(500).json({ error: error.message });
   }
 };
@@ -31,12 +32,15 @@ const verifyTransaction = async (req, res) => {
 
     const response = await paystack.transaction.verify({ reference });
 
+    console.log('Payment verification response:', response.data); // Log response from Paystack
+
     if (response.data.status === 'success') {
       return handleSuccessfulVerification(userId, audioId, plan, res);
     } else {
       res.status(400).json({ success: false, message: 'Payment verification failed' });
     }
   } catch (error) {
+    console.error('Error verifying transaction:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -59,8 +63,10 @@ const handleSuccessfulVerification = (userId, audioId, plan, res) => {
   const query = `INSERT INTO purchases (userId, audioId, plan, expirationDate) VALUES (?, ?, ?, ?)`;
   db.run(query, [userId, audioId, plan, expirationDate], function (err) {
     if (err) {
+      console.error('Error adding purchase:', err); // Log error if any
       return res.status(500).json({ message: err.message });
     }
+    console.log('Purchase recorded successfully:', this.lastID); // Log success message
     res.json({ success: true, paymentId: this.lastID });
   });
 };
