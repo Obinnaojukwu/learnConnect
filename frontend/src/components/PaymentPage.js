@@ -32,6 +32,7 @@ const PaymentPage = () => {
         const data = await getUserProfile(token);
         console.log("Fetched profile data:", data);
         setUserId(data._id); // Assuming the user ID is in the '_id' field
+        sessionStorage.setItem('userId', data._id); // Store userId in session storage
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Failed to fetch profile");
@@ -46,7 +47,9 @@ const PaymentPage = () => {
     // Check for payment reference in URL parameters
     const queryParams = new URLSearchParams(location.search);
     const reference = queryParams.get('reference');
+    const plan = queryParams.get('plan');
     if (reference) {
+      sessionStorage.setItem('selectedPlan', plan); // Store selectedPlan in session storage
       handlePaymentSuccess(reference);
     }
   }, [location.search]);
@@ -123,7 +126,7 @@ const PaymentPage = () => {
             }
           ]
         },
-        callback_url: `https://learnconnect-backend.onrender.com/purchase/${audioId}` // Set callback URL to PaymentPage
+        callback_url: `http://localhost:3000/purchase/${audioId}?plan=${selectedPlan}` // Set callback URL to PaymentPage
       });
 
       const { authorization_url } = response.data;
@@ -131,7 +134,6 @@ const PaymentPage = () => {
       sessionStorage.setItem(`paymentInitialized_${audioId}`, 'true'); // Mark payment as initialized in session storage
       sessionStorage.setItem('audioId', audioId); // Store audioId in session storage
       sessionStorage.setItem('selectedPlan', selectedPlan); // Store selectedPlan in session storage
-      sessionStorage.setItem('userId', userId); // Store userId in session storage
       window.location.href = authorization_url;
     } catch (error) {
       console.error('Payment initialization error:', error);
