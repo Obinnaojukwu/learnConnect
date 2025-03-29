@@ -3,13 +3,14 @@ const db = require('../config/database'); // Use your existing database connecti
 
 // Initialize a transaction
 const initializeTransaction = async (req, res) => {
-  const { amount, email, metadata } = req.body;
+  const { amount, email, metadata, callback_url } = req.body; // Include callback_url in the request body
 
   try {
     const response = await paystack.transaction.initialize({
       amount: amount * 100, // Paystack expects amount in kobo (smallest currency unit)
       email,
       metadata,
+      callback_url // Pass the callback URL to Paystack
     });
 
     res.json({ authorization_url: response.data.authorization_url });

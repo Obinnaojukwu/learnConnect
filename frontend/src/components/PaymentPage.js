@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AudioContext } from '../context/AudioContext';
 import { getUserProfile } from '../api/api';
@@ -7,6 +7,7 @@ import { getUserProfile } from '../api/api';
 const PaymentPage = () => {
   const { audioId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { purchaseAudio } = useContext(AudioContext);
   const [selectedPlan, setSelectedPlan] = useState('10_minutes'); // Default plan
   const [isPaymentInitialized, setIsPaymentInitialized] = useState(false);
@@ -41,16 +42,29 @@ const PaymentPage = () => {
     fetchProfile();
   }, [audioId]);
 
+  useEffect(() => {
+    // Check for payment reference in URL parameters
+    const queryParams = new URLSearchParams(location.search);
+    const reference = queryParams.get('reference');
+    if (reference) {
+      handlePaymentSuccess(reference);
+    }
+  }, [location.search]);
+
   const handlePaymentSuccess = async (reference) => {
     try {
       const token = localStorage.getItem("token");
+      const userId = sessionStorage.getItem('userId'); // Retrieve userId from session storage
+      const audioId = sessionStorage.getItem('audioId'); // Retrieve audioId from session storage
+      const selectedPlan = sessionStorage.getItem('selectedPlan'); // Retrieve selectedPlan from session storage
+
       if (!userId || !token) {
         throw new Error("No user ID or token found");
       }
 
       // Verify payment
       console.log('Verifying payment with reference:', reference);
-      const verifyResponse = await axios.post('https://learnconnect-backend.onrender.com/api/payment/verify', {
+      const verifyResponse = await axios.post('http://localhost:5000/api/payment/verify', {
         reference,
         userId,
         audioId,
@@ -108,12 +122,16 @@ const PaymentPage = () => {
               value: audioId
             }
           ]
-        }
+        },
+        callback_url: `https://learnconnect-backend.onrender.com/purchase/${audioId}` // Set callback URL to PaymentPage
       });
 
       const { authorization_url } = response.data;
       console.log('Payment initialization successful, redirecting to:', authorization_url);
       sessionStorage.setItem(`paymentInitialized_${audioId}`, 'true'); // Mark payment as initialized in session storage
+      sessionStorage.setItem('audioId', audioId); // Store audioId in session storage
+      sessionStorage.setItem('selectedPlan', selectedPlan); // Store selectedPlan in session storage
+      sessionStorage.setItem('userId', userId); // Store userId in session storage
       window.location.href = authorization_url;
     } catch (error) {
       console.error('Payment initialization error:', error);
