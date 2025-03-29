@@ -126,7 +126,7 @@ const PaymentPage = () => {
             }
           ]
         },
-        callback_url: `http://localhost:3000/purchase/${audioId}?plan=${selectedPlan}` // Set callback URL to PaymentPage
+        callback_url: `https://learnconnect-frontend.onrender.com/purchase/${audioId}?plan=${selectedPlan}` // Set callback URL to PaymentPage
       });
 
       const { authorization_url } = response.data;
