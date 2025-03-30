@@ -1,5 +1,6 @@
 const { findUserById, updateUser, searchUsersInDB } = require('../models/userModel');
 
+// Get user profile
 exports.getUserProfile = (req, res) => {
     findUserById(req.user.id, (err, user) => {
         if (err) return res.status(500).json({ message: err.message });
@@ -17,7 +18,9 @@ exports.getUserProfile = (req, res) => {
     });
 };
 
+// Update user profile
 exports.updateUserProfile = (req, res) => {
+    console.log("updateUserProfile called"); // Debug log
     findUserById(req.user.id, (err, user) => {
         if (err) return res.status(500).json({ message: err.message });
         if (!user) return res.status(404).json({ message: 'User not found' });
@@ -26,12 +29,14 @@ exports.updateUserProfile = (req, res) => {
         user.email = req.body.email || user.email;
         user.bio = req.body.bio || user.bio;
         if (req.file) {
+            console.log("File uploaded:", req.file); // Debug log
             user.profileImage = req.file.path;
         }
 
         updateUser(user, (err, updatedUser) => {
             if (err) return res.status(500).json({ message: err.message });
 
+            console.log("User updated:", updatedUser); // Debug log
             res.json({
                 _id: updatedUser.id,
                 username: updatedUser.username,
@@ -44,6 +49,7 @@ exports.updateUserProfile = (req, res) => {
     });
 };
 
+// Search users
 exports.searchUsers = (req, res) => {
     const searchQuery = req.query.q || '';
 

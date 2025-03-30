@@ -35,6 +35,31 @@ const getUserProfile = async (token) => {
     }
 };
 
+// Function to update user profile using a token
+const updateUserProfile = async (token, profileData) => {
+    const formData = new FormData();
+    formData.append("bio", profileData.bio);
+    if (profileData.profileImage) {
+        formData.append("profileImage", profileData.profileImage);
+    }
+
+    console.log("Updating user profile:", profileData); // Debug log
+
+    try {
+        const response = await api.put('/user/profile', formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log("Profile updated:", response.data); // Debug log
+        return response.data;
+    } catch (error) {
+        console.error('Error updating user profile:', error);
+        throw error;
+    }
+};
+
 // Function to register a new user
 const register = async (userData) => {
     try {
@@ -137,6 +162,7 @@ const resetPassword = async (email, resetCode, newPassword) => {
 export {
     fetchLevels,
     getUserProfile,
+    updateUserProfile,
     register,
     login,
     fetchAudiosByCourseId,

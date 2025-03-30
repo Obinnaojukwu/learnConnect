@@ -39,6 +39,7 @@ const ProfilePage = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showTutorial, setShowTutorial] = useState(false); // State to control tutorial visibility
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // State to control success message visibility
+  const [profileImageUrl, setProfileImageUrl] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -51,6 +52,16 @@ const ProfilePage = () => {
         const data = await getUserProfile(token);
         console.log("Fetched profile data:", data);
         setProfile(data);
+
+        if (data.profileImage) {
+          // Replace backslashes with forward slashes for web context and prepend backend server URL
+          const formattedImageUrl = `https://learnconnect-backend.onrender.com/${data.profileImage.replace(/\\/g, "/")}`;
+          console.log("Formatted profile image URL:", formattedImageUrl);
+          setProfileImageUrl(formattedImageUrl);
+        } else {
+          setProfileImageUrl(getRandomImage());
+        }
+
         fetchDownloads(); // Fetch downloads for user
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -60,6 +71,7 @@ const ProfilePage = () => {
         setLoading(false);
       }
     };
+
     fetchProfile();
   }, [navigate]);
 
@@ -124,7 +136,7 @@ const ProfilePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const getImageSrc = () => {
+  const getRandomImage = () => {
     let storedImageIndex = localStorage.getItem("randomImageIndex");
     if (storedImageIndex === null) {
       // If no image index is found in local storage, generate a new random one
@@ -153,12 +165,13 @@ const ProfilePage = () => {
             onMouseLeave={() => setShowName(false)}
           >
             <img
-              src={getImageSrc()}
+              src={profileImageUrl}
               alt="Profile"
               className="profile-img"
               onError={(e) => {
+                console.error("Profile image failed to load:", e);
                 e.target.onerror = null;
-                e.target.src = "/images/profile/profile7.jpg"; // Fallback image
+                e.target.src = getRandomImage(); // Fallback to random image
               }}
             />
             {showName && <span className="profile-name">{profile.name}</span>}
