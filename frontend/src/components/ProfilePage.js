@@ -52,6 +52,16 @@ const ProfilePage = () => {
         const data = await getUserProfile(token);
         console.log("Fetched profile data:", data);
         setProfile(data);
+
+        if (data.profileImage) {
+          // Replace backslashes with forward slashes for web context and prepend backend server URL
+          const formattedImageUrl = `https://learnconnect-backend.onrender.com/${data.profileImage.replace(/\\/g, "/")}`;
+          console.log("Formatted profile image URL:", formattedImageUrl);
+          setProfileImageUrl(formattedImageUrl);
+        } else {
+          setProfileImageUrl(getRandomImage());
+        }
+
         fetchDownloads(); // Fetch downloads for user
       } catch (error) {
         console.error("Error fetching profile:", error);
@@ -122,7 +132,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 6000); // 5 seconds zoom + 1 second transition
+    }, 6000); // 5 seconds zoom + 1 second transitio
     return () => clearInterval(interval);
   }, []);
 
