@@ -48,8 +48,16 @@ const findUserByEmail = (email, callback) => {
 const updateUser = (user, callback) => {
   const { id, username, email, bio, profileImage, resetCode, password } = user;
   const query = 'UPDATE users SET username = ?, email = ?, bio = ?, profileImage = ?, resetCode = ?, password = ? WHERE id = ?';
-  db.run(query, [username, email, bio, profileImage, resetCode, password, id], function(err) {
-    if (err) return callback(err);
+  const values = [username, email, bio, profileImage, resetCode, password, id];
+
+  console.log("Updating user with values:", values); // Debugging log
+
+  db.run(query, values, function(err) {
+    if (err) {
+      console.error("Database error:", err);
+      return callback(err);
+    }
+    console.log("User updated in DB:", user); // Debugging log
     callback(null, user);
   });
 };

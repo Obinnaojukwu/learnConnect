@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AudioContext } from '../context/AudioContext';
 import { getUserProfile } from '../api/api';
@@ -7,6 +7,7 @@ import { getUserProfile } from '../api/api';
 const PaymentPage = () => {
   const { audioId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const { purchaseAudio } = useContext(AudioContext);
   const [selectedPlan, setSelectedPlan] = useState('10_minutes'); // Default plan
   const [isPaymentInitialized, setIsPaymentInitialized] = useState(false);
@@ -31,6 +32,7 @@ const PaymentPage = () => {
         const data = await getUserProfile(token);
         console.log("Fetched profile data:", data);
         setUserId(data._id); // Assuming the user ID is in the '_id' field
+        sessionStorage.setItem('userId', data._id); // Store userId in session storage
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Failed to fetch profile");
@@ -41,9 +43,24 @@ const PaymentPage = () => {
     fetchProfile();
   }, [audioId]);
 
+  useEffect(() => {
+    // Check for payment reference in URL parameters
+    const queryParams = new URLSearchParams(location.search);
+    const reference = queryParams.get('reference');
+    const plan = queryParams.get('plan');
+    if (reference) {
+      sessionStorage.setItem('selectedPlan', plan); // Store selectedPlan in session storage
+      handlePaymentSuccess(reference);
+    }
+  }, [location.search]);
+
   const handlePaymentSuccess = async (reference) => {
     try {
       const token = localStorage.getItem("token");
+      const userId = sessionStorage.getItem('userId'); // Retrieve userId from session storage
+      const audioId = sessionStorage.getItem('audioId'); // Retrieve audioId from session storage
+      const selectedPlan = sessionStorage.getItem('selectedPlan'); // Retrieve selectedPlan from session storage
+
       if (!userId || !token) {
         throw new Error("No user ID or token found");
       }
@@ -99,7 +116,7 @@ const PaymentPage = () => {
     try {
       const response = await axios.post('https://learnconnect-backend.onrender.com/api/payment/initialize', {
         amount: selectedPlan === '10_minutes' ? 100 : selectedPlan === '1_month' ? 10000 : 15000, // Amount based on plan
-        email: 'user@example.com', // Replace with actual user email
+        email: 'Admin@User.com', // Replace with actual user email
         metadata: {
           custom_fields: [
             {
@@ -108,12 +125,15 @@ const PaymentPage = () => {
               value: audioId
             }
           ]
-        }
+        },
+        callback_url: `https://learnconnect-frontend.onrender.com/purchase/${audioId}?plan=${selectedPlan}` // Set callback URL to PaymentPage
       });
 
       const { authorization_url } = response.data;
       console.log('Payment initialization successful, redirecting to:', authorization_url);
       sessionStorage.setItem(`paymentInitialized_${audioId}`, 'true'); // Mark payment as initialized in session storage
+      sessionStorage.setItem('audioId', audioId); // Store audioId in session storage
+      sessionStorage.setItem('selectedPlan', selectedPlan); // Store selectedPlan in session storage
       window.location.href = authorization_url;
     } catch (error) {
       console.error('Payment initialization error:', error);
