@@ -28,6 +28,13 @@ const UserPage = () => {
         const data = await getUserProfile(token);
         console.log("Fetched profile data:", data);
         setProfile(data);
+        setNewBio(data.bio || "");
+
+        if (data.profileImage) {
+          const formattedImageUrl = `https://learnconnect-backend.onrender.com/${data.profileImage.replace(/\\/g, "/")}`;
+          console.log("Formatted profile image URL:", formattedImageUrl);
+          setProfileImageUrl(formattedImageUrl);
+        }
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Failed to fetch profile");
@@ -38,6 +45,50 @@ const UserPage = () => {
 
     fetchProfile();
   }, []);
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("No token found");
+      }
+
+      const updatedProfile = {
+        bio: newBio,
+        profileImage: newProfileImage,
+      };
+
+      console.log("Saving profile:", updatedProfile);
+
+      const data = await updateUserProfile(token, updatedProfile);
+      console.log("Updated profile data:", data);
+      setProfile(data);
+      setIsEditing(false);
+
+      if (data.profileImage) {
+        const formattedImageUrl = `https://learnconnect-backend.onrender.com/${data.profileImage.replace(/\\/g, "/")}`;
+        console.log("Formatted profile image URL after update:", formattedImageUrl);
+        setProfileImageUrl(formattedImageUrl);
+      } else {
+        setProfileImageUrl("/images/profile/profile7.jpg");
+      }
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      setError("Failed to update profile");
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setNewProfileImage(file);
+
+    const imageUrl = URL.createObjectURL(file);
+    setProfileImageUrl(imageUrl);
+  };
 
   const getImageSrc = () => {
     console.log("Profile image URL:", profileImageUrl);
