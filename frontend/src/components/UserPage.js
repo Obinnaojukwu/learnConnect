@@ -127,7 +127,7 @@ const UserPage = () => {
           onError={(e) => {
             console.error("Header image failed to load:", e);
             e.target.onerror = null;
-            e.target.src = "/images/profile/profile7.jpg";
+            e.target.src = "/images/profile/0profile.webp";
           }}
         />
         <div className="header-text">
