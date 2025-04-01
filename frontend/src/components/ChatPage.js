@@ -43,7 +43,7 @@ const ChatPage = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         const profileImageUrl = res.data.profileImage
-          ? `http://localhost:5000/${res.data.profileImage.replace(/\\/g, "/")}`
+          ? `https://learnconnect-backend.onrender.com/${res.data.profileImage.replace(/\\/g, "/")}`
           : getRandomImage();
         setUserAvatar(profileImageUrl);
       } catch (error) {
@@ -120,7 +120,7 @@ const ChatPage = () => {
                 src={msg.avatar}
                 alt={msg.sender}
                 className="message-avatar"
-                onError={(e) => (e.target.src = "/images/default.png")} // Fallback image
+                onError={(e) => (e.target.src = "/images/0profile.webp")} // Fallback image
               />
               <p className="message-text">{msg.text}</p>
             </div>
