@@ -10,7 +10,7 @@ const HomePage = () => {
         <div className="logo">
           <span className="highlighted-e">L</span>earnConnect
         </div>
-        <div className="menu">☰</div>
+        <div className="menu"></div>
       </header>
 
       <section className="hero">
@@ -34,7 +34,7 @@ const HomePage = () => {
         <div className="hero-content">
           <h2>Learn Anytime, Anywhere</h2>
           <p>
-            EduStream is your gateway to educational audio content.  
+            LearnConnect is your gateway to educational audio content.  
             Listen to lectures, study guides, and discussions on the go.
           </p>
 
@@ -51,21 +51,21 @@ const HomePage = () => {
           <p>
             Access recorded lectures from top educators and revise at your own pace.
           </p>
-          <span>→</span>
+          <span></span>
         </div>
         <div className="service">
           <h3> Study Podcasts</h3>
           <p>
             Learn through engaging discussions and breakdowns of complex topics.
           </p>
-          <span>→</span>
+          <span></span>
         </div>
         <div className="service">
           <h3> Audiobooks & Study Guides</h3>
           <p>
             Listen to textbooks, summaries, and academic guides anytime, anywhere.
           </p>
-          <span>→</span>
+          <span></span>
         </div>
       </section>
 

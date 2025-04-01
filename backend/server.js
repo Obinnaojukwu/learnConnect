@@ -13,6 +13,7 @@ const paymentRoutes = require('./routes/paymentRoutes');
 const purchaseRoutes = require('./routes/purchaseRoutes');
 const webhookRoutes = require('./routes/webhookRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
+const { getChatResponse } = require('./controllers/chatController');
 
 dotenv.config();
 
@@ -34,7 +35,8 @@ app.use('/api/payment', paymentRoutes);
 app.use('/api/purchase', purchaseRoutes);
 app.use('/api/payment', webhookRoutes);
 
-
+// ChatGPT endpoint
+app.post('/api/chat', getChatResponse);
 
 // Add a route for the root path
 app.get('/', (req, res) => {

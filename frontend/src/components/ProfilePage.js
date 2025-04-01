@@ -263,7 +263,7 @@ const ProfilePage = () => {
           <div className="downloads-section">
             {downloads.map((item, index) => (
               <div className="download-item" key={index}>
-                <img src="/images/an2.jpg" alt="Audio Thumbnail" className="download-image" />
+                
                 <h3>{item.title}</h3>
                 <div className="download-info">
                   <audio controls className="audio-player">
@@ -281,10 +281,10 @@ const ProfilePage = () => {
 
       {/* Content Section */}
       <section className="content">
-        <h2>Surely green is good.</h2>
-        <p>In all things of nature, there is something of the marvelous.</p>
+        <h2>study smart not hard with learn connect.</h2>
+        <p> Take control of your academic journey stress-free. Learn at your own pace with audio lectures and connect with like-minded students. No physical classes, no Zoom meetings just flexible learning on your terms. With Learn Connect, you set the schedule and excel on your own time.</p>
         <div className="date-box">
-          <span>March 2022</span>
+          <span>LearnConnect 2025</span>
           <FiBookmark className="bookmark-icon" />
         </div>
       </section>
@@ -307,7 +307,7 @@ const ProfilePage = () => {
 
       {/* Footer Navigation */}
       <footer className="footer-nav">
-        <Link to="/home"><FaHome className="nav-icon active" /></Link>
+        <Link to="/profile"><FaHome className="nav-icon active" /></Link>
         <Link to="/search"><FaSearch className="nav-icon" /></Link>
         <Link to="/add"><FaPlus className="nav-icon" /></Link>
         <Link to="/messages"><FaCommentDots className="nav-icon" /></Link>

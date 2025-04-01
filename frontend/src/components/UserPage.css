@@ -165,13 +165,31 @@
 }
 
 
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .unique-profile-bio, 
 .unique-profile-details {
-  margin-top: 20px;
+  margin-top: 6px;
   text-align: left;
-  border: 2px solid #ccc; /* Add a light gray border */
+  border: 2px solid #ccc; /* Light gray border */
   border-radius: 10px; /* Slightly rounded corners */
   padding: 15px; /* Add some spacing inside */
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  background: white; /* Ensure background color for better contrast */
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  background: white; /* Ensure background color */
+  
+  /* Bounce In Animation */
+  animation: bounceIn 0.8s ease-out;
 }
+

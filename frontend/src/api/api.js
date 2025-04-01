@@ -158,6 +158,20 @@ const resetPassword = async (email, resetCode, newPassword) => {
     }
 };
 
+// Function to get ChatGPT response for an educational question
+const getChatGPTResponse = async (question) => {
+    try {
+        console.log('Sending question to ChatGPT:', question);
+        const response = await api.post('/chat', { question });
+        console.log('ChatGPT response:', response.data);
+        return response.data;
+    } catch (error) {
+        console.error('Error getting ChatGPT response:', error);
+        console.error('Error response data:', error.response ? error.response.data : null);
+        throw error;
+    }
+};
+
 // Export all functions
 export {
     fetchLevels,
@@ -169,7 +183,8 @@ export {
     fetchDownloads,
     uploadAudio,
     sendResetCode,
-    resetPassword
+    resetPassword,
+    getChatGPTResponse // Exporting the new function
 };
 
 export default api;

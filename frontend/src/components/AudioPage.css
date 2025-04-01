@@ -14,10 +14,8 @@
   color: rgb(88, 80, 80);
   position: relative;
   z-index: 1;
+  margin-top: 35px; /* Moves it down */
 }
-
-
-
 
 /* Audio List Layout - Two Columns */
 .audio-list {
@@ -28,8 +26,9 @@
   position: relative;
   z-index: 1;
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px auto 0; /* Moves it down */
 }
+
 
 /* Audio Card - Adjusted Size */
 .audio-card {

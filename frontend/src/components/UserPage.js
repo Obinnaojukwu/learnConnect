@@ -12,7 +12,7 @@ const UserPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [newBio, setNewBio] = useState("");
   const [newProfileImage, setNewProfileImage] = useState(null);
-  const [profileImageUrl, setProfileImageUrl] = useState("/images/profile/profile7.jpg");
+  const [profileImageUrl, setProfileImageUrl] = useState("/images/profile/0profile.webp");
   const [isZoomed, setIsZoomed] = useState(false); // Track zoom state
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const UserPage = () => {
         console.log("Formatted profile image URL after update:", formattedImageUrl);
         setProfileImageUrl(formattedImageUrl);
       } else {
-        setProfileImageUrl("/images/profile/profile7.jpg");
+        setProfileImageUrl("/images/profile/0profile.webp");
       }
     } catch (error) {
       console.error("Error updating profile:", error);

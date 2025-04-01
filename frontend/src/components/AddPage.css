@@ -1,0 +1,36 @@
+
+  /* Container for the entire page */
+  .add-page-container {
+    text-align: center; /* Centers the text horizontally */
+    width: 100%; /* Ensures full width */
+    max-width: 800px; /* Optional: limits the width of the content */
+    padding: 20px; /* Adds padding for spacing */
+    background-color: white; /* Sets the background color */
+    border-radius: 10px; /* Rounded corners for the container */
+  }
+  
+  /* Text Styling */
+  .add-page-container h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #333; /* Color for the heading */
+  }
+  
+  .add-page-container p {
+    font-size: 18px;
+    color: #666; /* Color for the paragraph */
+    margin-bottom: 30px;
+  }
+  
+  /* Image Styling */
+  .add-page-container img {
+    max-width: 100%; /* Ensures the image does not overflow */
+    height: auto; /* Maintains aspect ratio */
+    object-fit: cover; /* Ensures the image covers the space without distortion */
+    max-height: 60vh; /* Limits the image height to 60% of the viewport */
+    border-radius: 10px; /* Optional: rounded corners for the image */
+  }
+
+
+  
+  

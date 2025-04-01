@@ -56,6 +56,7 @@ const AudioPage = () => {
         minHeight: '100vh'
       }}
     >
+      <button className="back-button" onClick={() => navigate(-1)}>Back</button>
       <h1 className="audio-page-title">Audio Page for Course ID: {courseId}, Level: {level}</h1>
       <div className="audio-list">
         {filteredAudios.length > 0 ? (
@@ -80,4 +81,3 @@ const AudioPage = () => {
 };
 
 export default AudioPage;
-

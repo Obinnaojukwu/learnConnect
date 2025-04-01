@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus, FaHome, FaSearch, FaCommentDots } from 'react-icons/fa';
+import { HiUserCircle } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 import './SearchPage.css';
 
 const SearchPage = () => {
@@ -65,6 +67,7 @@ const SearchPage = () => {
           onChange={handleSearchChange}
         />
       </header>
+
       <div className="user-list">
         {loading ? (
           <p>Loading...</p>
@@ -83,6 +86,15 @@ const SearchPage = () => {
           ))
         )}
       </div>
+
+      {/* Footer Navigation */}
+      <footer className="footer-nav">
+        <Link to="/profile"><FaHome className="nav-icon" /></Link>
+        <Link to="/search"><FaSearch className="nav-icon active" /></Link>
+        <Link to="/add"><FaPlus className="nav-icon" /></Link>
+        <Link to="/messages"><FaCommentDots className="nav-icon" /></Link>
+        <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
+      </footer>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AudioContext } from '../context/AudioContext';
 import { getUserProfile } from '../api/api';
+import './PaymentPage.css'; // Import the CSS file
 
 const PaymentPage = () => {
   const { audioId } = useParams();
@@ -157,41 +158,45 @@ const PaymentPage = () => {
   };
 
   return (
-    <div>
-      <h1>Choose a Plan</h1>
-      {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <>
-          <form onSubmit={handleFormSubmit}>
-            <select value={selectedPlan} onChange={(e) => setSelectedPlan(e.target.value)}>
-              <option value="10_minutes">10 Naira = 10 minutes</option>
-              <option value="1_month">10,000 Naira = 1 month</option>
-              <option value="3_months">15,000 Naira = 3 months</option>
-            </select>
-            <button type="submit">Proceed to Payment</button>
-          </form>
-          {isPaymentInitialized && !testMode && (
-            <div>
-              <h1>Processing Payment...</h1>
-              <p>Please wait while we redirect you to the payment page.</p>
-              <button onClick={resetPaymentInitialization}>Cancel Payment</button>
-            </div>
-          )}
-          <div>
-            <label>
-              <input
-                type="checkbox"
-                checked={testMode}
-                onChange={(e) => setTestMode(e.target.checked)}
-              />
-              Test Mode (Bypass Payment)
-            </label>
-          </div>
-        </>
-      )}
+    <div className="payment-container">
+      <div className="background-image" style={{ backgroundImage: 'url(/images/cart.jpg)' }}></div>
+      <button className="back-button" onClick={() => navigate(-1)}>Back</button>
+      <div className="payment-card">
+        <h1>Choose a Plan</h1>
+        {loading ? (
+          <p>Loading...</p>
+        ) : error ? (
+          <p>{error}</p>
+        ) : (
+          <>
+            <form onSubmit={handleFormSubmit}>
+              <select value={selectedPlan} onChange={(e) => setSelectedPlan(e.target.value)}>
+                <option value="10_minutes">10 Naira = 10 minutes</option>
+                <option value="1_month">10,000 Naira = 1 month</option>
+                <option value="3_months">15,000 Naira = 3 months</option>
+              </select>
+              <button type="submit">Proceed to Payment</button>
+            </form>
+            {isPaymentInitialized && !testMode && (
+              <div>
+                <h1>Processing Payment...</h1>
+                <p>Please wait while we redirect you to the payment page.</p>
+                <button onClick={resetPaymentInitialization}>Cancel Payment</button>
+              </div>
+            )}
+            {/* <div className="test-mode">
+              <label>
+                <input
+                  type="checkbox"
+                  checked={testMode}
+                  onChange={(e) => setTestMode(e.target.checked)}
+                />
+                Test Mode (Bypass Payment)
+              </label>
+            </div> */}
+          </>
+        )}
+      </div>
     </div>
   );
 };
