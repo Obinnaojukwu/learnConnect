@@ -55,7 +55,7 @@
     margin: 10px 0; /* Adjust vertical margin to move it up */
     position: relative;
     z-index: 2;
-    top: -10px; /* Moves the header up */
+    top: -5px; /* Moves the header up */
 }
 
   
