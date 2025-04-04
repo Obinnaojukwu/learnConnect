@@ -18,13 +18,8 @@ const getPurchasedAudios = (userId) => {
           } else {
               console.log('Query result:', rows);  // Log the query result
               
-              // Remove expirationDate before resolving
-              const result = rows.map(row => {
-                const { expirationDate, ...audioData } = row;
-                return audioData;
-              });
-
-              resolve(result);
+              // Include expirationDate before resolving
+              resolve(rows);
           }
       });
   });

@@ -190,11 +190,11 @@ const UserPage = () => {
 
       {/* Footer Navigation */}
       <footer className="footer-nav">
-        <Link to="/profile"><FaHome className="nav-icon active" /></Link>
+        <Link to="/profile"><FaHome className="nav-icon" /></Link>
         <Link to="/search"><FaSearch className="nav-icon" /></Link>
         <Link to="/add"><FaPlus className="nav-icon" /></Link>
         <Link to="/messages"><FaCommentDots className="nav-icon" /></Link>
-        <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
+        <Link to="/user"><HiUserCircle className="nav-icon profile-icon active" /></Link>
       </footer>
     </div>
   );

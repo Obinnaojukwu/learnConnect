@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getUserProfile } from "../api/api";
 import { FiMoreHorizontal, FiBookmark } from "react-icons/fi";
-import { FaHome, FaSearch, FaPlus, FaCommentDots, FaUser, FaInfoCircle, FaCog, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaSearch, FaPlus, FaRobot, FaCommentDots, FaUser, FaInfoCircle, FaCog, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
 import "./ProfilePage.css";
 import TutorialCard from "./TutorialCard"; // Import the TutorialCard component
 import SuccessMessage from "./SuccessMessage"; // Import the SuccessMessage component
+import AudioPlayer from "./AudioPlayer"; // Import the AudioPlayer component
 
 const profileImages = [
   "/images/profile/profile1.jpg",
@@ -62,7 +63,7 @@ const ProfilePage = () => {
           setProfileImageUrl(getRandomImage());
         }
 
-        fetchDownloads(); // Fetch downloads for user
+        fetchDownloads(token); // Fetch downloads for user
       } catch (error) {
         console.error("Error fetching profile:", error);
         setError("Failed to fetch profile");
@@ -91,11 +92,9 @@ const ProfilePage = () => {
     }
   }, [location.state, navigate]);
 
-  const fetchDownloads = async () => {
+  const fetchDownloads = async (token) => {
     try {
       console.log("Fetching downloaded audios");
-      const token = localStorage.getItem("token");
-      if (!token) throw new Error("No token found");
 
       const response = await fetch("https://learnconnect-backend.onrender.com/api/purchase/purchased-audios", {
         headers: {
@@ -107,19 +106,34 @@ const ProfilePage = () => {
       console.log("Fetched downloads:", data);
 
       if (data.success) {
+        // Log the raw audios data to verify its structure
+        console.log("Raw audios data:", data.audios);
+
         // Convert relative URLs to absolute URLs
         const baseUrl = "https://learnconnect-backend.onrender.com";
         const audiosWithFullUrls = data.audios.map(audio => ({
           ...audio,
-          url: audio.url.startsWith("http") ? audio.url : `${baseUrl}${audio.url}`
+          url: audio.url.startsWith("http") ? audio.url : `${baseUrl}${audio.url}`,
+          expirationDate: audio.expirationDate // Ensure expirationDate is included
         }));
+
+        console.log("Audios with full URLs and expiration dates:", audiosWithFullUrls);
 
         // Filter out duplicate audios
         const uniqueAudios = Array.from(new Set(audiosWithFullUrls.map(a => a.id)))
           .map(id => audiosWithFullUrls.find(a => a.id === id));
 
-        setDownloads(uniqueAudios);
-        console.log("Unique audio files URLs:", uniqueAudios.map(audio => audio.url));  // Log unique audio file URLs
+        console.log("Unique audio files:", uniqueAudios);
+
+        uniqueAudios.forEach(audio => {
+          console.log(`Audio ID: ${audio.id}, Title: ${audio.title}, Expiration Date: ${audio.expirationDate}`);
+        });
+
+        const currentDate = new Date();
+        const validAudios = uniqueAudios.filter(audio => new Date(audio.expirationDate) > currentDate);
+
+        setDownloads(validAudios);
+        console.log("Valid audio files URLs:", validAudios.map(audio => audio.url)); // Log valid audio file URLs
       } else {
         setDownloads([]);
       }
@@ -132,7 +146,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 6000); // 5 seconds zoom + 1 second transitio
+    }, 6000); // 5 seconds zoom + 1 second transition
     return () => clearInterval(interval);
   }, []);
 
@@ -263,13 +277,14 @@ const ProfilePage = () => {
           <div className="downloads-section">
             {downloads.map((item, index) => (
               <div className="download-item" key={index}>
-                
                 <h3>{item.title}</h3>
                 <div className="download-info">
-                  <audio controls className="audio-player">
-                    <source src={item.url} type="audio/mpeg" />
-                    Your browser does not support the audio element.
-                  </audio>
+                  <AudioPlayer 
+                    audioSrc={item.url} 
+                    expirationDate={item.expirationDate} // Ensure expirationDate is passed
+                    
+                  />
+                  <p className="invisible-text">Invisible text here</p>
                 </div>
               </div>
             ))}
@@ -283,6 +298,7 @@ const ProfilePage = () => {
       <section className="content">
         <h2>study smart not hard with learn connect.</h2>
         <p> Take control of your academic journey stress-free. Learn at your own pace with audio lectures and connect with like-minded students. No physical classes, no Zoom meetings just flexible learning on your terms. With Learn Connect, you set the schedule and excel on your own time.</p>
+        
         <div className="date-box">
           <span>LearnConnect 2025</span>
           <FiBookmark className="bookmark-icon" />
@@ -310,7 +326,8 @@ const ProfilePage = () => {
         <Link to="/profile"><FaHome className="nav-icon active" /></Link>
         <Link to="/search"><FaSearch className="nav-icon" /></Link>
         <Link to="/add"><FaPlus className="nav-icon" /></Link>
-        <Link to="/messages"><FaCommentDots className="nav-icon" /></Link>
+        <Link to="/messages"> <FaRobot className="nav-icon" /></Link>
+
         <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
       </footer>
 

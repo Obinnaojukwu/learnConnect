@@ -14,12 +14,13 @@
   width: 100vw; /* Full viewport width */
   height: 25vh; /* Keep 1/4 screen height */
   position: absolute; /* Take it out of the flow */
-  top: 0;
+  top: -10vh; /* Lift the image 10% of the viewport height up */
   left: 0;
   right: 0;
   overflow: hidden;
   z-index: -1; /* Send it behind other content */
 }
+
 
 .unique-header-image::after {
   content: "";
@@ -40,8 +41,8 @@
   font-size: 1.2em;
   padding: 5px 10px; /* Adjusted padding for better appearance */
   position: absolute; /* Ensures it’s above other elements */
-  top: 40px; /* Moves it up */
-  left: 150px; /* Moves it to the right */
+  top: -60px; /* Moves it up */
+  left: 165px; /* Moves it to the right */
   z-index: 9999; /* Ensures it stays above everything */
 }
 
@@ -80,13 +81,13 @@
 }
 
 .unique-profile-img {
-  width: 200px; /* Increased size */
-  height: 200px; /* Increased size */
+  width: 180px; /* Increased size */
+  height: 180px; /* Increased size */
   border-radius: 50%;
   border: 5px solid white;
   object-fit: cover;
   position: absolute;
-  top: -100px; /* Adjusted for better overlap */
+  top: -200px; /* Adjusted for better overlap */
   left: 70%;
   transform: translateX(-50%);
   z-index: 9999; /* Ensures it stays above everything */
@@ -96,7 +97,7 @@
 .unique-profile-name {
   font-size: 24px;
   font-weight: bold;
-  margin-top: 100px;
+  margin-top: 1px;
   position: relative;
   left: 80px; /* Move it right */
 }

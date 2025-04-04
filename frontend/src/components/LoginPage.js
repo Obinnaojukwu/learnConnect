@@ -35,7 +35,8 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       {/* Back Button */}
-      <button className="back-button" onClick={() => navigate(-1)}>← Back</button>
+      <button className="back-button" onClick={() => navigate('/')}>← Home</button>
+
 
       <div className="floating-circle circle-large"></div>
       <div className="floating-circle circle-small"></div>
