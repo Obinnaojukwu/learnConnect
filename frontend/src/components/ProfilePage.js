@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getUserProfile } from "../api/api";
 import { FiMoreHorizontal, FiBookmark } from "react-icons/fi";
-import { FaHome, FaSearch, FaPlus, FaRobot, FaCommentDots, FaUser, FaInfoCircle, FaCog, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaSearch, FaPlus, FaRobot, FaCommentDots, FaExclamationCircle, FaUser, FaInfoCircle, FaCog, FaQuestionCircle, FaSignOutAlt } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
 import "./ProfilePage.css";
 import TutorialCard from "./TutorialCard"; // Import the TutorialCard component
 import SuccessMessage from "./SuccessMessage"; // Import the SuccessMessage component
 import AudioPlayer from "./AudioPlayer"; // Import the AudioPlayer component
+import HillShape from "./HillShape"; // Import the HillShape component
 
 const profileImages = [
   "/images/profile/profile1.jpg",
@@ -167,6 +168,13 @@ const ProfilePage = () => {
 
   return (
     <div className="container">
+      {/* Loading Overlay */}
+      {loading && (
+        <div className="profile-loading-overlay">
+          <div className="loading-spinner"></div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="header">
         <h1>Profile Page</h1>
@@ -198,7 +206,7 @@ const ProfilePage = () => {
 
       {/* Sidebar */}
       <div className={`sidebar ${showSidebar ? 'show' : ''}`}>
-        <button className="close-btn" onClick={() => setShowSidebar(false)}>×</button>
+        <button className="close-btn2" onClick={() => setShowSidebar(false)}>×</button>
         
         {/* Wrap menu items */}
         <div className="menu-items">
@@ -268,11 +276,16 @@ const ProfilePage = () => {
         </div>
       )}
 
+      {/* Hill Shape */}
+      <HillShape />
+
       {/* Downloads Section (Now with Audio Player) */}
       <section className="content">
         <h2>Your Purchased Audios</h2>
         {loading ? (
-          <p>Loading...</p>
+          <div className="profile-loading-overlay">
+            <div className="loading-spinner"></div>
+          </div>
         ) : downloads.length > 0 ? (
           <div className="downloads-section">
             {downloads.map((item, index) => (
@@ -282,7 +295,6 @@ const ProfilePage = () => {
                   <AudioPlayer 
                     audioSrc={item.url} 
                     expirationDate={item.expirationDate} // Ensure expirationDate is passed
-                    
                   />
                   <p className="invisible-text">Invisible text here</p>
                 </div>
@@ -326,7 +338,16 @@ const ProfilePage = () => {
         <Link to="/profile"><FaHome className="nav-icon active" /></Link>
         <Link to="/search"><FaSearch className="nav-icon" /></Link>
         <Link to="/add"><FaPlus className="nav-icon" /></Link>
-        <Link to="/messages"> <FaRobot className="nav-icon" /></Link>
+        <div className="ai-tooltip-wrapper">
+         <Link to="/messages">
+           <FaRobot className="nav-icon" />
+           <FaExclamationCircle className="exclaim-icon" />
+         </Link>
+         <span className="floating-tooltip">Try out our AI</span>
+        </div>
+
+
+
 
         <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
       </footer>

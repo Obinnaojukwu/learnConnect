@@ -194,3 +194,32 @@
   animation: bounceIn 0.8s ease-out;
 }
 
+.file-input {
+  margin-right: 5px;
+}
+
+.save-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #45A049;
+}
+
+/* Edit Profile Actions */
+.edit-profile-actions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative; /* Make the element's position relative */
+  top: 410px; /* Adjust this value as needed to move it down */
+}
+
+/* Other existing styles... */

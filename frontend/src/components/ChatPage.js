@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaPaperPlane, FaHome } from "react-icons/fa";
-import { FaSearch, FaPlus, FaCommentDots } from 'react-icons/fa'; 
+import { FaSearch, FaPlus, FaRobot } from 'react-icons/fa'; 
 import { HiUserCircle } from 'react-icons/hi'; 
 import "./ChatPage.css"; 
 
@@ -149,7 +149,7 @@ const ChatPage = () => {
         <Link to="/profile"><FaHome className="nav-icon" /></Link>
         <Link to="/search"><FaSearch className="nav-icon" /></Link>
         <Link to="/add"><FaPlus className="nav-icon" /></Link>
-        <Link to="/messages"><FaCommentDots className="nav-icon active" /></Link>
+        <Link to="/messages"> <FaRobot className="nav-icon active" /></Link>
         <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
       </footer>
     </div>

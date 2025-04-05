@@ -55,7 +55,7 @@
     margin: 10px 0; /* Adjust vertical margin to move it up */
     position: relative;
     z-index: 2;
-    top: -60px; /* Moves the header up */
+    top: -59px; /* Moves the header up */
 }
 
   
@@ -157,23 +157,20 @@
 
 /* Chat Container */
 .chat-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 330px; /* Even smaller width */
-  height: 15vh; /* Reduce height */
-  max-height: 530px; /* Ensure it doesn’t grow beyond this */
-  background: #ffffff;
-  border-radius: 30px;
-  overflow: hidden;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  position: fixed; /* Fix the position at the top */
-  top: 100px; /* Move it to the top */
-
-  z-index: 2;
-  animation: float 3s ease-in-out infinite; /* Apply the floating animation */
-}
-
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 330px; /* Even smaller width */
+    height: 15vh; /* Reduce height */
+    max-height: 530px; /* Ensure it doesn’t grow beyond this */
+    background: #ffffff;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+    animation: float 3s ease-in-out infinite; /* Apply the floating animation */
+  }
   
   
 /* Floating animation */

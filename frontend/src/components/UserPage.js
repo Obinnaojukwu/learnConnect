@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { FaHome, FaSearch, FaPlus, FaCommentDots } from "react-icons/fa";
+import { FaHome, FaSearch, FaPlus, FaExclamationCircle, FaRobot } from "react-icons/fa";
 import { HiUserCircle } from "react-icons/hi";
 import { getUserProfile, updateUserProfile } from "../api/api";
 import "./UserPage.css";
@@ -118,6 +118,13 @@ const UserPage = () => {
 
   return (
     <div className={`unique-container ${isZoomed ? "blur-background" : ""}`}>
+      {/* Loading Overlay */}
+      {loading && (
+        <div className="profile-loading-overlay">
+          <div className="loading-spinner"></div>
+        </div>
+      )}
+
       {/* Header Image */}
       <div className="unique-header-image">
         <img
@@ -143,6 +150,12 @@ const UserPage = () => {
         <p>{error}</p>
       ) : profile ? (
         <div className="unique-profile-card">
+          {isEditing && (
+            <div className="edit-profile-actions">
+              <input type="file" onChange={handleFileChange} className="file-input" />
+              <button onClick={handleSaveClick} className="save-button">Save</button>
+            </div>
+          )}
           <div className="unique-profile-initial">
             <img
               src={getImageSrc()}
@@ -176,13 +189,6 @@ const UserPage = () => {
             <p>Location: {profile.location}</p>
             <p>Joined: {profile.joinedDate}</p>
           </div>
-          {isEditing && (
-            <div className="edit-profile-section">
-              <h2>Edit Profile</h2>
-              <input type="file" onChange={handleFileChange} />
-              <button onClick={handleSaveClick}>Save</button>
-            </div>
-          )}
         </div>
       ) : (
         <p>No profile data available</p>
@@ -193,7 +199,13 @@ const UserPage = () => {
         <Link to="/profile"><FaHome className="nav-icon" /></Link>
         <Link to="/search"><FaSearch className="nav-icon" /></Link>
         <Link to="/add"><FaPlus className="nav-icon" /></Link>
-        <Link to="/messages"><FaCommentDots className="nav-icon" /></Link>
+        <div className="ai-tooltip-wrapper">
+         <Link to="/messages">
+           <FaRobot className="nav-icon" />
+           <FaExclamationCircle className="exclaim-icon" />
+         </Link>
+         <span className="floating-tooltip">Try out our AI</span>
+        </div>
         <Link to="/user"><HiUserCircle className="nav-icon profile-icon active" /></Link>
       </footer>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { FaPlus, FaHome, FaSearch, FaCommentDots } from 'react-icons/fa';
+import { FaPlus, FaHome, FaSearch, FaExclamationCircle, FaRobot } from 'react-icons/fa';
 import { HiUserCircle } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import './SearchPage.css';
@@ -58,6 +58,8 @@ const SearchPage = () => {
 
   return (
     <div className="search-page">
+
+  
       <header className="search-header">
         <h1>Search Users</h1>
         <input
@@ -92,7 +94,13 @@ const SearchPage = () => {
         <Link to="/profile"><FaHome className="nav-icon" /></Link>
         <Link to="/search"><FaSearch className="nav-icon active" /></Link>
         <Link to="/add"><FaPlus className="nav-icon" /></Link>
-        <Link to="/messages"><FaCommentDots className="nav-icon" /></Link>
+        <div className="ai-tooltip-wrapper">
+         <Link to="/messages">
+           <FaRobot className="nav-icon" />
+           <FaExclamationCircle className="exclaim-icon" />
+         </Link>
+         <span className="floating-tooltip">Try out our AI</span>
+        </div>
         <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
       </footer>
     </div>

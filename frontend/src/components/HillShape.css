@@ -1,0 +1,45 @@
+.hill-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: -10px;
+  }
+  
+  .hill-shape {
+    width: 90px;
+    height: 55px;
+    background: rgba(255, 255, 255, 0.15); /* semi-transparent white */
+    backdrop-filter: blur(10px); /* glass blur effect */
+    -webkit-backdrop-filter: blur(10px); /* for Safari */
+    border-radius: 100px 100px 0 0;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3); /* subtle border */
+    transition: box-shadow 0.3s;
+  
+    /* Center the icon inside */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    position: fixed; /* Stays in place while scrolling */
+    top: 330px;      /* Move down */
+    left: 317px;     /* Move right */
+    transform: rotate(-90deg);
+  }
+  
+  
+  .hill-shape:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .hill-icon {
+    font-size: 15px;
+    color: #333;
+    transform: rotate(89deg);
+    pointer-events: none;
+    margin-top: -10px; /* Adjust value as needed */
+  }
+  
+  
