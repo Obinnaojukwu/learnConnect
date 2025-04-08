@@ -302,7 +302,10 @@ const ProfilePage = () => {
             ))}
           </div>
         ) : (
-          <p className="no-downloads">No available audio</p>
+          <div className="no-downloads">
+            <p>No purchased audio</p>
+            <img src="/images/illustration/nodata.gif" alt="No audio available" className="no-audio-gif" />
+          </div>
         )}
       </section>
 
@@ -345,10 +348,6 @@ const ProfilePage = () => {
          </Link>
          <span className="floating-tooltip">Try out our AI</span>
         </div>
-
-
-
-
         <Link to="/user"><HiUserCircle className="nav-icon profile-icon" /></Link>
       </footer>
 

@@ -806,3 +806,26 @@ body {
   position: relative;
   top: -70px;         /* Moves it a bit upward */
 }
+
+
+.no-audio-gif {
+  width: 120px;  /* Smaller than 200px */
+  height: auto;
+  margin-top: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; /* Optional: center it */
+}
+/* Profile Page Header Image */
+.header-image {
+  width: 100%;              /* keep full width */
+  height: 120px;            /* shorter height */
+  object-fit: cover;
+  margin-top: -30px;
+  margin-bottom: -40px;
+  margin-left: 0;           /* align left normally */
+  transform: scale(0.75);   /* visually smaller */
+  transform-origin: left;   /* scale from the left side */
+  display: block;
+}
+

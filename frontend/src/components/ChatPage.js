@@ -39,11 +39,11 @@ const ChatPage = () => {
     const fetchUserProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("https://learnconnect-backend.onrender.com/api/user/profile", {
+        const res = await axios.get("http://localhost:5000/api/user/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const profileImageUrl = res.data.profileImage
-          ? `https://learnconnect-backend.onrender.com/${res.data.profileImage.replace(/\\/g, "/")}`
+          ? `http://localhost:5000/${res.data.profileImage.replace(/\\/g, "/")}`
           : getRandomImage();
         setUserAvatar(profileImageUrl);
       } catch (error) {

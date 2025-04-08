@@ -53,7 +53,7 @@ const handleSuccessfulVerification = (userId, audioId, plan, res) => {
   // Calculate the expiration date based on the selected plan
   let expirationDate = new Date();
   if (plan === '10_minutes') {
-    expirationDate.setMinutes(expirationDate.getMinutes() + 10);
+    expirationDate.setDate(expirationDate.getDate() + 7); // Set to 1 week
   } else if (plan === '1_month') {
     expirationDate.setMonth(expirationDate.getMonth() + 1);
   } else if (plan === '3_months') {

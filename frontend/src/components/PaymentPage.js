@@ -3,40 +3,37 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { AudioContext } from '../context/AudioContext';
 import { getUserProfile } from '../api/api';
-import './PaymentPage.css'; // Import the CSS file
+import './PaymentPage.css';
 
 const PaymentPage = () => {
   const { audioId } = useParams();
   const navigate = useNavigate();
   const location = useLocation();
   const { purchaseAudio } = useContext(AudioContext);
-  const [selectedPlan, setSelectedPlan] = useState('10_minutes'); // Default plan
+  const [selectedPlan, setSelectedPlan] = useState('1_week');
   const [isPaymentInitialized, setIsPaymentInitialized] = useState(false);
-  const [testMode, setTestMode] = useState(false); // Add a state for test mode
+  const [testMode, setTestMode] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [userEmail, setUserEmail] = useState(''); // Add state for user email
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Check if payment was previously initialized in this session
     const initialized = sessionStorage.getItem(`paymentInitialized_${audioId}`);
     if (initialized) {
       setIsPaymentInitialized(true);
     }
 
-    // Fetch user profile to get user ID
     const fetchProfile = async () => {
       try {
-        console.log("Fetching user profile");
-        const token = localStorage.getItem("token");
-        if (!token) throw new Error("No token found");
+        const token = localStorage.getItem('token');
+        if (!token) throw new Error('No token found');
         const data = await getUserProfile(token);
-        console.log("Fetched profile data:", data);
-        setUserId(data._id); // Assuming the user ID is in the '_id' field
-        sessionStorage.setItem('userId', data._id); // Store userId in session storage
+        setUserId(data._id);
+        setUserEmail(data.email); // Set user email
+        sessionStorage.setItem('userId', data._id);
       } catch (error) {
-        console.error("Error fetching profile:", error);
-        setError("Failed to fetch profile");
+        setError('Failed to fetch profile');
       } finally {
         setLoading(false);
       }
@@ -45,62 +42,48 @@ const PaymentPage = () => {
   }, [audioId]);
 
   useEffect(() => {
-    // Check for payment reference in URL parameters
     const queryParams = new URLSearchParams(location.search);
     const reference = queryParams.get('reference');
     const plan = queryParams.get('plan');
     if (reference) {
-      sessionStorage.setItem('selectedPlan', plan); // Store selectedPlan in session storage
+      sessionStorage.setItem('selectedPlan', plan);
       handlePaymentSuccess(reference);
     }
   }, [location.search]);
 
   const handlePaymentSuccess = async (reference) => {
     try {
-      const token = localStorage.getItem("token");
-      const userId = sessionStorage.getItem('userId'); // Retrieve userId from session storage
-      const audioId = sessionStorage.getItem('audioId'); // Retrieve audioId from session storage
-      const selectedPlan = sessionStorage.getItem('selectedPlan'); // Retrieve selectedPlan from session storage
+      const token = localStorage.getItem('token');
+      const userId = sessionStorage.getItem('userId');
+      const audioId = sessionStorage.getItem('audioId');
+      const selectedPlan = sessionStorage.getItem('selectedPlan');
 
       if (!userId || !token) {
-        throw new Error("No user ID or token found");
+        throw new Error('No user ID or token found');
       }
 
-      // Verify payment
-      console.log('Verifying payment with reference:', reference);
       const verifyResponse = await axios.post('https://learnconnect-backend.onrender.com/api/payment/verify', {
         reference,
         userId,
         audioId,
-        plan: selectedPlan, // Include the selected plan
-        testMode // Include test mode
+        plan: selectedPlan,
+        testMode,
       }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+        headers: { Authorization: `Bearer ${token}` },
       });
 
-      console.log('Payment verification response:', verifyResponse.data);
-
       if (verifyResponse.data.success) {
-        console.log('Payment verified, recording purchase...');
-        // Record purchase
         const purchaseResponse = await axios.post('https://learnconnect-backend.onrender.com/api/purchase', {
           userId,
           audioId,
-          plan: selectedPlan, // Include the selected plan
+          plan: selectedPlan,
         }, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log('Purchase recording response:', purchaseResponse.data);
-
         if (purchaseResponse.data.success) {
-          console.log('Purchase recorded successfully, redirecting to profile page...');
           purchaseAudio(parseInt(audioId));
-          navigate(`/profile`, { state: { from: 'payment' } }); // Indicate successful payment
+          navigate(`/profile`, { state: { from: 'payment' } });
         } else {
           alert('Recording purchase failed');
         }
@@ -108,36 +91,29 @@ const PaymentPage = () => {
         alert('Payment verification failed');
       }
     } catch (error) {
-      console.error('Payment verification or purchase recording error:', error);
-      alert(error.message); // Display error message to the user
+      alert(error.message);
     }
   };
 
   const initializePayment = async () => {
     try {
       const response = await axios.post('https://learnconnect-backend.onrender.com/api/payment/initialize', {
-        amount: selectedPlan === '10_minutes' ? 100 : selectedPlan === '1_month' ? 10000 : 15000, // Amount based on plan
-        email: 'Admin@User.com', // Replace with actual user email
+        amount: 100, // Set all plans to 100 Naira
+        email: userEmail, // Use the actual user email
         metadata: {
           custom_fields: [
-            {
-              display_name: "Audio ID",
-              variable_name: "audio_id",
-              value: audioId
-            }
-          ]
+            { display_name: 'Audio ID', variable_name: 'audio_id', value: audioId },
+          ],
         },
-        callback_url: `https://learnconnect-frontend.onrender.com/purchase/${audioId}?plan=${selectedPlan}` // Set callback URL to PaymentPage
+        callback_url: `https://learnconnect-frontend.onrender.com/purchase/${audioId}?plan=${selectedPlan}`,
       });
 
       const { authorization_url } = response.data;
-      console.log('Payment initialization successful, redirecting to:', authorization_url);
-      sessionStorage.setItem(`paymentInitialized_${audioId}`, 'true'); // Mark payment as initialized in session storage
-      sessionStorage.setItem('audioId', audioId); // Store audioId in session storage
-      sessionStorage.setItem('selectedPlan', selectedPlan); // Store selectedPlan in session storage
+      sessionStorage.setItem(`paymentInitialized_${audioId}`, 'true');
+      sessionStorage.setItem('audioId', audioId);
+      sessionStorage.setItem('selectedPlan', selectedPlan);
       window.location.href = authorization_url;
     } catch (error) {
-      console.error('Payment initialization error:', error);
       alert('Payment initialization error');
     }
   };
@@ -145,7 +121,7 @@ const PaymentPage = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (testMode) {
-      handlePaymentSuccess('test_reference'); // Use a mock reference for test mode
+      handlePaymentSuccess('test_reference');
     } else {
       setIsPaymentInitialized(true);
       initializePayment();
@@ -157,45 +133,129 @@ const PaymentPage = () => {
     setIsPaymentInitialized(false);
   };
 
+  // Dynamic summary details based on the selected plan
+  const getPlanDetails = () => {
+    const currentDate = new Date();
+    const purchaseDate = currentDate.toLocaleDateString('en-US', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+
+    let expirationDate = new Date();
+    let planName = '';
+    let duration = '';
+
+    if (selectedPlan === '1_week') {
+      expirationDate.setDate(expirationDate.getDate() + 7); // Set to 1 week
+      planName = '1 Week Plan';
+      duration = '1 Week';
+    } else if (selectedPlan === '1_month') {
+      expirationDate.setMonth(expirationDate.getMonth() + 1);
+      planName = '1 Month Plan';
+      duration = '1 Month';
+    } else {
+      expirationDate.setMonth(expirationDate.getMonth() + 3);
+      planName = '3 Months Plan';
+      duration = '3 Months';
+    }
+
+    const expirationDateString = expirationDate.toLocaleDateString('en-US', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+
+    return {
+      planName,
+      purchaseDate,
+      expirationDate: expirationDateString,
+      duration,
+    };
+  };
+
+  const planDetails = getPlanDetails();
+
   return (
     <div className="payment-container">
-      <div className="background-image" style={{ backgroundImage: 'url(/images/cart.jpg)' }}></div>
-      <button className="back-button" onClick={() => navigate(-1)}>Back</button>
-      <div className="payment-card">
-        <h1>Choose a Plan</h1>
-        {loading ? (
-          <p>Loading...</p>
-        ) : error ? (
-          <p>{error}</p>
-        ) : (
-          <>
-            <form onSubmit={handleFormSubmit}>
-              <select value={selectedPlan} onChange={(e) => setSelectedPlan(e.target.value)}>
-                <option value="10_minutes">10 Naira = 10 minutes</option>
-                <option value="1_month">10,000 Naira = 1 month</option>
-                <option value="3_months">15,000 Naira = 3 months</option>
-              </select>
-              <button type="submit">Proceed to Payment</button>
-            </form>
-            {isPaymentInitialized && !testMode && (
-              <div>
-                <h1>Processing Payment...</h1>
-                <p>Please wait while we redirect you to the payment page.</p>
-                <button onClick={resetPaymentInitialization}>Cancel Payment</button>
-              </div>
-            )}
-            {/* <div className="test-mode">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={testMode}
-                  onChange={(e) => setTestMode(e.target.checked)}
-                />
-                Test Mode (Bypass Payment)
-              </label>
-            </div> */}
-          </>
-        )}
+      <div className="payment-wrapper">
+        {/* Left Side: Form or Confirmation */}
+        <div className="payment-left">
+          {isPaymentInitialized && !testMode ? (
+            <div className="payment-confirmation">
+              {/* Replace this with a GIF image */}
+              <img src="/images/illustration/process.gif" alt="Payment Confirmation" className="payment-confirmation-gif" />
+              <h2>Your payment is on its way for approval!</h2>
+              <p>We’ve sent it to the payment gateway and are just waiting on their approval to get you started.</p>
+              <button className="primary-button" onClick={resetPaymentInitialization}>
+                Redirecting....
+              </button>
+              <button className="secondary-button" onClick={() => setIsPaymentInitialized(false)}>
+                Cancel payment
+              </button>
+            </div>
+          ) : (
+            <div className="payment-form">
+              {/* Add a GIF image on top of the form */}
+              <img src="/images/illustration/pay.gif" alt="Payment Form" className="payment-form-gif" />
+              {loading ? (
+                <p>Loading...</p>
+              ) : error ? (
+                <p>{error}</p>
+              ) : (
+                <form onSubmit={handleFormSubmit}>
+                  <select value={selectedPlan} onChange={(e) => setSelectedPlan(e.target.value)}>
+                    <option value="1_week">1 Week</option>
+                    <option value="1_month">1 Month</option>
+                    <option value="3_months">3 Months</option>
+                  </select>
+                  <button type="submit" className="primary-button">
+                    Proceed to Payment
+                  </button>
+                </form>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Right Side: Summary */}
+        <div className="payment-right">
+          <h2>Payment Summary</h2>
+          <div className="summary-section">
+            <p><strong>Client</strong></p>
+            <p>LearnConnect GmbH</p>
+          </div>
+          <div className="summary-section">
+            <p><strong>Plan</strong></p>
+            <p>{planDetails.planName}</p>
+          </div>
+          <div className="summary-section">
+            <p>{planDetails.purchaseDate}</p>
+            <p>0:00</p>
+          </div>
+          <div className="summary-section">
+            <p>{planDetails.expirationDate}</p>
+            <p>{planDetails.duration}</p>
+          </div>
+          <div className="summary-section total">
+            <p><strong>Total</strong></p>
+            <p>{planDetails.duration}</p>
+          </div>
+          <div className="summary-section">
+            <p>{planDetails.duration}</p>
+            <p>₦100</p> {/* Set the price to 100 Naira */}
+          </div>
+          <div className="summary-section">
+            <p>Commission (20%)</p>
+            <p>-₦{(100 * 0.2).toLocaleString()}</p>
+          </div>
+          <div className="summary-section take-home">
+            <p><strong>Take Home</strong></p>
+            <p>₦{(100 - 100 * 0.2).toLocaleString()}</p>
+          </div>
+        </div>
       </div>
     </div>
   );

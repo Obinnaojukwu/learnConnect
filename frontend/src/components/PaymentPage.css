@@ -1,95 +1,228 @@
-/* Payment Page Styles */
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #b1adad;
+}
+
+/* Payment Container */
 .payment-container {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+  min-height: 100vh;
+  padding: 10px;
 }
 
-.background-image {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* Payment Wrapper (Side-by-Side Layout) */
+.payment-wrapper {
+  display: flex;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  filter: blur(10px);
-  z-index: -1;
+  max-width: 800px;
 }
 
-.payment-card {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 15px; /* Reduce padding for a smaller card */
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  max-width: 300px; /* Reduce max-width */
-  width: 80%; /* Adjust width for smaller card */
-  animation: fadeIn 0.5s ease-in-out;
+/* Left Side (Form/Confirmation) */
+.payment-left {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  min-width: 0; /* Prevent overflow */
 }
 
+/* Right Side (Summary) */
+.payment-right {
+  flex: 1;
+  padding: 20px;
+  background-color: #f7f7f7; /* Slightly darker than white */
+  border-left: 1px solid #ddd; /* Softer border */
+  min-width: 0;
 
-.payment-card h1 {
-  font-size: 18px; /* Reduce font size */
-  margin-bottom: 10px; /* Reduce margin */
-  color: #333;
-}
-
-.payment-card select {
-  width: 100%;
-  padding: 6px; /* Reduce padding */
-  margin-bottom: 10px; /* Reduce margin */
-  border: 2px solid #ddd;
+  /* Inner border effect */
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.05);
   border-radius: 6px;
-  font-size: 14px; /* Reduce font size */
-  background: #fff;
 }
 
-.payment-card button {
-  width: 100%;
-  padding: 8px; /* Reduce padding */
-  background: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 30px; /* Slightly smaller border-radius */
-  font-size: 14px; /* Reduce font size */
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.payment-card button:hover {
-  background: #218838;
-}
-
-
-.error {
-  color: red;
-  font-size: 14px;
-  margin-top: 10px;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.test-mode {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0;
-}
-
-.test-mode input {
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-.test-mode label {
-  font-size: 14px;
+.payment-right h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
   color: #333;
+}
+
+.summary-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.summary-section p {
+  color: #666;
+}
+
+.summary-section p:first-child {
+  font-weight: normal;
+  color: #333;
+}
+
+.summary-section p:last-child {
+  text-align: right;
+}
+
+.summary-section.total p {
+  font-weight: bold;
+  color: #333;
+}
+
+.summary-section.take-home p {
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+/* Form Styling */
+.payment-form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #333;
+  background-color: #fff;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="6" viewBox="0 0 12 6"><path d="M0 0h12L6 6z" fill="%23333"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* Payment Confirmation Styling */
+.payment-confirmation {
+  text-align: center;
+}
+
+.checkmark-circle {
+  width: 50px;
+  height: 50px;
+  background-color: #e8f5e9;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 15px;
+}
+
+.checkmark {
+  font-size: 1.5rem;
+  color: #2e7d32;
+}
+
+.payment-confirmation h2 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.payment-confirmation p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* Buttons */
+.primary-button {
+  background-color: #2e7d32;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
   cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.primary-button:hover {
+  background-color: #1b5e20;
+}
+
+.secondary-button {
+  background-color: #fff;
+  color: #2e7d32;
+  padding: 10px;
+  border: 1px solid #2e7d32;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: background-color 0.3s;
+}
+
+.secondary-button:hover {
+  background-color: #e8f5e9;
+}
+
+.payment-form-gif {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+.payment-confirmation-gif {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 20px;
+}
+
+/* Other existing styles... */
+
+/* Ensure side-by-side layout on all screen sizes */
+@media (max-width: 767px) {
+  .payment-wrapper {
+    flex-direction: row;
+  }
+
+  .payment-left,
+  .payment-right {
+    flex: 1;
+    padding: 15px;
+  }
+
+  .payment-right h2 {
+    font-size: 1rem;
+  }
+
+  .summary-section {
+    font-size: 0.8rem;
+  }
+
+  .payment-confirmation h2 {
+    font-size: 1rem;
+  }
+
+  .payment-confirmation p {
+    font-size: 0.8rem;
+  }
+
+  .primary-button,
+  .secondary-button {
+    font-size: 0.8rem;
+    padding: 8px;
+  }
 }
