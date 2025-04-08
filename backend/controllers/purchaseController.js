@@ -39,7 +39,7 @@ const addPurchase = (req, res) => {
 const handleSuccessfulPurchase = (userId, audioId, plan, res) => {
   // Calculate expiration date based on the selected plan
   let expirationDate = new Date();
-  if (plan === '10_minutes') {
+  if (plan === '1_week') {
     expirationDate.setDate(expirationDate.getDate() + 7); // Set to 1 week
   } else if (plan === '1_month') {
     expirationDate.setMonth(expirationDate.getMonth() + 1);

@@ -10,7 +10,7 @@ const PaymentPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { purchaseAudio } = useContext(AudioContext);
-  const [selectedPlan, setSelectedPlan] = useState('1_week');
+  const [selectedPlan, setSelectedPlan] = useState('1_week'); // Default plan to 1 week
   const [isPaymentInitialized, setIsPaymentInitialized] = useState(false);
   const [testMode, setTestMode] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -97,9 +97,16 @@ const PaymentPage = () => {
 
   const initializePayment = async () => {
     try {
+      // Prices for each plan
+      const prices = {
+        '1_week': 100,
+        '1_month': 100,
+        '3_months': 100,
+      };
+
       const response = await axios.post('https://learnconnect-backend.onrender.com/api/payment/initialize', {
-        amount: 100, // Set all plans to 100 Naira
-        email: userEmail, // Use the actual user email
+        amount: prices[selectedPlan], // Use the price based on the selected plan
+        email: userEmail,
         metadata: {
           custom_fields: [
             { display_name: 'Audio ID', variable_name: 'audio_id', value: audioId },
